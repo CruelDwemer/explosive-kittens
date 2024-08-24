@@ -12,6 +12,6 @@ export default {
 
 module.exports = {
   moduleNameMapper: {
-    '\\.(css|scss)$': '<rootDir>/src/shared/styleMock.js',
+    '\\.(css|scss)$': '<rootDir>/src/shared/styleMock.cjs',
   }
 };
