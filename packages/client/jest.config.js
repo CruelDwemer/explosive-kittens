@@ -10,8 +10,8 @@ export default {
   },
 }
 
-module.exports = {
-  moduleNameMapper: {
-    '\\.(css|scss)$': '<rootDir>/src/shared/styleMock.js',
-  }
-};
+// module.exports = {
+//   moduleNameMapper: {
+//     '\\.(css|scss)$': '<rootDir>/src/shared/styleMock.js',
+//   }
+// };
