@@ -34,10 +34,5 @@
     "typescript": "^4.8.2",
     "vite": "^3.0.7"
   },
-  "license": "MIT",
-  "jest": {
-    "moduleNameMapper": {
-      "\\.(css|less)$": "<rootDir>/src/shared/styleMock.js"
-    }
-  }
+  "license": "MIT"
 }
