@@ -9,3 +9,9 @@ export default {
     __SERVER_PORT__: process.env.SERVER_PORT,
   },
 }
+
+module.exports = {
+  moduleNameMapper: {
+    '\\.(css|scss)$': '<rootDir>/src/shared/styleMock.js',
+  }
+};
