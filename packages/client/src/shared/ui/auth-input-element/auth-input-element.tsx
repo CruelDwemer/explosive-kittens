@@ -15,6 +15,7 @@ const AuthInputElement = ({ name, type, label }: T) => {
       <label htmlFor={name}>{label}</label>
       <input
         className={styles.element}
+        id={name}
         name={name}
         type={type}
         value={input}
