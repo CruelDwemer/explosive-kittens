@@ -8,16 +8,20 @@ type InputData = {
   name: string
   type: string
   label: string
+  selector: string
 }
 
 type Props = {
   id: string
   inputs: InputData[]
   pageName: string
-  handleSubmit: (event: React.FormEvent<HTMLFormElement>) => void
 }
 
-const AuthForm = ({ inputs, pageName, handleSubmit, id }: Props) => {
+const AuthForm = ({ inputs, pageName, id }: Props) => {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+  }
+
   return (
     <form id={id} action="" className={styles.form} onSubmit={handleSubmit}>
       <h1 className={styles.form__title}>{pageName}</h1>
@@ -27,6 +31,7 @@ const AuthForm = ({ inputs, pageName, handleSubmit, id }: Props) => {
           name={element.name}
           type={element.type}
           label={element.label}
+          selector={element.selector}
         />
       ))}
       <AuthButton text="Войти" />

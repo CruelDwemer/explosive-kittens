@@ -5,9 +5,10 @@ type T = {
   name: string
   type: string
   label: string
+  selector: string
 }
 
-const AuthInputElement = ({ name, type, label }: T) => {
+const AuthInputElement = ({ name, type, label, selector }: T) => {
   const [input, setInput] = useState('')
 
   return (
@@ -15,7 +16,7 @@ const AuthInputElement = ({ name, type, label }: T) => {
       <label htmlFor={name}>{label}</label>
       <input
         className={styles.element}
-        id={name}
+        id={selector}
         name={name}
         type={type}
         value={input}

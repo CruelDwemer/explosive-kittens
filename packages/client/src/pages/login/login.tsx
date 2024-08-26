@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import { useEffect } from 'react'
 import styles from './login.module.scss'
 import AuthForm from '../../shared/ui/auth-form/auth-form'
 import { formValidation } from './model/formValidation'
@@ -6,14 +6,14 @@ import { formValidation } from './model/formValidation'
 const inputs = [
   {
     id: 1,
-    className: 'login',
+    selector: 'login',
     name: 'login',
     type: 'text',
     label: 'Логин',
   },
   {
     id: 2,
-    className: 'password',
+    selector: 'password',
     name: 'password',
     type: 'password',
     label: 'Пароль',
@@ -21,10 +21,6 @@ const inputs = [
 ]
 
 const Login = () => {
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
-  }
-
   useEffect(() => {
     formValidation()
   }, [])
@@ -32,12 +28,7 @@ const Login = () => {
   return (
     <div className={styles.login}>
       <div className={styles.login__formWrapper}>
-        <AuthForm
-          id="login-form"
-          inputs={inputs}
-          pageName="Вход"
-          handleSubmit={handleSubmit}
-        />
+        <AuthForm id="login-form" inputs={inputs} pageName="Вход" />
       </div>
     </div>
   )
