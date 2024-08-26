@@ -18,7 +18,7 @@ const inputs = [
   },
 ]
 
-export default function Login() {
+const Login = () => {
   return (
     <div className={styles.login}>
       <div className={styles.login__formWrapper}>
@@ -27,3 +27,5 @@ export default function Login() {
     </div>
   )
 }
+
+export default Login

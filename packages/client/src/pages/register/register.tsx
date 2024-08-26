@@ -40,7 +40,7 @@ const inputs = [
   },
 ]
 
-export default function Login() {
+const Register = () => {
   return (
     <div className={styles.register}>
       <div className={styles.register__formWrapper}>
@@ -49,3 +49,5 @@ export default function Login() {
     </div>
   )
 }
+
+export default Register

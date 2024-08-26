@@ -7,7 +7,7 @@ type T = {
   label: string
 }
 
-export default function AuthInputElement({ name, type, label }: T) {
+const AuthInputElement = ({ name, type, label }: T) => {
   const [input, setInput] = useState('')
 
   return (
@@ -23,3 +23,5 @@ export default function AuthInputElement({ name, type, label }: T) {
     </div>
   )
 }
+
+export default AuthInputElement
