@@ -1,5 +1,18 @@
 import { useEffect } from 'react'
 import './App.css'
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: (
+      <div>
+        <h1>Hello World</h1>
+        <div className="App">Вот тут будет жить ваше приложение :)</div>
+      </div>
+    ),
+  },
+])
 
 import Login from './pages/login/login'
 import Register from './pages/register/register'
@@ -15,7 +28,7 @@ function App() {
 
     fetchServerData()
   }, [])
-  return <div className="App">Вот тут будет жить ваше приложение :)</div>
+  return <RouterProvider router={router} />
 }
 
 export default App
