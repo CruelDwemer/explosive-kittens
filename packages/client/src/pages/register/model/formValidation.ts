@@ -7,6 +7,7 @@ import {
   emailRules,
   phoneRules,
 } from '../../../shared/model/validation-rules'
+import { handleRegiser } from './handleRequest'
 
 const formValidation = () => {
   const validator = new JustValidate('#register-form')
@@ -18,8 +19,11 @@ const formValidation = () => {
     .addField('#login', loginRules)
     .addField('#password', passwordRules)
     .addField('#confirm_password', confirmPasswordRule)
-    .onSuccess(() => {
-      console.log('Валидация прошла успешно.')
+    .onSuccess(event => {
+      const formEvent = event as FormDataEvent
+      const form = formEvent.target as HTMLFormElement
+      handleRegiser(form)
+      console.log('Валидация прошла успешно.', formEvent.target)
     })
     .onFail(() => {
       console.log('Валидация завершена с ошибками.')
