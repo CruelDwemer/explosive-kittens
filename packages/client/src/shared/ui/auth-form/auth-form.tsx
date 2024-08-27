@@ -1,6 +1,6 @@
 import styles from './auth-form.module.scss'
-import AuthInputElement from '../auth-input-element/auth-input-element'
-import AuthButton from '../auth-button/auth-button'
+import { AuthInputElement } from '../'
+import { AuthButton } from '../'
 import React from 'react'
 
 type InputData = {

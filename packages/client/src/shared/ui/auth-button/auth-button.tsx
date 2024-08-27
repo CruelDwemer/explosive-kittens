@@ -1,5 +1,4 @@
 import styles from './auth-button.module.scss'
-import React from 'react'
 
 type T = {
   text: string

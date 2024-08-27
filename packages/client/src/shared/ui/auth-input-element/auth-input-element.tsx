@@ -1,5 +1,6 @@
 import styles from './auth-input-element.module.scss'
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
+import React from 'react'
 
 type T = {
   name: string
@@ -11,6 +12,13 @@ type T = {
 const AuthInputElement = ({ name, type, label, selector }: T) => {
   const [input, setInput] = useState('')
 
+  const handleInput = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      setInput(event.target.value)
+    },
+    []
+  )
+
   return (
     <div className={styles.element}>
       <label htmlFor={name}>{label}</label>
@@ -20,7 +28,7 @@ const AuthInputElement = ({ name, type, label, selector }: T) => {
         name={name}
         type={type}
         value={input}
-        onChange={e => setInput(e.target.value)}
+        onChange={handleInput}
       />
     </div>
   )

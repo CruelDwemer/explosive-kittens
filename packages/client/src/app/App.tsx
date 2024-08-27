@@ -1,8 +1,6 @@
-import { useEffect } from 'react'
 import './App.css'
 import { createBrowserRouter, RouterProvider, Link } from 'react-router-dom'
-import Login from './pages/login/login'
-import Register from './pages/register/register'
+import { Login, Register } from '../pages'
 
 const router = createBrowserRouter([
   {
