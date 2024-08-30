@@ -5,11 +5,20 @@ import {
 } from '../../../shared/model/validation-rules'
 import { handleLogin } from './handleRequest'
 
+const errorStyle = {
+  errorLabelStyle: {
+    fontSize: '0.8rem',
+    lineHeight: '1rem',
+    color: 'rgb(184, 50, 50)',
+  },
+  errorLabelCssClass: 'login-error-label',
+}
+
 const formValidation = () => {
   const validator = new JustValidate('#login-form')
   validator
-    .addField('#login', loginRules)
-    .addField('#password', passwordRules)
+    .addField('#login', loginRules, errorStyle)
+    .addField('#password', passwordRules, errorStyle)
     .onSuccess(event => {
       const formEvent = event as FormDataEvent
       const form = formEvent.target as HTMLFormElement

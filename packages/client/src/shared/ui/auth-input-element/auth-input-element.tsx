@@ -1,6 +1,8 @@
-import styles from './auth-input-element.module.scss'
 import { useCallback, useState } from 'react'
 import React from 'react'
+import useStyles from './styles'
+import { FormControl, FormLabel, TextField } from '@material-ui/core'
+import './auth-input-element.scss'
 
 type T = {
   name: string
@@ -19,18 +21,24 @@ const AuthInputElement = ({ name, type, label, selector }: T) => {
     []
   )
 
+  console.log(selector)
+
+  const classes = useStyles()
+
   return (
-    <div className={styles.element}>
-      <label htmlFor={name}>{label}</label>
-      <input
-        className={styles.element}
+    <FormControl className={classes.element} fullWidth={true}>
+      <FormLabel className={classes.label} htmlFor={name}>
+        {label}
+      </FormLabel>
+      <TextField
         id={selector}
         name={name}
         type={type}
         value={input}
+        size="small"
         onChange={handleInput}
       />
-    </div>
+    </FormControl>
   )
 }
 
