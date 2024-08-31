@@ -5,6 +5,7 @@ const registerUser = (data: string) => {
   return fetch(`https://ya-praktikum.tech/api/v2/auth/signup`, {
     method: 'POST',
     mode: 'cors',
+    credentials: 'include',
     headers: {
       'Content-Type': 'application/json',
     },
