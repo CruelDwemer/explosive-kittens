@@ -1,8 +1,8 @@
-import { useCallback, useState, useRef } from 'react'
+import { useCallback, useState } from 'react'
 import React from 'react'
 import styles from './styles'
 import { FormControl, FormLabel, TextField } from '@mui/material'
-import validateElement from '../../model/element-validation'
+import { validateElement } from '../../model/element-validation'
 
 type T = {
   name: string
@@ -22,15 +22,17 @@ const AuthInputElement = ({ name, type, label, selector }: T) => {
   )
 
   const handleFocus = () => {
-    // const container = document.querySelector(`.${classes.element}`)
-    // const errorMessage = container?.querySelector('.auth-error-label');
+    // const container = document.querySelector(`.${selector}-error-container`);
+    // console.log(container);
+    // const errorMessage = container?.querySelectorAll('.auth-error-label');
+    // console.log("ERRORS: ", errorMessage)
     // if (errorMessage) {
     //   errorMessage.remove();
     // }
   }
 
   const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
-    validateElement(event.target.id)
+    // validateElement(event.target.id);
   }
 
   return (
@@ -48,6 +50,14 @@ const AuthInputElement = ({ name, type, label, selector }: T) => {
         onChange={handleInput}
         onFocus={handleFocus}
         onBlur={handleBlur}
+      />
+      <div
+        className={`${selector}-error-container`}
+        style={{
+          position: 'absolute',
+          bottom: '-1.2rem',
+          left: '0',
+        }}
       />
     </FormControl>
   )

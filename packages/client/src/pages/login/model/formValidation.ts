@@ -5,23 +5,30 @@ import {
 } from '../../../shared/model/validation-rules'
 import { handleLogin } from './handleRequest'
 
-const errorStyle = {
+const options = {
+  errorsContainer: '#second-error-field',
   errorLabelStyle: {
     fontSize: '0.8rem',
     lineHeight: '1rem',
     color: 'rgb(184, 50, 50)',
   },
   errorLabelCssClass: 'auth-error-label',
-  focusInvalidField: false,
 }
 
-// errorLabelCssClass: 'auth-error-label',
-
 const formValidation = () => {
-  const validator = new JustValidate('#auth-form')
+  const validator = new JustValidate('#auth-form', {
+    focusInvalidField: false,
+    errorsContainer: '.custom-error-container',
+  })
   validator
-    .addField('#login', loginRules, errorStyle)
-    .addField('#password', passwordRules, errorStyle)
+    .addField('#login', loginRules, {
+      ...options,
+      errorsContainer: '.login-error-container',
+    })
+    .addField('#password', passwordRules, {
+      ...options,
+      errorsContainer: '.password-error-container',
+    })
     .onSuccess(event => {
       const formEvent = event as FormDataEvent
       const form = formEvent.target as HTMLFormElement

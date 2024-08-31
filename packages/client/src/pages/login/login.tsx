@@ -2,7 +2,6 @@ import { useEffect } from 'react'
 import AuthForm from '../../shared/ui/auth-form/auth-form'
 import { formValidation } from './model/formValidation'
 import { INPUTS } from './model/constants'
-
 import { Container, CssBaseline, Box } from '@mui/material'
 import styles from './styles'
 

@@ -51,6 +51,7 @@ const AuthForm = ({ inputs, pageName, id, buttonText, link }: Props) => {
             </Typography>
           </Link>
         </Container>
+        <div className="custom-error-container"></div>
       </Box>
     </>
   )

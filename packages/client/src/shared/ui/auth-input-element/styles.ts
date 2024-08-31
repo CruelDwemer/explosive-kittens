@@ -1,7 +1,7 @@
 const styles = {
   element: {
     position: 'relative',
-    marginBottom: '1rem',
+    marginBottom: '1.2rem',
   },
   label: {
     fontSize: '0.8rem',

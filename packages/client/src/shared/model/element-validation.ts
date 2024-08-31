@@ -8,7 +8,7 @@ import {
   phoneRules,
 } from './validation-rules'
 
-const errorStyle = {
+const options = {
   errorLabelStyle: {
     fontSize: '0.8rem',
     lineHeight: '1rem',
@@ -20,16 +20,31 @@ const errorStyle = {
 }
 
 const validateElement = (id: string) => {
-  // const validator = new JustValidate('#auth-form');
-  // const rules = id === 'first_name' || id === 'second_name' ? nameRules :
-  //               id === 'login' ? loginRules :
-  //               id === 'password' ? passwordRules :
-  //               id === 'email' ? emailRules :
-  //               id === 'phone' ? phoneRules : confirmPasswordRule;
-  // validator.addField(`#${id}`, rules, errorStyle)
-  //   .onFail(() => console.log('failed'));
-  //   validator.revalidate()
+  const validator = new JustValidate('#auth-form', {
+    focusInvalidField: false,
+    errorsContainer: '.custom-error-container',
+  })
+
+  const rules =
+    id === 'first_name' || id === 'second_name'
+      ? nameRules
+      : id === 'login'
+      ? loginRules
+      : id === 'password'
+      ? passwordRules
+      : id === 'email'
+      ? emailRules
+      : id === 'phone'
+      ? phoneRules
+      : confirmPasswordRule
+  validator
+    .addField(`#${id}`, rules, {
+      ...options,
+      errorsContainer: `.${id}-error-container`,
+    })
+    .onFail(() => console.log('failed', `.${id}-error-container`))
+    .revalidate()
   // validator.destroy();
 }
 
-export default validateElement
+export { validateElement }
