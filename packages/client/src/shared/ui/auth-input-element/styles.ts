@@ -6,7 +6,7 @@ const useStyles = makeStyles(theme => ({
     margin: theme.spacing(0, 0, 3.5),
   },
   label: {
-    fontSize: '0.8rem !important',
+    fontSize: '0.8rem',
   },
 }))
 

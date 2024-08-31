@@ -19,7 +19,7 @@ const Register = () => {
       <CssBaseline />
       <Container maxWidth="sm" className={classes.container}>
         <AuthForm
-          id="register-form"
+          id="auth-form"
           inputs={INPUTS}
           pageName="Регистрация"
           buttonText="Зарегистрироваться"

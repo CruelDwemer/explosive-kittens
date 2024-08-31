@@ -1,6 +1,7 @@
-import styles from './auth-button.module.scss'
+// import styles from './auth-button.module.scss'
 import useStyles from './styles'
-import { Container, Button } from '@material-ui/core'
+import { Container } from '@material-ui/core'
+import Button from '@mui/material/Button'
 
 type T = {
   text: string

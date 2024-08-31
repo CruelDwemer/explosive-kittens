@@ -1,4 +1,4 @@
-import styles from './auth-form.module.scss'
+// import styles from './auth-form.module.scss'
 import { AuthInputElement } from '../'
 import { AuthButton } from '../'
 import React, { useMemo } from 'react'

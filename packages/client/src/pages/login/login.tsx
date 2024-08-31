@@ -18,7 +18,7 @@ const Login = () => {
       <CssBaseline />
       <Container maxWidth="sm" className={classes.container}>
         <AuthForm
-          id="login-form"
+          id="auth-form"
           inputs={INPUTS}
           pageName="Вход"
           buttonText="Войти"

@@ -15,11 +15,14 @@ const errorStyle = {
     lineHeight: '1rem',
     color: 'rgb(184, 50, 50)',
   },
-  errorLabelCssClass: 'login-error-label',
+  errorLabelCssClass: 'auth-error-label',
+  focusInvalidField: false,
 }
 
+// errorLabelCssClass: 'auth-error-label',
+
 const formValidation = () => {
-  const validator = new JustValidate('#register-form')
+  const validator = new JustValidate('#auth-form')
   validator
     .addField('#first_name', nameRules, errorStyle)
     .addField('#second_name', nameRules, errorStyle)
