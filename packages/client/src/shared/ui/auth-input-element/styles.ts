@@ -1,13 +1,11 @@
-import { makeStyles } from '@material-ui/core/styles'
-
-const useStyles = makeStyles(theme => ({
+const styles = {
   element: {
     position: 'relative',
-    margin: theme.spacing(0, 0, 3.5),
+    marginBottom: '1rem',
   },
   label: {
     fontSize: '0.8rem',
   },
-}))
+}
 
-export default useStyles
+export default styles

@@ -1,6 +1,4 @@
-import { makeStyles } from '@material-ui/core/styles'
-
-const useStyles = makeStyles(theme => ({
+const styles = {
   page: {
     display: 'flex',
     flexDirection: 'column',
@@ -13,10 +11,10 @@ const useStyles = makeStyles(theme => ({
     boxSizing: 'border-box',
     boxShadow:
       'hsla(220, 30%, 5%, 0.05) 0px 5px 15px 0px, hsla(220, 25%, 10%, 0.05) 0px 15px 35px -5px',
-    padding: theme.spacing(4, 4),
-    height: 660,
-    borderRadius: 16,
+    padding: '16px',
+    height: '660px',
+    borderRadius: '16px',
   },
-}))
+}
 
-export default useStyles
+export default styles

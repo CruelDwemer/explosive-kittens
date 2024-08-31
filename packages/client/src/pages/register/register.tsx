@@ -1,31 +1,34 @@
-import styles from './register.module.scss'
 import { useEffect } from 'react'
 import AuthForm from '../../shared/ui/auth-form/auth-form'
 import { formValidation } from './model/formValidation'
 import { INPUTS } from './model/constants'
 
-import { Container, CssBaseline } from '@material-ui/core'
-import useStyles from './styles'
+import { Container, CssBaseline, Box } from '@mui/material'
+import styles from './styles'
 
 const Register = () => {
   useEffect(() => {
     formValidation()
   }, [])
 
-  const classes = useStyles()
+  const link = {
+    route: '/login',
+    text: 'Войти',
+  }
 
   return (
-    <div className={classes.page}>
+    <Box sx={styles.page}>
       <CssBaseline />
-      <Container maxWidth="sm" className={classes.container}>
+      <Container maxWidth="sm" sx={styles.container}>
         <AuthForm
           id="auth-form"
           inputs={INPUTS}
           pageName="Регистрация"
           buttonText="Зарегистрироваться"
+          link={link}
         />
       </Container>
-    </div>
+    </Box>
   )
 }
 

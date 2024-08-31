@@ -1,8 +1,7 @@
 import { useCallback, useState, useRef } from 'react'
 import React from 'react'
-import useStyles from './styles'
-import { FormControl, FormLabel, TextField } from '@material-ui/core'
-import './auth-input-element.scss'
+import styles from './styles'
+import { FormControl, FormLabel, TextField } from '@mui/material'
 import validateElement from '../../model/element-validation'
 
 type T = {
@@ -22,8 +21,6 @@ const AuthInputElement = ({ name, type, label, selector }: T) => {
     []
   )
 
-  const classes = useStyles()
-
   const handleFocus = () => {
     // const container = document.querySelector(`.${classes.element}`)
     // const errorMessage = container?.querySelector('.auth-error-label');
@@ -37,8 +34,8 @@ const AuthInputElement = ({ name, type, label, selector }: T) => {
   }
 
   return (
-    <FormControl className={classes.element} fullWidth={true}>
-      <FormLabel className={classes.label} htmlFor={name}>
+    <FormControl sx={styles.element} fullWidth={true}>
+      <FormLabel sx={styles.label} htmlFor={name}>
         {label}
       </FormLabel>
       <TextField
@@ -47,6 +44,7 @@ const AuthInputElement = ({ name, type, label, selector }: T) => {
         type={type}
         value={input}
         size="small"
+        variant="standard"
         onChange={handleInput}
         onFocus={handleFocus}
         onBlur={handleBlur}
