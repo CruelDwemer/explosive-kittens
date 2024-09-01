@@ -2,9 +2,9 @@ import JustValidate from 'just-validate'
 import {
   loginRules,
   passwordRules,
-} from '../../../shared/model/validation-rules'
+} from '../../../shared/constants/validation-rules'
 import { handleLogin } from './handleRequest'
-
+// TODO: Переместить в папку entities/user/constants
 const options = {
   errorsContainer: '#second-error-field',
   errorLabelStyle: {
@@ -14,7 +14,7 @@ const options = {
   },
   errorLabelCssClass: 'auth-error-label',
 }
-
+// TODO: Переместить в папку entities/user/lib
 const formValidation = () => {
   const validator = new JustValidate('#auth-form', {
     focusInvalidField: false,

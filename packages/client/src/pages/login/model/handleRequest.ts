@@ -1,5 +1,5 @@
 import { loginUser, logout } from '../api/request'
-
+// TODO: Переместить в папку entities/user/lib
 const handleLogin = async (form: HTMLFormElement) => {
   const inputs = form.querySelectorAll('input')
   const data: Record<string, string> = {}
@@ -14,7 +14,7 @@ const handleLogin = async (form: HTMLFormElement) => {
   }
   // console.log(result)
 }
-
+// TODO: Переместить в папку entities/user/lib
 const handleLogout = async () => {
   const response = await logout()
   // const result = await response.json();
