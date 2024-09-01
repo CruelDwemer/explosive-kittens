@@ -1,10 +1,11 @@
 import { AuthInputElement } from '../'
 import { AuthButton } from '../'
-import React from 'react'
+import React, { FC } from 'react'
 import { Link } from 'react-router-dom'
 import { Container, Typography, Box } from '@mui/material'
 import styles from './styles'
 
+// TODO: Вынести модель в сущность user
 type InputData = {
   id: number
   name: string
@@ -21,7 +22,8 @@ type Props = {
   link: Record<string, string>
 }
 
-const AuthForm = ({ inputs, pageName, id, buttonText, link }: Props) => {
+// TODO: Вынести  в  feature папку - это Фича(действие) над сущностью
+const AuthForm: FC<Props> = ({ inputs, pageName, id, buttonText, link }) => {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
   }
