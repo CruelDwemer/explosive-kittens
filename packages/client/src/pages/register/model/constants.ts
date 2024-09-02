@@ -1,3 +1,4 @@
+// TODO: Переместить в папку entities/user/constants
 const INPUTS = [
   {
     id: 1,
