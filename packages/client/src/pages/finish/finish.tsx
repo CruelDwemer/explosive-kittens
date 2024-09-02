@@ -10,23 +10,22 @@ import {
   CardActions,
   Avatar,
 } from '@mui/material'
-import { AddPlayer } from '../../widgets'
 import { CountdownTimer } from '../../features'
 
-const Play = () => {
+const Finish = () => {
   const [showCountdown, setShowCountdown] = React.useState(false)
-  const [open, setOpen] = React.useState(false)
   const navigate = useNavigate()
 
-  const handleOpen = () => setOpen(true)
-  const handleClose = () => setOpen(false)
+  const handlePlayClick = () => {
+    setShowCountdown(true)
+  }
 
   const handleTimer = () => {
     navigate('/start')
   }
 
-  const handlePlayClick = () => {
-    setShowCountdown(true)
+  const handleClickToResults = () => {
+    navigate('/res')
   }
 
   return (
@@ -49,39 +48,36 @@ const Play = () => {
                 mb: 5,
               }}
               alt="crocodile"
-              src="./public/crocodile.png"
+              src="./public/crocodile-win.png"
             />
           </Box>
-          <Typography variant="h5" sx={{ mb: 2 }} component="div">
-            Правила игры
-          </Typography>
-          <Typography sx={{ mb: 1, fontSize: 14 }} color="text.secondary">
-            Один игрок <b>рисует</b> загаданное слово, а остальные пытаются его{' '}
-            <b>угадать</b>.
-          </Typography>
-          <Typography sx={{ mb: 4, fontSize: 14 }} color="text.secondary">
-            Побеждает тот, кто отгадает первым.
+          <Typography
+            variant="h5"
+            sx={{ mb: 10, textAlign: 'center' }}
+            component="div">
+            Игра завершена!
           </Typography>
         </CardContent>
         <CardActions
           sx={{
             display: 'flex',
-            justifyContent: 'center',
+            justifyContent: 'space-between',
             alignItems: 'center',
           }}>
-          <Button onClick={handleOpen} variant="contained" size="large">
-            Создать игру
+          <Button onClick={handlePlayClick} variant="contained" size="large">
+            Играть снова
+          </Button>
+          <Button
+            onClick={handleClickToResults}
+            variant="contained"
+            size="large">
+            К результатам
           </Button>
         </CardActions>
       </Card>
       {showCountdown && <CountdownTimer onEnd={handleTimer} />}
-      <AddPlayer
-        open={open}
-        onClose={handleClose}
-        onPlayClick={handlePlayClick}
-      />
     </Box>
   )
 }
 
-export default Play
+export default Finish

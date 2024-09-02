@@ -3,6 +3,6 @@
 // диалоговое окно создания лобби (это фича-действие), которое вызывается по клику на кнопку)
 // export {CreateLobbyBlock} from './create-lobby-block'
 
-import AddPlayer from './add-player'
+import AddPlayer from './add-player/add-player'
 
 export { AddPlayer }

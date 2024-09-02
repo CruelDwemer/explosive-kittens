@@ -18,9 +18,9 @@ import {
   createPlay,
   deleteUserFromChat,
   playerList,
-} from '../entities/lobby/api/lobby-api'
-import { userSearch } from '../entities/user/api'
-import styles from '../pages/play/styles'
+} from '../../entities/lobby/api/lobby-api'
+import { userSearch } from '../../entities/user/api'
+import styles from './styles'
 
 interface AddPlayerProps {
   open: boolean
