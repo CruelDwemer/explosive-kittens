@@ -127,6 +127,12 @@ const AddPlayer: React.FC<AddPlayerProps> = ({
     }
   }
 
+  const handlePlayNameChange = (e: {
+    target: { value: React.SetStateAction<string> }
+  }) => {
+    setPlayName(e.target.value)
+  }
+
   const handlePlayClick = () => {
     onPlayClick()
     onClose()
@@ -148,7 +154,7 @@ const AddPlayer: React.FC<AddPlayerProps> = ({
             label="Название игры"
             id="playName"
             value={playName}
-            onChange={e => setPlayName(e.target.value)}
+            onChange={handlePlayNameChange}
             onBlur={handlePlayNameBlur}
           />
 
@@ -188,7 +194,7 @@ const AddPlayer: React.FC<AddPlayerProps> = ({
               renderInput={params => (
                 <TextField
                   value={searchValue}
-                  onChange={e => handleInputChange(e)}
+                  onChange={handleInputChange}
                   {...params}
                   label="players"
                 />
