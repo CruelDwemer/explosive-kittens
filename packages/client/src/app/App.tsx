@@ -1,6 +1,6 @@
 import './App.css'
 import { createBrowserRouter, RouterProvider, Link } from 'react-router-dom'
-import { Login, Register } from '../pages'
+import { Login, Play, Register } from '../pages'
 
 const router = createBrowserRouter([
   {
@@ -10,6 +10,8 @@ const router = createBrowserRouter([
         <Link to="/login">Login</Link>
         <br />
         <Link to="/register">Register</Link>
+        <br />
+        <Link to="/play">Play</Link>
       </div>
     ),
   },
@@ -20,6 +22,10 @@ const router = createBrowserRouter([
   {
     path: '/register',
     element: <Register />,
+  },
+  {
+    path: '/play',
+    element: <Play />,
   },
 ])
 
