@@ -1,17 +1,18 @@
-import { useCallback, useState } from 'react'
+import { FC, useCallback, useState } from 'react'
 import React from 'react'
 import styles from './styles'
 import { FormControl, FormLabel, TextField } from '@mui/material'
-import { validateElement } from '../../model/element-validation'
+// import { validateElement } from '../../constants'
 
-type T = {
+type Props = {
   name: string
   type: string
   label: string
   selector: string
 }
 
-const AuthInputElement = ({ name, type, label, selector }: T) => {
+// TODO: Вынести  в  feature папку - это Фича(действие) над сущностью
+const AuthInputElement: FC<Props> = ({ name, type, label, selector }) => {
   const [input, setInput] = useState('')
 
   const handleInput = useCallback(

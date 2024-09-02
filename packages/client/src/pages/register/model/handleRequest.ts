@@ -1,5 +1,6 @@
 import { registerUser } from '../api/request'
-
+// TODO: Переместить в папку entities/user/lib
+// TODO: Плохой нейминг handleRegiser =Ю handleRegister
 const handleRegiser = async (form: HTMLFormElement) => {
   const inputs = form.querySelectorAll('input')
   const data: Record<string, string> = {}

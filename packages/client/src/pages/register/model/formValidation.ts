@@ -6,9 +6,9 @@ import {
   nameRules,
   emailRules,
   phoneRules,
-} from '../../../shared/model/validation-rules'
+} from '../../../shared/constants/validation-rules'
 import { handleRegiser } from './handleRequest'
-
+// TODO: Переместить в папку entities/user/constants
 const options = {
   errorLabelStyle: {
     fontSize: '0.8rem',
@@ -18,6 +18,7 @@ const options = {
   errorLabelCssClass: 'auth-error-label',
 }
 
+// TODO: Переместить в папку entities/user/lib
 const formValidation = () => {
   const validator = new JustValidate('#auth-form', {
     focusInvalidField: false,
