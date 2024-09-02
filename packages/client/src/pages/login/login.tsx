@@ -1,14 +1,14 @@
 import { useEffect } from 'react'
 import AuthForm from '../../shared/ui/auth-form/auth-form'
-import { formValidation } from './model/formValidation'
-import { INPUTS } from './model/constants'
+import { loginFormValidation } from '../../entities/user/lib'
+import { LOGIN_INPUTS } from '../../entities/user/constants'
 import { Container, CssBaseline, Box, Button } from '@mui/material'
 import styles from './styles'
-import { handleLogout } from './model/handleRequest'
+import { logoutUser } from '../../entities/user/lib'
 
 const Login = () => {
   useEffect(() => {
-    formValidation()
+    loginFormValidation()
   }, [])
 
   const link = {
@@ -22,7 +22,7 @@ const Login = () => {
       <Container maxWidth="sm" sx={styles.container}>
         <AuthForm
           id="auth-form"
-          inputs={INPUTS}
+          inputs={LOGIN_INPUTS}
           pageName="Вход"
           buttonText="Войти"
           link={link}
@@ -32,7 +32,7 @@ const Login = () => {
         variant="contained"
         color="primary"
         size="medium"
-        onClick={handleLogout}
+        onClick={logoutUser}
         sx={{ maxWidth: '100px' }}>
         Выйти
       </Button>

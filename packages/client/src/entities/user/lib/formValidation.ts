@@ -7,56 +7,73 @@ import {
   emailRules,
   phoneRules,
 } from '../../../shared/constants/validation-rules'
-import { handleRegiser } from './handleRequest'
-// TODO: Переместить в папку entities/user/constants
-const options = {
-  errorLabelStyle: {
-    fontSize: '0.8rem',
-    lineHeight: '1rem',
-    color: 'rgb(184, 50, 50)',
-  },
-  errorLabelCssClass: 'auth-error-label',
+
+import { loginUser, registerUser } from './'
+import { ERROR_OPTIONS } from '../constants'
+
+const loginFormValidation = () => {
+  const validator = new JustValidate('#auth-form', {
+    focusInvalidField: false,
+    errorsContainer: '.custom-error-container',
+  })
+  validator
+    .addField('#login', loginRules, {
+      ...ERROR_OPTIONS,
+      errorsContainer: '.login-error-container',
+    })
+    .addField('#password', passwordRules, {
+      ...ERROR_OPTIONS,
+      errorsContainer: '.password-error-container',
+    })
+    .onSuccess(event => {
+      const formEvent = event as FormDataEvent
+      const form = formEvent.target as HTMLFormElement
+      loginUser(form)
+      console.log('Валидация прошла успешно.')
+    })
+    .onFail(() => {
+      console.log('Валидация завершена с ошибками.')
+    })
 }
 
-// TODO: Переместить в папку entities/user/lib
-const formValidation = () => {
+const registerFormValidation = () => {
   const validator = new JustValidate('#auth-form', {
     focusInvalidField: false,
     errorsContainer: '.custom-error-container',
   })
   validator
     .addField('#first_name', nameRules, {
-      ...options,
+      ...ERROR_OPTIONS,
       errorsContainer: `.first_name-error-container`,
     })
     .addField('#second_name', nameRules, {
-      ...options,
+      ...ERROR_OPTIONS,
       errorsContainer: `.second_name-error-container`,
     })
     .addField('#email', emailRules, {
-      ...options,
+      ...ERROR_OPTIONS,
       errorsContainer: `.email-error-container`,
     })
     .addField('#phone', phoneRules, {
-      ...options,
+      ...ERROR_OPTIONS,
       errorsContainer: `.phone-error-container`,
     })
     .addField('#login', loginRules, {
-      ...options,
+      ...ERROR_OPTIONS,
       errorsContainer: `.login-error-container`,
     })
     .addField('#password', passwordRules, {
-      ...options,
+      ...ERROR_OPTIONS,
       errorsContainer: `.password-error-container`,
     })
     .addField('#confirm_password', confirmPasswordRule, {
-      ...options,
+      ...ERROR_OPTIONS,
       errorsContainer: `.confirm_password-error-container`,
     })
     .onSuccess(event => {
       const formEvent = event as FormDataEvent
       const form = formEvent.target as HTMLFormElement
-      handleRegiser(form)
+      registerUser(form)
       console.log('Валидация прошла успешно.', formEvent.target)
     })
     .onFail(() => {
@@ -64,4 +81,4 @@ const formValidation = () => {
     })
 }
 
-export { formValidation }
+export { loginFormValidation, registerFormValidation }
