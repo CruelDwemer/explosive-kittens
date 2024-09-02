@@ -1,7 +1,8 @@
 import './App.css'
 import { createBrowserRouter, RouterProvider, Link } from 'react-router-dom'
-import { Login, Register } from '../pages'
+import { Login, Register, User } from '../pages'
 
+// TODO: Возможно добавить lazy загрузку
 const router = createBrowserRouter([
   {
     path: '/',
@@ -20,6 +21,10 @@ const router = createBrowserRouter([
   {
     path: '/register',
     element: <Register />,
+  },
+  {
+    path: '/user',
+    element: <User />,
   },
 ])
 
