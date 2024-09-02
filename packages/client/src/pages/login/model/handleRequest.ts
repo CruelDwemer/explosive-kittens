@@ -8,11 +8,13 @@ const handleLogin = async (form: HTMLFormElement) => {
   })
 
   const response = await loginUser(JSON.stringify(data))
-  // const result = await response.json();
+
   if (response.status === 200) {
     console.log('Вход успешно выполнен.', response)
+  } else {
+    const result = await response.json()
+    console.log('Ошибка входа: ', result)
   }
-  // console.log(result)
 }
 // TODO: Переместить в папку entities/user/lib
 const handleLogout = async () => {
