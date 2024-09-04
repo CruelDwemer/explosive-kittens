@@ -25,7 +25,7 @@ const Play = () => {
     navigate('/start')
   }
 
-  const handlePlayClick = () => {
+  const handlePlayStart = () => {
     setShowCountdown(true)
   }
 
@@ -77,8 +77,8 @@ const Play = () => {
       {showCountdown && <CountdownTimer onEnd={handleTimer} />}
       <AddPlayer
         open={open}
-        onClose={handleClose}
-        onPlayClick={handlePlayClick}
+        handleClose={handleClose}
+        handlePlayStart={handlePlayStart}
       />
     </Box>
   )

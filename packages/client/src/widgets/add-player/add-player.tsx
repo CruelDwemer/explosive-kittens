@@ -24,25 +24,26 @@ import styles from './styles'
 
 interface AddPlayerProps {
   open: boolean
-  onClose: () => void
-  onPlayClick: () => void
+  handleClose: () => void
+  handlePlayStart: () => void
 }
 
 const AddPlayer: React.FC<AddPlayerProps> = ({
   open,
-  onClose,
-  onPlayClick,
+  handleClose,
+  handlePlayStart,
 }) => {
-  const [playName, setPlayName] = useState('')
-  const [chatId, setChatId] = useState<number | null>(null)
-  const [players, setPlayers] = useState([])
+  const [lobbyData, setLobbyData] = useState({
+    playName: '',
+    chatId: null as number | null,
+    playersList: [],
+  })
   const [searchResults, setSearchResults] = useState([])
   const [searchValue, setSearchValue] = useState('')
 
   const handlePlayNameBlur = () => {
-    console.log(playName)
-    if (playName) {
-      createNewPlay(playName)
+    if (lobbyData.playName) {
+      createNewPlay(lobbyData.playName)
     }
   }
 
@@ -50,7 +51,6 @@ const AddPlayer: React.FC<AddPlayerProps> = ({
     const response = await createPlay(playName)
     if (response.ok) {
       const data = await response.json()
-      setChatId(data.id)
       getPlayerList(data.id)
       getUserList(searchValue)
       return data
@@ -64,7 +64,11 @@ const AddPlayer: React.FC<AddPlayerProps> = ({
       const response = await playerList(chatId)
       if (response.ok) {
         const data = await response.json()
-        setPlayers(data)
+        setLobbyData({
+          ...lobbyData,
+          playersList: data,
+          chatId: chatId,
+        })
         return data
       } else {
         throw new Error('Error fetching players')
@@ -88,10 +92,10 @@ const AddPlayer: React.FC<AddPlayerProps> = ({
   }
 
   const addNewUserToChat = async (userId: number) => {
-    if (chatId) {
-      const response = await addUserToChat(chatId, userId)
+    if (lobbyData.chatId) {
+      const response = await addUserToChat(lobbyData.chatId, userId)
       if (response.ok) {
-        getPlayerList(chatId)
+        getPlayerList(lobbyData.chatId)
       } else {
         throw new Error('Error adding user to chat')
       }
@@ -116,32 +120,30 @@ const AddPlayer: React.FC<AddPlayerProps> = ({
     }
   }
 
-  const onDeleteUser = async (userId: number) => {
-    if (userId && chatId) {
-      const response = await deleteUserFromChat(chatId, userId)
+  const handleDeleteUser = async (userId: number) => {
+    if (userId && lobbyData.chatId) {
+      const response = await deleteUserFromChat(lobbyData.chatId, userId)
       if (response.ok) {
-        getPlayerList(chatId)
+        getPlayerList(lobbyData.chatId)
       } else {
         throw new Error('Error adding user to chat')
       }
     }
   }
 
-  const handlePlayNameChange = (e: {
-    target: { value: React.SetStateAction<string> }
-  }) => {
-    setPlayName(e.target.value)
+  const handlePlayNameChange = (e: { target: { value: string } }) => {
+    setLobbyData({ ...lobbyData, playName: e.target.value })
   }
 
   const handlePlayClick = () => {
-    onPlayClick()
-    onClose()
+    handlePlayStart()
+    handleClose()
   }
 
   return (
     <Modal
       open={open}
-      onClose={onClose}
+      onClose={handleClose}
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description">
       <Box sx={styles.modal}>
@@ -153,23 +155,23 @@ const AddPlayer: React.FC<AddPlayerProps> = ({
             fullWidth
             label="Название игры"
             id="playName"
-            value={playName}
+            value={lobbyData.playName}
             onChange={handlePlayNameChange}
             onBlur={handlePlayNameBlur}
           />
 
-          {players && players.length > 0 && (
+          {lobbyData.playersList && lobbyData.playersList.length > 0 && (
             <Box>
               <Typography sx={{ mt: 4 }} component="h4">
                 Список участников!
               </Typography>
               <List dense>
-                {players.map((player: any) => (
+                {lobbyData.playersList.map((player: any) => (
                   <ListItem
                     key={player.id}
                     secondaryAction={
                       <IconButton
-                        onClick={() => onDeleteUser(player.id)}
+                        onClick={() => handleDeleteUser(player.id)}
                         edge="end"
                         aria-label="delete">
                         <DeleteIcon />
@@ -202,7 +204,7 @@ const AddPlayer: React.FC<AddPlayerProps> = ({
             />
           </Box>
 
-          {players && players.length > 1 && (
+          {lobbyData.playersList && lobbyData.playersList.length > 1 && (
             <Button
               sx={{ my: 4 }}
               onClick={handlePlayClick}
