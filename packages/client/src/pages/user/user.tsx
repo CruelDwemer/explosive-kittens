@@ -22,9 +22,27 @@ import {
 import { ROWS, RECORDS } from './model/constants'
 import { Create, EmojiEvents } from '@mui/icons-material'
 import { styled } from '@mui/material/styles'
+import {
+  changePassword,
+  getUserInfo,
+  updateAvatar,
+} from '../../entities/user/api'
+import { useEffect, useState } from 'react'
 
+const BASE_URL = 'https://ya-praktikum.tech/api/v2'
 type PropsType = {
   data?: any
+}
+
+interface User {
+  avatar?: string
+  display_name?: string
+  email?: string
+  first_name?: string
+  id?: number
+  login?: string
+  phone?: string
+  second_name?: string
 }
 
 const VisuallyHiddenInput = styled('input')({
@@ -40,6 +58,58 @@ const VisuallyHiddenInput = styled('input')({
 })
 
 const User = ({ data }: PropsType) => {
+  const [oldPassword, setOldPassword] = useState('')
+  const [newPassword, setNewPassword] = useState('')
+  const [user, setUser] = useState<User>({})
+  const [isAvatarChanging, setIsAvatarChanging] = useState(false)
+  const [avatarFormData, setAvatarFormData] = useState<FormData>(new FormData())
+  const [avatar, setAvatar] = useState<string>('')
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target
+    if (name === 'oldPassword') {
+      setOldPassword(value)
+    } else if (name === 'newPassword') {
+      setNewPassword(value)
+    }
+  }
+
+  const handleSubmit = (event: React.MouseEvent) => {
+    event.preventDefault()
+    changePassword({ oldPassword, newPassword })
+    setNewPassword('')
+    setOldPassword('')
+  }
+
+  const handleAvatarChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0]
+    if (file) {
+      const formData = new FormData()
+      formData.append('avatar', file)
+      setIsAvatarChanging(true)
+      setUser(prevUser => ({
+        ...prevUser,
+        avatar: URL.createObjectURL(file),
+      }))
+      setAvatarFormData(formData)
+    }
+  }
+
+  const handleUpdateAvatar = async () => {
+    const response = await updateAvatar(avatarFormData)
+    const data = await response.json()
+    setUser(prevUser => ({ ...prevUser, avatar: data.avatar }))
+    setIsAvatarChanging(false)
+  }
+
+  useEffect(() => {
+    const fetchUserInfo = async () => {
+      const userInfo = await getUserInfo()
+      setUser(userInfo)
+    }
+    fetchUserInfo()
+  }, [])
+
   return (
     <Grid
       container
@@ -49,7 +119,6 @@ const User = ({ data }: PropsType) => {
         padding: '16px',
         justifyContent: 'center',
         alignItems: 'center',
-        minWidth: '1024px',
       }}>
       <Grid item xs={6} sx={{ width: '50%' }}>
         <Card
@@ -60,51 +129,69 @@ const User = ({ data }: PropsType) => {
           <CardHeader
             title={
               <Typography variant="h6" component="span" color={'primary'}>
-                Имя Фамилия
+                {user.first_name} {user.second_name}
               </Typography>
             }
           />
 
           <Divider orientation="horizontal" flexItem />
 
-          <CardMedia
-            sx={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '8px',
-              flexDirection: 'column',
-              padding: '24px',
-            }}>
-            <Card
-              variant="outlined"
+          {user && (
+            <CardMedia
               sx={{
-                borderRadius: '50%',
-                pointerEvents: 'none',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px',
+                flexDirection: 'column',
+                padding: '24px',
               }}>
-              <Avatar
-                alt="Avatar"
-                src="public/pikachu.png"
+              <Card
+                variant="outlined"
                 sx={{
-                  width: 250,
-                  height: 250,
-                }}
-              />
-            </Card>
+                  borderRadius: '50%',
+                  pointerEvents: 'none',
+                }}>
+                <Avatar
+                  src={
+                    isAvatarChanging
+                      ? user.avatar
+                      : `${BASE_URL}/resources${user.avatar}`
+                  }
+                  sx={{
+                    width: 250,
+                    height: 250,
+                  }}
+                />
+              </Card>
 
-            <Typography gutterBottom variant="caption" component="span">
-              Вы можете сменить свой аватар
-            </Typography>
-            <Button
-              component="label"
-              role={undefined}
-              variant="contained"
-              tabIndex={-1}
-              endIcon={<Create />}
-              size="small">
-              Сменить аватар
-              <VisuallyHiddenInput type="file" />
-            </Button>
-          </CardMedia>
+              <Typography gutterBottom variant="caption" component="span">
+                Вы можете сменить свой аватар
+              </Typography>
+              <Button
+                component="label"
+                role={undefined}
+                variant="contained"
+                tabIndex={-1}
+                endIcon={<Create />}
+                size="small">
+                Сменить аватар
+                <VisuallyHiddenInput
+                  type="file"
+                  onChange={handleAvatarChange}
+                />
+              </Button>
+              {isAvatarChanging && avatarFormData && (
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={() => {
+                    handleUpdateAvatar()
+                  }}>
+                  Сохранить
+                </Button>
+              )}
+            </CardMedia>
+          )}
         </Card>
       </Grid>
 
@@ -194,6 +281,9 @@ const User = ({ data }: PropsType) => {
                 id="outlined-password-input"
                 label="Старый пароль"
                 type="password"
+                name="oldPassword"
+                value={oldPassword}
+                onChange={handleChange}
                 sx={{ flexGrow: 1 }}
               />
 
@@ -201,6 +291,9 @@ const User = ({ data }: PropsType) => {
                 id="outlined-password-input"
                 label="Новый пароль"
                 type="password"
+                name="newPassword"
+                value={newPassword}
+                onChange={handleChange}
                 sx={{ flexGrow: 1 }}
               />
             </Box>
@@ -213,7 +306,9 @@ const User = ({ data }: PropsType) => {
                 justifyContent: 'flex-end',
                 padding: '16px 0',
               }}>
-              <Button variant="contained">Сохранить</Button>
+              <Button variant="contained" onClick={handleSubmit}>
+                Сохранить
+              </Button>
             </Box>
           </CardContent>
         </Card>
