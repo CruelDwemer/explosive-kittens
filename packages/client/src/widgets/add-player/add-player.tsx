@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { ChangeEvent, useState } from 'react'
 
 import {
   Box,
@@ -21,6 +21,8 @@ import {
 } from '../../entities/lobby/api/lobby-api'
 import { userSearch } from '../../entities/user/api'
 import styles from './styles'
+import { mapUsersToOptions } from './helpers'
+import { Player } from '../../entities/lobby/models'
 
 interface AddPlayerProps {
   open: boolean
@@ -38,7 +40,9 @@ const AddPlayer: React.FC<AddPlayerProps> = ({
     chatId: null as number | null,
     playersList: [],
   })
-  const [searchResults, setSearchResults] = useState([])
+  const [searchResults, setSearchResults] = useState<
+    { label: string; value: number }[]
+  >([])
   const [searchValue, setSearchValue] = useState('')
 
   const handlePlayNameBlur = () => {
@@ -48,56 +52,72 @@ const AddPlayer: React.FC<AddPlayerProps> = ({
   }
 
   const createNewPlay = async (playName: string) => {
-    const response = await createPlay(playName)
-    if (response.ok) {
-      const data = await response.json()
-      getPlayerList(data.id)
-      getUserList(searchValue)
-      return data
-    } else {
-      throw new Error('Error creating play')
+    try {
+      const response = await createPlay(playName)
+      if (response.ok) {
+        const data = await response.json()
+        getPlayerList(data.id)
+        getUserList(searchValue)
+        return data
+      } else {
+        throw new Error(`Error creating play: ${response.status}`)
+      }
+    } catch (error) {
+      console.error('Error creating play:', error)
+      throw error
     }
   }
 
   const getPlayerList = async (chatId: number) => {
     if (chatId) {
-      const response = await playerList(chatId)
-      if (response.ok) {
-        const data = await response.json()
-        setLobbyData({
-          ...lobbyData,
-          playersList: data,
-          chatId: chatId,
-        })
-        return data
-      } else {
-        throw new Error('Error fetching players')
+      try {
+        const response = await playerList(chatId)
+        if (response.ok) {
+          const data = await response.json()
+          setLobbyData({
+            ...lobbyData,
+            playersList: data,
+            chatId: chatId,
+          })
+          return data
+        } else {
+          throw new Error(`Error fetching players: ${response.status}`)
+        }
+      } catch (error) {
+        console.error('Error fetching players:', error)
+        throw error
       }
     }
   }
 
   const getUserList = async (login: string) => {
-    const response = await userSearch(login)
-    if (response.ok) {
-      const data = await response.json()
-      const newUserList = data.map((item: { login: string; id: number }) => ({
-        label: `${item.login}`,
-        value: item.id,
-      }))
-      setSearchResults(newUserList)
-      return data
-    } else {
-      throw new Error('Error searching for users')
+    try {
+      const response = await userSearch(login)
+      if (response.ok) {
+        const data = await response.json()
+        setSearchResults(mapUsersToOptions(data))
+        return data
+      } else {
+        throw new Error(`Error searching for users: ${response.status}`)
+      }
+    } catch (error) {
+      console.error('Error searching for users:', error)
+      throw error
     }
   }
 
   const addNewUserToChat = async (userId: number) => {
     if (lobbyData.chatId) {
-      const response = await addUserToChat(lobbyData.chatId, userId)
-      if (response.ok) {
-        getPlayerList(lobbyData.chatId)
-      } else {
-        throw new Error('Error adding user to chat')
+      try {
+        const response = await addUserToChat(lobbyData.chatId, userId)
+        if (response.ok) {
+          getPlayerList(lobbyData.chatId)
+        } else {
+          throw new Error(`Error adding user to chat: ${response.status}`)
+        }
+      } catch (error) {
+        console.error('Error adding user:', error)
+        throw error
       }
     }
   }
@@ -113,7 +133,10 @@ const AddPlayer: React.FC<AddPlayerProps> = ({
     }
   }
 
-  const handleSelectUser = (event: any, newValue: any) => {
+  const handleSelectUser = (
+    event: React.SyntheticEvent,
+    newValue: { label: string; value: number } | null
+  ) => {
     if (newValue) {
       const userId = newValue.value
       addNewUserToChat(userId)
@@ -122,17 +145,22 @@ const AddPlayer: React.FC<AddPlayerProps> = ({
 
   const handleDeleteUser = async (userId: number) => {
     if (userId && lobbyData.chatId) {
-      const response = await deleteUserFromChat(lobbyData.chatId, userId)
-      if (response.ok) {
-        getPlayerList(lobbyData.chatId)
-      } else {
-        throw new Error('Error adding user to chat')
+      try {
+        const response = await deleteUserFromChat(lobbyData.chatId, userId)
+        if (response.ok) {
+          getPlayerList(lobbyData.chatId)
+        } else {
+          throw new Error(`Error delete user from chat: ${response.status}`)
+        }
+      } catch (error) {
+        console.error('Error delete user:', error)
+        throw error
       }
     }
   }
 
-  const handlePlayNameChange = (e: { target: { value: string } }) => {
-    setLobbyData({ ...lobbyData, playName: e.target.value })
+  const handlePlayNameChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setLobbyData({ ...lobbyData, playName: event.target.value })
   }
 
   const handlePlayClick = () => {
@@ -166,7 +194,7 @@ const AddPlayer: React.FC<AddPlayerProps> = ({
                 Список участников!
               </Typography>
               <List dense>
-                {lobbyData.playersList.map((player: any) => (
+                {lobbyData.playersList.map((player: Player) => (
                   <ListItem
                     key={player.id}
                     secondaryAction={

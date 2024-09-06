@@ -1,4 +1,4 @@
-import { BASE_URL } from '../..'
+import { BASE_URL } from '../../../shared/constants/api'
 
 export const userSearch = (login: string) => {
   return fetch(`${BASE_URL}/user/search`, {

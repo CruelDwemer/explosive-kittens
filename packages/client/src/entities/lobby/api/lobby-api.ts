@@ -1,4 +1,4 @@
-import { BASE_URL } from '../..'
+import { BASE_URL } from '../../../shared/constants/api'
 
 export const createPlay = (title: string) => {
   return fetch(`${BASE_URL}/chats`, {
