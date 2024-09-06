@@ -1,32 +1,39 @@
 import { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-
 import { Box, Typography } from '@mui/material'
 import styles from './styles'
 
-export const CountdownTimer = ({ onEnd, duration = 3 }: any) => {
+export const CountdownTimer = ({
+  onEnd,
+  duration = 3,
+}: {
+  onEnd: () => void
+  duration?: number
+}) => {
   const [count, setCount] = useState(duration)
-  const navigate = useNavigate()
+  const [startTime, setStartTime] = useState(Date.now())
 
   useEffect(() => {
-    const intervalId = setInterval(() => {
-      setCount((prevCount: number) => {
-        if (prevCount > 1) {
-          return prevCount - 1
-        } else {
-          onEnd()
-          clearInterval(intervalId)
-          return ''
-        }
-      })
-    }, 1000)
+    const animationFrame = requestAnimationFrame(animate)
+    return () => {
+      cancelAnimationFrame(animationFrame)
+    }
+  }, [])
 
-    return () => clearInterval(intervalId)
-  }, [duration])
+  const animate = () => {
+    const elapsedTime = Date.now() - startTime
+    const remainingTime = Math.max(0, duration - Math.floor(elapsedTime / 1000))
+
+    setCount(remainingTime)
+    if (remainingTime === 0) {
+      onEnd()
+    } else {
+      requestAnimationFrame(animate)
+    }
+  }
 
   return (
     <Box>
-      {count && (
+      {count > 0 && (
         <Box sx={styles.box}>
           <Typography variant="h5" sx={{ my: 2 }} component="div">
             Игpа начнется через:
