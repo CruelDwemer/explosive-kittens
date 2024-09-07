@@ -19,17 +19,26 @@ const LobbyCanvas: FC<LobbyCanvasProps> = ({ className }) => {
       canvas.height = window.innerHeight * 2
       canvas.style.width = `${window.innerWidth}px`
       canvas.style.height = `${window.innerHeight}px`
-
       const context = canvas.getContext('2d')
       if (context) {
         context.scale(2, 2) // для ретина-дисплеев
         context.lineCap = 'round'
-        context.strokeStyle = color
-        context.lineWidth = lineWidth
         contextRef.current = context
       }
     }
-  }, [color, lineWidth])
+  }, [])
+
+  useEffect(() => {
+    if (contextRef.current) {
+      contextRef.current.strokeStyle = color
+    }
+  }, [color])
+
+  useEffect(() => {
+    if (contextRef.current) {
+      contextRef.current.lineWidth = lineWidth
+    }
+  }, [lineWidth])
 
   // Начало рисования
   // TODO: Убрать any
