@@ -26,12 +26,13 @@ const LobbyCanvas: FC<LobbyCanvasProps> = ({ className }) => {
         context.lineCap = 'round'
         context.strokeStyle = color
         context.lineWidth = lineWidth
-        contextRef.current = context // Теперь TypeScript уверен, что context не null
+        contextRef.current = context
       }
     }
   }, [color, lineWidth])
 
   // Начало рисования
+  // TODO: Убрать any
   const startDrawing = (event: any) => {
     if (contextRef.current) {
       const { offsetX, offsetY } = event.nativeEvent
@@ -42,6 +43,7 @@ const LobbyCanvas: FC<LobbyCanvasProps> = ({ className }) => {
   }
 
   // Процесс рисования
+  // TODO: Убрать any
   const draw = (event: any) => {
     if (!isDrawing || !contextRef.current) return
 
