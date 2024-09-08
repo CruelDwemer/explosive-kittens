@@ -55,7 +55,7 @@ class ErrorBoundary extends React.Component<IProps, IState> {
 }
 
 const withErrorBoundary = (
-  component: React.Component<unknown, unknown> | React.FC<unknown>
+  component: new () => React.Component<unknown, unknown> | React.FC<unknown>
 ) => <ErrorBoundary>{component as unknown as React.ReactNode}</ErrorBoundary>
 
 export default withErrorBoundary
