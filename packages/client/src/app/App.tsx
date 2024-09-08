@@ -1,6 +1,7 @@
 import './App.css'
 import { createBrowserRouter, RouterProvider, Link } from 'react-router-dom'
 import { Login, Play, Register, Finish } from '../pages'
+import Fullscreen from '../widgets/fullscreen/fullscreen'
 
 const router = createBrowserRouter([
   {
@@ -51,6 +52,7 @@ function App() {
       <div className="App" style={{ display: 'none', position: 'absolute' }}>
         Вот тут будет жить ваше приложение :)
       </div>
+      <Fullscreen />
       <RouterProvider router={router} />
     </div>
   )
