@@ -2,6 +2,12 @@ import { useEffect, useState } from 'react'
 import { IconButton, Tooltip } from '@mui/material'
 import FullscreenIcon from '@mui/icons-material/Fullscreen'
 
+interface DocumentElementWithFullscreen extends HTMLElement {
+  msRequestFullscreen?: () => void
+  mozRequestFullScreen?: () => void
+  webkitRequestFullscreen?: () => void
+}
+
 const Fullscreen = () => {
   const [isFullscreen, setIsFullscreen] = useState(false)
 
@@ -17,7 +23,7 @@ const Fullscreen = () => {
   }, [])
 
   const handleFullscreen = () => {
-    const element: any = document.documentElement
+    const element: DocumentElementWithFullscreen = document.documentElement
 
     element.requestFullscreen
       ? element.requestFullscreen()
