@@ -1,6 +1,6 @@
 import './App.css'
 import { createBrowserRouter, RouterProvider, Link } from 'react-router-dom'
-import { Login, Register } from '../pages'
+import { Login, Register, Error400, Error500 } from '../pages'
 
 const router = createBrowserRouter([
   {
@@ -10,6 +10,10 @@ const router = createBrowserRouter([
         <Link to="/login">Login</Link>
         <br />
         <Link to="/register">Register</Link>
+        <br />
+        <Link to="/error400">Error 400</Link>
+        <br />
+        <Link to="/error500">Error 500</Link>
       </div>
     ),
   },
@@ -20,6 +24,14 @@ const router = createBrowserRouter([
   {
     path: '/register',
     element: <Register />,
+  },
+  {
+    path: '/error400',
+    element: <Error400 />,
+  },
+  {
+    path: '/error500',
+    element: <Error500 />,
   },
 ])
 
