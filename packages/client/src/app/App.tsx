@@ -1,6 +1,6 @@
 import './App.css'
 import { createBrowserRouter, RouterProvider, Link } from 'react-router-dom'
-import { Login, Play, Register, Finish } from '../pages'
+import { Login, Play, Register, Finish, Leaderboard } from '../pages'
 
 const router = createBrowserRouter([
   {
@@ -14,6 +14,8 @@ const router = createBrowserRouter([
         <Link to="/play">Play</Link>
         <br />
         <Link to="/finish">Finish</Link>
+        <br />
+        <Link to="/leaderboard">Leaderboard</Link>
       </div>
     ),
   },
@@ -32,6 +34,10 @@ const router = createBrowserRouter([
   {
     path: '/finish',
     element: <Finish />,
+  },
+  {
+    path: '/leaderboard',
+    element: <Leaderboard />,
   },
 ])
 
