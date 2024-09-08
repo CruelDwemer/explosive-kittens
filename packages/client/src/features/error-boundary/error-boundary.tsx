@@ -1,4 +1,4 @@
-import React, { ErrorInfo } from 'react'
+import React, { ErrorInfo, ComponentType } from 'react'
 import { Button, Card, CardContent, CardHeader } from '@mui/material'
 import styles from './styles'
 
@@ -8,7 +8,7 @@ interface IState {
 }
 
 interface IProps {
-  children: React.ReactNode
+  children: ComponentType
 }
 
 class ErrorBoundary extends React.Component<IProps, IState> {
@@ -50,12 +50,12 @@ class ErrorBoundary extends React.Component<IProps, IState> {
         </Card>
       )
     }
-    return children
+    return children as unknown as React.ReactNode
   }
 }
 
-const withErrorBoundary = (
-  component: new () => React.Component<unknown, unknown> | React.FC<unknown>
-) => <ErrorBoundary>{component as unknown as React.ReactNode}</ErrorBoundary>
+const withErrorBoundary: (component: ComponentType) => ComponentType = (
+  component: ComponentType
+) => (<ErrorBoundary>{component}</ErrorBoundary>) as unknown as ComponentType
 
 export default withErrorBoundary
