@@ -1,2 +1,3 @@
 import { CountdownTimer } from './countdown-timer/countdown-timer'
-export { CountdownTimer }
+import ErrorBoundary from './error-boundary/error-boundary'
+export { CountdownTimer, ErrorBoundary }

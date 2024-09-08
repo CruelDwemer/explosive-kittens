@@ -1,6 +1,6 @@
 import './App.css'
 import { createBrowserRouter, RouterProvider, Link } from 'react-router-dom'
-import { Login, Play, Register, Finish } from '../pages'
+import { Login, Play, Register, Finish, TestErrorBoundary } from '../pages'
 
 const router = createBrowserRouter([
   {
@@ -14,6 +14,8 @@ const router = createBrowserRouter([
         <Link to="/play">Play</Link>
         <br />
         <Link to="/finish">Finish</Link>
+        <br />
+        <Link to="/test-error">Test Error Boundary</Link>
       </div>
     ),
   },
@@ -33,6 +35,10 @@ const router = createBrowserRouter([
     path: '/finish',
     element: <Finish />,
   },
+  {
+    path: '/test-error',
+    element: <TestErrorBoundary />,
+  },
 ])
 
 function App() {
@@ -46,6 +52,7 @@ function App() {
 
   //   fetchServerData()
   // }, [])
+
   return (
     <div>
       <div className="App" style={{ display: 'none', position: 'absolute' }}>
