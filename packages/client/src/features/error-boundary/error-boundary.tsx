@@ -8,7 +8,7 @@ interface IState {
 }
 
 interface IProps {
-  children: React.ReactNode | React.ReactNode[]
+  children: React.ReactNode
 }
 
 class ErrorBoundary extends React.Component<IProps, IState> {
@@ -54,4 +54,8 @@ class ErrorBoundary extends React.Component<IProps, IState> {
   }
 }
 
-export default ErrorBoundary
+const withErrorBoundary = (
+  component: React.Component<unknown, unknown> | React.FC<unknown>
+) => <ErrorBoundary>{component as unknown as React.ReactNode}</ErrorBoundary>
+
+export default withErrorBoundary

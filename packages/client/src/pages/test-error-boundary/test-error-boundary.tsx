@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Box, Button, Typography } from '@mui/material'
-import { ErrorBoundary } from '../../features'
+import { withErrorBoundary } from '../../features'
 
 const TestErrorBoundary = () => {
   const [clicked, setClicked] = useState(false)
@@ -32,10 +32,4 @@ const TestErrorBoundary = () => {
   )
 }
 
-const WithErrorBoundary = () => (
-  <ErrorBoundary>
-    <TestErrorBoundary />
-  </ErrorBoundary>
-)
-
-export default WithErrorBoundary
+export default withErrorBoundary(TestErrorBoundary)
