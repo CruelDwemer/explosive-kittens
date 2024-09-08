@@ -1,4 +1,4 @@
-import React, { ErrorInfo, ComponentType } from 'react'
+import React, { Component, ErrorInfo, ComponentType } from 'react'
 import { Button, Card, CardContent, CardHeader } from '@mui/material'
 import styles from './styles'
 
@@ -11,7 +11,7 @@ interface IProps {
   children: ComponentType
 }
 
-class ErrorBoundary extends React.Component<IProps, IState> {
+class ErrorBoundary extends Component<IProps, IState> {
   state = {
     error: null,
     errorInfo: null,
