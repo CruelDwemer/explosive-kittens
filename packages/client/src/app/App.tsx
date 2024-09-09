@@ -1,6 +1,7 @@
 import './App.css'
 import { createBrowserRouter, RouterProvider, Link } from 'react-router-dom'
 import { Login, Play, Register, Finish, TestErrorBoundary } from '../pages'
+import withErrorBoundary from '../features/error-boundary/error-boundary'
 
 const router = createBrowserRouter([
   {
@@ -63,4 +64,4 @@ function App() {
   )
 }
 
-export default App
+export default withErrorBoundary(App)

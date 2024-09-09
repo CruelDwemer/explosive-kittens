@@ -1,6 +1,6 @@
 const styles = {
   details: {
-    margin: '16px 0 16px 0',
+    margin: '16px 0',
   },
 }
 

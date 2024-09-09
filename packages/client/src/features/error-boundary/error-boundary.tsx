@@ -2,16 +2,18 @@ import React, { Component, ErrorInfo, ComponentType } from 'react'
 import { Button, Card, CardContent, CardHeader } from '@mui/material'
 import styles from './styles'
 
-interface IState {
+interface ErrorBoundaryState {
   error: Error | null
   errorInfo: ErrorInfo | null
 }
 
-interface IProps {
+interface Props {
   children: ComponentType
 }
 
-class ErrorBoundary extends Component<IProps, IState> {
+type WithErrorBoundaryType = (component: ComponentType) => ComponentType
+
+class ErrorBoundary extends Component<Props, ErrorBoundaryState> {
   state = {
     error: null,
     errorInfo: null,
@@ -54,8 +56,7 @@ class ErrorBoundary extends Component<IProps, IState> {
   }
 }
 
-const withErrorBoundary: (component: ComponentType) => ComponentType = (
-  component: ComponentType
-) => (<ErrorBoundary>{component}</ErrorBoundary>) as unknown as ComponentType
+const withErrorBoundary: WithErrorBoundaryType = (component: ComponentType) =>
+  (<ErrorBoundary>{component}</ErrorBoundary>) as unknown as ComponentType
 
 export default withErrorBoundary
