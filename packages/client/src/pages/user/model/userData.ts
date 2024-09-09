@@ -19,5 +19,5 @@ export interface IRecords {
 
 export interface IUserAvatar {
   user: IUser
-  setUser: any
+  setUser: (user: IUser) => void
 }
