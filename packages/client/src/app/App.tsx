@@ -64,4 +64,4 @@ function App() {
   )
 }
 
-export default withErrorBoundary(App)
+export default App
