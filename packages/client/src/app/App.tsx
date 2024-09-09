@@ -1,21 +1,22 @@
 import './App.css'
 import { createBrowserRouter, RouterProvider, Link } from 'react-router-dom'
-import { Login, Play, Register, Finish } from '../pages'
+import { Login, Play, Register, Finish, Layout } from '../pages'
+import { Box } from '@mui/material'
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: (
-      <div>
-        <Link to="/login">Login</Link>
-        <br />
-        <Link to="/register">Register</Link>
-        <br />
-        <Link to="/play">Play</Link>
-        <br />
-        <Link to="/finish">Finish</Link>
-      </div>
-    ),
+    element: <Layout />,
+    children: [
+      {
+        path: '/play',
+        element: <Play />,
+      },
+      {
+        path: '/finish',
+        element: <Finish />,
+      },
+    ],
   },
   {
     path: '/login',
@@ -24,14 +25,6 @@ const router = createBrowserRouter([
   {
     path: '/register',
     element: <Register />,
-  },
-  {
-    path: '/play',
-    element: <Play />,
-  },
-  {
-    path: '/finish',
-    element: <Finish />,
   },
 ])
 
@@ -47,12 +40,9 @@ function App() {
   //   fetchServerData()
   // }, [])
   return (
-    <div>
-      <div className="App" style={{ display: 'none', position: 'absolute' }}>
-        Вот тут будет жить ваше приложение :)
-      </div>
+    <Box sx={{ display: 'flex', flexDirection: 'row' }}>
       <RouterProvider router={router} />
-    </div>
+    </Box>
   )
 }
 
