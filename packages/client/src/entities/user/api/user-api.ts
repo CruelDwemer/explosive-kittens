@@ -12,13 +12,7 @@ export const getUserInfo = async () => {
       'Content-Type': 'application/json',
     },
   })
-
-  if (!response.ok) {
-    throw new Error(`Ошибка запроса! статус: ${response.status}`)
-  }
-
   const data = await response.json()
-  console.log(data)
   return data
 }
 

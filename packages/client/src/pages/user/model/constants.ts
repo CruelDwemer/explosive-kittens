@@ -1,4 +1,7 @@
-const RECORDS = [
+import { IRecords } from './userData'
+
+// TODO: Моковые данные. Убрать после подключения АПИ получения рекордов
+const RECORDS: IRecords[] = [
   {
     id: 1,
     date: '2022-01-01',
