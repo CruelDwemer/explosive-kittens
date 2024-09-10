@@ -17,12 +17,11 @@ const Canvas: FC<LobbyCanvasProps> = ({ color, lineWidth }) => {
   useEffect(() => {
     const canvas = canvasRef.current
     if (canvas) {
-      const { innerWidth, innerHeight } = window
-      canvas.width = innerWidth * 1.34
-      canvas.height = innerHeight * 1.34
+      const { clientHeight, clientWidth, getContext } = canvas
 
-      canvas.style.width = `${innerWidth}px`
-      canvas.style.height = `${innerHeight}px`
+      canvas.width = clientWidth * 2
+      canvas.height = clientHeight * 2
+
       const context = canvas.getContext('2d')
       if (context) {
         context.scale(2, 2) // для ретина-дисплеев
