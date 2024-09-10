@@ -38,14 +38,7 @@ function App() {
 
   //   fetchServerData()
   // }, [])
-  return (
-    <div>
-      <div className="App" style={{ display: 'none', position: 'absolute' }}>
-        Вот тут будет жить ваше приложение :)
-      </div>
-      <RouterProvider router={router} />
-    </div>
-  )
+  return <RouterProvider router={router} />
 }
 
 export default App

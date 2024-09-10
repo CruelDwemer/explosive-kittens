@@ -1,24 +1,28 @@
 import { FC, useEffect, useRef, useState } from 'react'
-
+import './styles.css'
 interface LobbyCanvasProps {
-  className?: string
+  color: string
+  lineWidth: number
 }
 
-const LobbyCanvas: FC<LobbyCanvasProps> = ({ className }) => {
+// const DEFAULT_COLOR = '#000000'
+
+const Canvas: FC<LobbyCanvasProps> = ({ color, lineWidth }) => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null)
   const contextRef = useRef<CanvasRenderingContext2D | null>(null)
+
   const [isDrawing, setIsDrawing] = useState<boolean>(false)
-  const [color, setColor] = useState<string>('#000000')
-  const [lineWidth, setLineWidth] = useState<number>(5)
 
   // Инициализация canvas при первом рендере
   useEffect(() => {
     const canvas = canvasRef.current
     if (canvas) {
-      canvas.width = window.innerWidth * 2
-      canvas.height = window.innerHeight * 2
-      canvas.style.width = `${window.innerWidth}px`
-      canvas.style.height = `${window.innerHeight}px`
+      const { innerWidth, innerHeight } = window
+      canvas.width = innerWidth * 1.34
+      canvas.height = innerHeight * 1.34
+
+      canvas.style.width = `${innerWidth}px`
+      canvas.style.height = `${innerHeight}px`
       const context = canvas.getContext('2d')
       if (context) {
         context.scale(2, 2) // для ретина-дисплеев
@@ -41,8 +45,7 @@ const LobbyCanvas: FC<LobbyCanvasProps> = ({ className }) => {
   }, [lineWidth])
 
   // Начало рисования
-  // TODO: Убрать any
-  const startDrawing = (event: any) => {
+  const startDrawing = (event: React.MouseEvent<HTMLCanvasElement>) => {
     if (contextRef.current) {
       const { offsetX, offsetY } = event.nativeEvent
       contextRef.current.beginPath()
@@ -52,8 +55,7 @@ const LobbyCanvas: FC<LobbyCanvasProps> = ({ className }) => {
   }
 
   // Процесс рисования
-  // TODO: Убрать any
-  const draw = (event: any) => {
+  const draw = (event: React.MouseEvent<HTMLCanvasElement>) => {
     if (!isDrawing || !contextRef.current) return
 
     const { offsetX, offsetY } = event.nativeEvent
@@ -70,33 +72,15 @@ const LobbyCanvas: FC<LobbyCanvasProps> = ({ className }) => {
   }
 
   return (
-    <div>
-      <div style={{ marginBottom: '10px' }}>
-        <label>Цвет кисти: </label>
-        <input
-          type="color"
-          value={color}
-          onChange={e => setColor(e.target.value)}
-        />
-        <label style={{ marginLeft: '10px' }}>Толщина линии: </label>
-        <input
-          type="range"
-          min="1"
-          max="20"
-          value={lineWidth}
-          onChange={e => setLineWidth(Number(e.target.value))}
-        />
-      </div>
-      <canvas
-        ref={canvasRef}
-        onMouseDown={startDrawing}
-        onMouseMove={draw}
-        onMouseUp={stopDrawing}
-        onMouseLeave={stopDrawing}
-        style={{ border: '1px solid black', cursor: 'crosshair' }}
-      />
-    </div>
+    <canvas
+      ref={canvasRef}
+      onMouseDown={startDrawing}
+      onMouseMove={draw}
+      onMouseUp={stopDrawing}
+      onMouseLeave={stopDrawing}
+      className="custom-canvas"
+    />
   )
 }
 
-export default LobbyCanvas
+export default Canvas

@@ -1,0 +1,7 @@
+.custom-canvas {
+  width: 100% !important;
+  height: 100% !important;
+  cursor: crosshair;
+  height: 100%;
+  display: block;
+}

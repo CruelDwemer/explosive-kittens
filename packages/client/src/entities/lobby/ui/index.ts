@@ -1,2 +1,2 @@
-import { LobbyCanvas } from './lobby-canvas'
-export { LobbyCanvas }
+export { Canvas } from './canvas'
+export { CanvasTools } from './canvas-tools'
