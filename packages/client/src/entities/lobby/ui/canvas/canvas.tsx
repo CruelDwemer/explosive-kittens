@@ -5,8 +5,6 @@ interface LobbyCanvasProps {
   lineWidth: number
 }
 
-// const DEFAULT_COLOR = '#000000'
-
 const Canvas: FC<LobbyCanvasProps> = ({ color, lineWidth }) => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null)
   const contextRef = useRef<CanvasRenderingContext2D | null>(null)
@@ -17,55 +15,61 @@ const Canvas: FC<LobbyCanvasProps> = ({ color, lineWidth }) => {
   useEffect(() => {
     const canvas = canvasRef.current
     if (canvas) {
-      const { clientHeight, clientWidth, getContext } = canvas
+      const { clientHeight, clientWidth } = canvas
 
       canvas.width = clientWidth * 2
       canvas.height = clientHeight * 2
 
-      const context = canvas.getContext('2d')
-      if (context) {
-        context.scale(2, 2) // для ретина-дисплеев
-        context.lineCap = 'round'
-        contextRef.current = context
+      const ctx = canvas.getContext('2d')
+      if (ctx) {
+        ctx.scale(2, 2) // для ретина-дисплеев
+        ctx.lineCap = 'round'
+        contextRef.current = ctx
       }
     }
   }, [])
 
   useEffect(() => {
-    if (contextRef.current) {
-      contextRef.current.strokeStyle = color
+    const ctx = contextRef.current
+    if (ctx) {
+      ctx.strokeStyle = color
     }
   }, [color])
 
   useEffect(() => {
-    if (contextRef.current) {
-      contextRef.current.lineWidth = lineWidth
+    const ctx = contextRef.current
+    if (ctx) {
+      ctx.lineWidth = lineWidth
     }
   }, [lineWidth])
 
   // Начало рисования
   const startDrawing = (event: React.MouseEvent<HTMLCanvasElement>) => {
-    if (contextRef.current) {
+    const ctx = contextRef.current
+    if (ctx) {
       const { offsetX, offsetY } = event.nativeEvent
-      contextRef.current.beginPath()
-      contextRef.current.moveTo(offsetX, offsetY)
+
+      ctx.beginPath()
+      ctx.moveTo(offsetX, offsetY)
       setIsDrawing(true)
     }
   }
 
   // Процесс рисования
   const draw = (event: React.MouseEvent<HTMLCanvasElement>) => {
-    if (!isDrawing || !contextRef.current) return
-
+    const ctx = contextRef.current
+    if (!isDrawing || !ctx) return
     const { offsetX, offsetY } = event.nativeEvent
-    contextRef.current.lineTo(offsetX, offsetY)
-    contextRef.current.stroke()
+
+    ctx.lineTo(offsetX, offsetY)
+    ctx.stroke()
   }
 
   // Завершение рисования
   const stopDrawing = () => {
-    if (contextRef.current) {
-      contextRef.current.closePath()
+    const ctx = contextRef.current
+    if (ctx) {
+      ctx.closePath()
       setIsDrawing(false)
     }
   }
