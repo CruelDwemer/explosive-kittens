@@ -13,7 +13,7 @@ const LeaderBoardElement: FC<LeaderBoardUserData> = ({
     <TableCell align="center">
       <Avatar
         sx={styles.avatar}
-        src={avatar ? `${BASE_URL}/resources/${avatar}` : undefined}
+        src={avatar ? `${BASE_URL}/resources${avatar}` : undefined}
       />
     </TableCell>
     <TableCell align="center">{name}</TableCell>
