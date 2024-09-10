@@ -35,7 +35,7 @@ const Fullscreen = () => {
       ? element.msRequestFullscreen()
       : ''
   }
-
+  console.log(isFullscreen, '---')
   return (
     <Tooltip title="Перейти в полноэкранный режим">
       <IconButton
