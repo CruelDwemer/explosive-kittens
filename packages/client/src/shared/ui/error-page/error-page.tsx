@@ -3,12 +3,12 @@ import { Box, Button } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 import styles from './styles'
 
-interface IProps {
+interface Props {
   header: string
   errorText: string
 }
 
-const ErrorPage: FC<IProps> = ({ header, errorText }) => {
+const ErrorPage: FC<Props> = ({ header, errorText }) => {
   const navigate = useNavigate()
   const goBack = () => navigate(-1)
   return (

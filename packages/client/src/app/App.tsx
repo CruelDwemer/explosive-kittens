@@ -11,9 +11,9 @@ const router = createBrowserRouter([
         <br />
         <Link to="/register">Register</Link>
         <br />
-        <Link to="/error400">Error 400</Link>
+        <Link to="/400">Error 400</Link>
         <br />
-        <Link to="/error500">Error 500</Link>
+        <Link to="/500">Error 500</Link>
         <br />
         <Link to="/play">Play</Link>
         <br />
@@ -30,11 +30,11 @@ const router = createBrowserRouter([
     element: <Register />,
   },
   {
-    path: '/error400',
+    path: '/400',
     element: <Error400 />,
   },
   {
-    path: '/error500',
+    path: '/500',
     element: <Error500 />,
   },
   {
