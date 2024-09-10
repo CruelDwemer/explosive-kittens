@@ -1,6 +1,5 @@
 import {
   Box,
-  Button,
   Divider,
   Drawer,
   IconButton,
@@ -9,7 +8,6 @@ import {
   ListItemButton,
   ListItemIcon,
   ListItemText,
-  ListSubheader,
 } from '@mui/material'
 import { Fragment, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
@@ -29,11 +27,11 @@ const Sidebar = () => {
   const setIcon = (name: string) => {
     switch (name) {
       case 'Игра':
-        return <ChatIcon />
+        return <SmartDisplayIcon />
       case 'Профиль':
         return <PersonIcon />
       case 'Форум':
-        return <SmartDisplayIcon />
+        return <ChatIcon />
       default:
         return <MenuIcon />
     }
