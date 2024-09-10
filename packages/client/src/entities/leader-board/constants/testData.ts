@@ -1,6 +1,6 @@
-import { ILeaderBoardResponseData } from './leaderboardUserData'
+import { LeaderBoardResponseData } from '../models'
 
-const leaderboardData: ILeaderBoardResponseData[] = [
+const leaderBoardData: LeaderBoardResponseData[] = [
   {
     data: {
       name: 'test36',
@@ -47,4 +47,4 @@ const leaderboardData: ILeaderBoardResponseData[] = [
   },
 ]
 
-export default leaderboardData
+export default leaderBoardData

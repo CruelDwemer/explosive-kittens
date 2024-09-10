@@ -1,10 +1,10 @@
 import React, { FC } from 'react'
 import { Avatar, TableCell, TableRow } from '@mui/material'
 import styles from './styles'
-import { ILeaderboardUserData } from '../../model/leaderboardUserData'
+import { LeaderBoardUserData } from '../../models'
 import { BASE_URL } from '../../../../shared/constants/api'
 
-const LeaderboardElement: FC<ILeaderboardUserData> = ({
+const LeaderBoardElement: FC<LeaderBoardUserData> = ({
   avatar,
   name,
   score,
@@ -21,4 +21,4 @@ const LeaderboardElement: FC<ILeaderboardUserData> = ({
   </TableRow>
 )
 
-export default LeaderboardElement
+export default LeaderBoardElement

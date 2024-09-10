@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React, { FC } from 'react'
 import {
   Box,
   Typography,
@@ -12,13 +12,15 @@ import {
   CardHeader,
 } from '@mui/material'
 import { EmojiEvents } from '@mui/icons-material'
-import leaderboardData from './model/testData'
 import styles from './styles'
-import LeaderboardElement from './ui/leaderboard-element'
-import { LEADERBOARD_TABLE_HEAD_ROWS } from './model/constants'
-import TableHeadCell from './ui/table-head-cell/table-head-cell'
+import { LeaderBoardElement } from '../../entities/leader-board/ui'
+import {
+  LEADER_BOARD_TABLE_HEAD_ROWS,
+  leaderBoardData,
+} from '../../entities/leader-board/constants'
+import { TableHeadCell } from '../../shared/ui'
 
-const Leaderboard = () => (
+const LeaderBoard: FC = () => (
   <Box sx={styles.container}>
     <Card>
       <CardHeader
@@ -36,19 +38,19 @@ const Leaderboard = () => (
           <Table>
             <TableHead>
               <TableRow>
-                {LEADERBOARD_TABLE_HEAD_ROWS.map((title, index) => (
+                {LEADER_BOARD_TABLE_HEAD_ROWS.map((title, index) => (
                   <TableHeadCell key={index} text={title} />
                 ))}
               </TableRow>
             </TableHead>
             <TableBody>
-              {leaderboardData
+              {leaderBoardData
                 .sort(
                   ({ data: data1 }, { data: data2 }) =>
                     data2.score - data1.score
                 )
                 .map(({ data }, index) => (
-                  <LeaderboardElement key={index} {...data} />
+                  <LeaderBoardElement key={index} {...data} />
                 ))}
             </TableBody>
           </Table>
@@ -58,4 +60,4 @@ const Leaderboard = () => (
   </Box>
 )
 
-export default Leaderboard
+export default LeaderBoard
