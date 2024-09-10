@@ -1,7 +1,7 @@
 import './App.css'
 import { createBrowserRouter, RouterProvider, Link } from 'react-router-dom'
 import { Login, Play, Register, Finish, TestErrorBoundary } from '../pages'
-import withErrorBoundary from '../features/error-boundary/error-boundary'
+import Fullscreen from '../widgets/fullscreen/fullscreen'
 
 const router = createBrowserRouter([
   {
@@ -53,12 +53,12 @@ function App() {
 
   //   fetchServerData()
   // }, [])
-
   return (
     <div>
       <div className="App" style={{ display: 'none', position: 'absolute' }}>
         Вот тут будет жить ваше приложение :)
       </div>
+      <Fullscreen />
       <RouterProvider router={router} />
     </div>
   )
