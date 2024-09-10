@@ -1,3 +1,2 @@
-export { LobbyCanvas } from './lobby-canvas'
-import { CountdownTimer } from './countdown-timer/countdown-timer'
-export { CountdownTimer }
+export { DrawCanvas } from './draw-canvas'
+export { CountdownTimer } from './countdown-timer'

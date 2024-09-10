@@ -1,27 +1,24 @@
 import { FC } from 'react'
-import { LobbyCanvas } from '../../features'
+import { DrawCanvas } from '../../features'
 import { Box } from '@mui/material'
+import styles from './styles'
 
 const Lobby: FC = () => {
+  // Mock для отрисовки
+  const isCurrentUserLeader = true
+
+  // Mock для отрисовки
+  const hiddenWord = 'Котик'
+
   return (
-    <Box
-      sx={{
-        display: 'flex',
-        gap: '12px',
-        padding: '12px',
-      }}>
-      <Box
-        sx={{
-          flexBasis: '30%',
-        }}>
-        чатик
-      </Box>
-      <Box
-        sx={{
-          flexBasis: '70%',
-          padding: '12px',
-        }}>
-        <LobbyCanvas />
+    <Box sx={styles.page}>
+      <Box sx={styles.chatCol}>чатик</Box>
+      <Box sx={styles.canvasCol}>
+        {isCurrentUserLeader ? (
+          <DrawCanvas hiddenWord={hiddenWord} />
+        ) : (
+          <>Ведущий рисует...</>
+        )}
       </Box>
     </Box>
   )
