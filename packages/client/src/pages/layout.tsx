@@ -6,8 +6,6 @@ import Header from '../features/header'
 const Layout = () => {
   return (
     <>
-      <Sidebar />
-
       <Box sx={{ display: 'flex', flexGrow: 1, flexDirection: 'column' }}>
         <Header />
         <main>

@@ -39,11 +39,7 @@ function App() {
 
   //   fetchServerData()
   // }, [])
-  return (
-    <Box sx={{ display: 'flex', flexDirection: 'row' }}>
-      <RouterProvider router={router} />
-    </Box>
-  )
+  return <RouterProvider router={router} />
 }
 
 export default App

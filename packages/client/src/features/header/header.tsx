@@ -1,18 +1,14 @@
 import { Avatar, Box, Button, Typography } from '@mui/material'
 import { useNavigate } from 'react-router'
+import Sidebar from '../sidebar'
+import styles from './styles'
 
 const Header = () => {
   const navigate = useNavigate()
   return (
-    <Box
-      sx={{
-        height: '50px',
-        display: 'flex',
-        justifyContent: 'end',
-        alignItems: 'center',
-        padding: '0 32px',
-      }}>
-      <Box sx={{ display: 'flex', alignItems: 'center', gap: 3 }}>
+    <Box sx={styles.container}>
+      <Sidebar />
+      <Box sx={styles.actions}>
         <Typography variant="subtitle1">Пользователь</Typography>
         <Avatar />
         <Button variant="contained" onClick={() => navigate('/login')}>
