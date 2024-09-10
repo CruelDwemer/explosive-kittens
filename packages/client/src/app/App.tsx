@@ -35,7 +35,7 @@ const router = createBrowserRouter([
     element: <Finish />,
   },
   {
-    path: '/lobby-test',
+    path: '/lobby',
     element: <Lobby />,
   },
 ])

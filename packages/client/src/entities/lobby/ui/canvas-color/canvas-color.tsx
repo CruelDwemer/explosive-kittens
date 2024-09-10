@@ -14,7 +14,6 @@ const CanvasColor: FC<CanvasToolsProps> = ({ color, onColorChange }) => {
 
   return (
     <Box sx={styles.wrapper}>
-      {/* <input type="color" value={color} onChange={handleColorChange} /> */}
       <Input
         sx={styles.input}
         type="color"
