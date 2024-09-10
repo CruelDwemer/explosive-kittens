@@ -1,4 +1,4 @@
-import { Box, Typography } from '@mui/material'
+import { Box, Input, Typography } from '@mui/material'
 import { FC } from 'react'
 import styles from './styles'
 
@@ -14,7 +14,13 @@ const CanvasColor: FC<CanvasToolsProps> = ({ color, onColorChange }) => {
 
   return (
     <Box sx={styles.wrapper}>
-      <input type="color" value={color} onChange={handleColorChange} />
+      {/* <input type="color" value={color} onChange={handleColorChange} /> */}
+      <Input
+        sx={styles.input}
+        type="color"
+        value={color}
+        onChange={handleColorChange}
+      />
       <Typography noWrap>Цвет кисти</Typography>
     </Box>
   )

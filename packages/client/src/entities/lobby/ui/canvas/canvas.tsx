@@ -1,5 +1,6 @@
 import { FC, useEffect, useRef, useState } from 'react'
 import './styles.css'
+
 interface LobbyCanvasProps {
   color: string
   lineWidth: number
