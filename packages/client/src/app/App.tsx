@@ -53,6 +53,9 @@ function App() {
   // }, [])
   return (
     <>
+      <div className="App" style={{ display: 'none', position: 'absolute' }}>
+        Вот тут будет жить ваше приложение :)
+      </div>
       <Fullscreen />
       <RouterProvider router={router} />
     </>
