@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { IconButton, Tooltip } from '@mui/material'
 import FullscreenIcon from '@mui/icons-material/Fullscreen'
 
+// TODO: () => void можно заменить на встроенную типизацию VoidFunction
 interface DocumentElementWithFullscreen extends HTMLElement {
   msRequestFullscreen?: () => void
   mozRequestFullScreen?: () => void
@@ -23,6 +24,8 @@ const Fullscreen = () => {
   }, [])
 
   const handleFullscreen = () => {
+    // TODO: Лучше воспользовать деструктуризацией
+    // const {requestFullscreen, mozRequestFullScreen, webkitRequestFullscreen, msRequestFullscreen}: DocumentElementWithFullscreen = document.documentElement
     const element: DocumentElementWithFullscreen = document.documentElement
 
     element.requestFullscreen
@@ -35,7 +38,7 @@ const Fullscreen = () => {
       ? element.msRequestFullscreen()
       : ''
   }
-  console.log(isFullscreen, '---')
+
   return (
     <Tooltip title="Перейти в полноэкранный режим">
       <IconButton
