@@ -12,6 +12,7 @@ import {
   isFirstUserMessage,
   isLastUserMessage,
 } from '../../entities/chat/utils'
+import { customPaperBlock } from '../../shared/styles'
 
 export interface LobbyChatProps {
   lobbyId: number
@@ -30,7 +31,7 @@ const LobbyChat: FC<LobbyChatProps> = ({ lobbyId }) => {
 
   return (
     <Box sx={styles.wrapper}>
-      <Paper sx={{ ...styles.paper }}>
+      <Paper sx={{ ...customPaperBlock, ...styles.paper }}>
         <Box sx={styles.header}>
           <Typography variant="h6" color="primary" fontWeight={'bold'}>
             Чат

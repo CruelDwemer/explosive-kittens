@@ -7,6 +7,7 @@ import {
   HiddenWord,
 } from '../../entities/lobby/ui'
 import styles from './styles'
+import { customPaperBlock } from '../../shared/styles'
 
 export interface LobbyCanvasProps {
   hiddenWord: string
@@ -20,13 +21,13 @@ const DrawCanvas: FC<LobbyCanvasProps> = ({ hiddenWord }) => {
 
   return (
     <Box sx={styles.wrapper}>
-      <Paper sx={{ ...styles.paper, ...styles.wordBlock }}>
+      <Paper sx={{ ...customPaperBlock, ...styles.wordBlock }}>
         <HiddenWord hiddenWord={hiddenWord} />
       </Paper>
-      <Paper sx={styles.paper}>
+      <Paper sx={customPaperBlock}>
         <Canvas lineWidth={lineWidth} color={color} />
       </Paper>
-      <Paper sx={{ ...styles.paper, ...styles.toolsBlock }}>
+      <Paper sx={{ ...customPaperBlock, ...styles.toolsBlock }}>
         <Box sx={styles.tools}>
           <CanvasLineWidth lineWidth={lineWidth} onChange={setLineWidth} />
           <CanvasColor color={color} onColorChange={setColor} />
