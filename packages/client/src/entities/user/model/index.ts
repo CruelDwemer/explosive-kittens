@@ -1,2 +1,2 @@
 // Сюда импортируем\экспортируем модельки сущности
-// export * from './base-models'
+export * from './slice'

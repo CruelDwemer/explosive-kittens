@@ -35,4 +35,12 @@ const register = (data: string) => {
   })
 }
 
-export { login, logout, register }
+const getInfo = () => {
+  return fetch(`${BASE_URL}/auth/user`, {
+    method: 'GET',
+    mode: 'cors',
+    credentials: 'include',
+  })
+}
+
+export { login, logout, register, getInfo }
