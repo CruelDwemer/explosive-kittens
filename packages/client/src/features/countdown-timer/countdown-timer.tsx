@@ -1,14 +1,13 @@
-import { useEffect, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 import { Box, Typography } from '@mui/material'
 import styles from './styles'
 
-export const CountdownTimer = ({
-  onEnd,
-  duration = 3,
-}: {
+interface CountdownTimerProps {
   onEnd: () => void
   duration?: number
-}) => {
+}
+
+const CountdownTimer: FC<CountdownTimerProps> = ({ onEnd, duration = 3 }) => {
   const [count, setCount] = useState(duration)
   const [startTime, setStartTime] = useState(Date.now())
 
@@ -44,3 +43,5 @@ export const CountdownTimer = ({
     </Box>
   )
 }
+
+export default CountdownTimer
