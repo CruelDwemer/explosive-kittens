@@ -1,5 +1,5 @@
 import { FC } from 'react'
-import { DrawCanvas } from '../../features'
+import { DrawCanvas, LobbyChat } from '../../features'
 import { Box } from '@mui/material'
 import styles from './styles'
 
@@ -12,7 +12,9 @@ const Lobby: FC = () => {
 
   return (
     <Box sx={styles.page}>
-      <Box sx={styles.chatCol}>чатик</Box>
+      <Box sx={styles.chatCol}>
+        <LobbyChat lobbyId={0} />
+      </Box>
       <Box sx={styles.canvasCol}>
         {isCurrentUserLeader ? (
           <DrawCanvas hiddenWord={hiddenWord} />
