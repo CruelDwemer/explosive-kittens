@@ -1,2 +1,2 @@
-// Сюда импортируем\экспортируем фичи проекта (форма создания пользователя, форма регистрации пользователя)
-// export {RegisterUserForm} from './regisger-user-form'
+export { DrawCanvas } from './draw-canvas'
+export { CountdownTimer } from './countdown-timer'

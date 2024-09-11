@@ -19,7 +19,7 @@ const Login = () => {
   return (
     <Box sx={styles.page}>
       <CssBaseline />
-      <Container maxWidth="sm" sx={styles.container}>
+      <Container maxWidth="sm" className="box-shadow" sx={styles.container}>
         <AuthForm
           id="auth-form"
           inputs={LOGIN_INPUTS}
