@@ -4,10 +4,10 @@ import { Box } from '@mui/material'
 import styles from './styles'
 import { HostDrawingMessage } from '../../entities/lobby/ui'
 
-type LobbyView = 'canvas' | 'hostDrawing' | 'guessing'
+type LobbyView = 'waiting' | 'canvas' | 'hostDrawing' | 'guessing'
 const Lobby: FC = () => {
   // TODO: Сделать HOC, который будет возвращать нужный вью
-  const [view, setView] = useState<LobbyView>('guessing')
+  const [view, setView] = useState<LobbyView>('waiting')
 
   const hiddenWord = 'Котик'
   const lobbyId = 0
@@ -22,6 +22,7 @@ const Lobby: FC = () => {
         }
       />
     ),
+    waiting: <></>,
   }
   const isChatDisabled = ['hostDrawing', 'canvas'].includes(view)
 
