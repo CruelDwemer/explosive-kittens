@@ -17,7 +17,7 @@ const Lobby: FC = () => {
   return (
     <Box sx={styles.page}>
       <Box sx={styles.chatCol}>
-        <LobbyChat lobbyId={lobbyId} />
+        <LobbyChat lobbyId={lobbyId} isHostDrawing={isHostDrawing} />
       </Box>
       <Box sx={styles.canvasCol}>
         {isHostDrawing ? (

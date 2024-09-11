@@ -16,9 +16,10 @@ import { customPaperBlock } from '../../shared/styles'
 
 export interface LobbyChatProps {
   lobbyId: number
+  isHostDrawing?: boolean
 }
 
-const LobbyChat: FC<LobbyChatProps> = ({ lobbyId }) => {
+const LobbyChat: FC<LobbyChatProps> = ({ lobbyId, isHostDrawing = false }) => {
   // Для тестирования новых сообщений
   // const [newMessage, setNewMessage] = useState<LobbyChatMessage>()
   const [messages, setMessages] = useState<LobbyChatMessage[]>([])
@@ -73,7 +74,7 @@ const LobbyChat: FC<LobbyChatProps> = ({ lobbyId }) => {
             })}
         </MessagesContainer>
         <Box sx={styles.inputBox}>
-          <SendChatMessage />
+          <SendChatMessage disabled={isHostDrawing} />
         </Box>
       </Paper>
     </Box>

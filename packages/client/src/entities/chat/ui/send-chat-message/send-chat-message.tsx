@@ -2,7 +2,11 @@ import { Box, Button, TextField } from '@mui/material'
 import { ChangeEvent, FC, useState } from 'react'
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
 
-const SendChatMessage: FC = () => {
+interface SendChatMessageProps {
+  disabled?: boolean
+}
+
+const SendChatMessage: FC<SendChatMessageProps> = ({ disabled }) => {
   const [message, setMessage] = useState('')
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -24,10 +28,15 @@ const SendChatMessage: FC = () => {
         variant="standard"
         placeholder="Напишите свой ответ"
         sx={{ width: '100%', borderRadius: '8px' }}
+        disabled={disabled}
         value={message}
         onChange={handleChange}
       />
-      <Button size="small" variant="contained" onClick={handleSendClick}>
+      <Button
+        disabled={disabled}
+        size="small"
+        variant="contained"
+        onClick={handleSendClick}>
         <ArrowForwardIosIcon />
       </Button>
     </Box>
