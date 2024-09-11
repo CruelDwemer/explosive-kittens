@@ -1,6 +1,6 @@
 import './App.css'
 import { createBrowserRouter, RouterProvider, Link } from 'react-router-dom'
-import { Login, Play, Register, Finish } from '../pages'
+import { Login, Play, Register, Finish, Lobby } from '../pages'
 import Fullscreen from '../widgets/fullscreen/fullscreen'
 import { MessageBubble, MessagesContainer } from '../entities/chat/ui'
 
@@ -35,6 +35,10 @@ const router = createBrowserRouter([
     path: '/finish',
     element: <Finish />,
   },
+  {
+    path: '/lobby',
+    element: <Lobby />,
+  },
 ])
 
 function App() {
@@ -49,7 +53,7 @@ function App() {
   //   fetchServerData()
   // }, [])
   return (
-    <div>
+    <>
       <div className="App" style={{ display: 'none', position: 'absolute' }}>
         Вот тут будет жить ваше приложение :)
       </div>
@@ -68,7 +72,7 @@ function App() {
       </MessagesContainer>
       <Fullscreen />
       <RouterProvider router={router} />
-    </div>
+    </>
   )
 }
 
