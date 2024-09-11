@@ -19,15 +19,35 @@ export interface LobbyChatProps {
 }
 
 const LobbyChat: FC<LobbyChatProps> = ({ lobbyId }) => {
+  // Для тестирования новых сообщений
+  // const [newMessage, setNewMessage] = useState<LobbyChatMessage>()
   const [messages, setMessages] = useState<LobbyChatMessage[]>([])
+
+  // Для тестирования новых сообщений
+  // setTimeout(()=>{
+  //   setNewMessage({
+  //     id: Math.random(),
+  //     userId: 66,
+  //     userName: 'Вера',
+  //     content: 'спам'
+  //   })
+  // }, 5000)
 
   useEffect(() => {
     // TODO: Запрос на получение сообщений
-    const getMessages = (lobbyId: number) => {
+    const getOldMessages = (lobbyId: number) => {
       setMessages(testData)
     }
-    getMessages(lobbyId)
+    getOldMessages(lobbyId)
   }, [])
+
+  // Для тестирования новых сообщений
+  // useEffect(() => {
+  //   if (newMessage){
+  //     setMessages((prev) => [...prev, newMessage])
+  //   }
+  // }, [newMessage])
+  // console.log(messages.length)
 
   return (
     <Box sx={styles.wrapper}>
