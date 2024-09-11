@@ -14,6 +14,7 @@ const styles = {
   canvasCol: {
     flexBasis: '70%',
     padding: '12px',
+    boxSizing: 'border-box',
   },
 }
 

@@ -1,5 +1,5 @@
 import { FC, ReactNode, useState } from 'react'
-import { DrawCanvas, LobbyChat } from '../../features'
+import { DrawCanvas, GuessImage, LobbyChat } from '../../features'
 import { Box } from '@mui/material'
 import styles from './styles'
 import { HostDrawingMessage } from '../../entities/lobby/ui'
@@ -7,7 +7,7 @@ import { HostDrawingMessage } from '../../entities/lobby/ui'
 type LobbyView = 'canvas' | 'hostDrawing' | 'guessing'
 const Lobby: FC = () => {
   // TODO: Сделать HOC, который будет возвращать нужный вью
-  const [view, setView] = useState<LobbyView>('canvas')
+  const [view, setView] = useState<LobbyView>('guessing')
 
   const hiddenWord = 'Котик'
   const lobbyId = 0
@@ -15,7 +15,13 @@ const Lobby: FC = () => {
   const viewMap: Record<LobbyView, ReactNode> = {
     canvas: <DrawCanvas hiddenWord={hiddenWord} />,
     hostDrawing: <HostDrawingMessage />,
-    guessing: <></>,
+    guessing: (
+      <GuessImage
+        src={
+          'https://banner2.cleanpng.com/20190826/fxi/transparent-alligator-crocodilia-crocodile-green-reptile-5d661de9988780.0181618615669734176248.jpg'
+        }
+      />
+    ),
   }
   const isChatDisabled = ['hostDrawing', 'canvas'].includes(view)
 

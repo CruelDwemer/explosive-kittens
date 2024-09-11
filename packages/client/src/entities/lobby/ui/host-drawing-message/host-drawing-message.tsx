@@ -1,4 +1,4 @@
-import { Box, Typography } from '@mui/material'
+import { Paper, Typography } from '@mui/material'
 import { FC } from 'react'
 import { customPaperBlock } from '../../../../shared/styles'
 import DrawOutlinedIcon from '@mui/icons-material/DrawOutlined'
@@ -7,7 +7,7 @@ import DrawOutlinedIcon from '@mui/icons-material/DrawOutlined'
 // TODO: Можно оформить по другому
 const HostDrawingMessage: FC = () => {
   return (
-    <Box
+    <Paper
       sx={{
         ...customPaperBlock,
         boxSizing: 'border-box',
@@ -20,7 +20,7 @@ const HostDrawingMessage: FC = () => {
       <Typography variant="h5" color="primary">
         Хост рисует...
       </Typography>
-    </Box>
+    </Paper>
   )
 }
 
