@@ -6,6 +6,7 @@ import { HostDrawingMessage } from '../../entities/lobby/ui'
 
 type LobbyView = 'canvas' | 'hostDrawing' | 'guessing'
 const Lobby: FC = () => {
+  // TODO: Сделать HOC, который будет возвращать нужный вью
   const [view, setView] = useState<LobbyView>('canvas')
 
   const hiddenWord = 'Котик'
