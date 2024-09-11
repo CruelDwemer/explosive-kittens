@@ -1,35 +1,29 @@
-import { FC } from 'react'
+import { FC, ReactNode, useState } from 'react'
 import { DrawCanvas, LobbyChat } from '../../features'
 import { Box } from '@mui/material'
 import styles from './styles'
 import { HostDrawingMessage } from '../../entities/lobby/ui'
 
+type LobbyView = 'canvas' | 'hostDrawing' | 'guessing'
 const Lobby: FC = () => {
-  // Mock для отрисовки
-  const isCurrentUserHost = false
-  const isHostDrawing = true
+  const [view, setView] = useState<LobbyView>('canvas')
 
   const hiddenWord = 'Котик'
   const lobbyId = 0
 
-  // TODO: Дизейблить чат, когда хост рисует
-  // TODO: Писать в чате о том, что начался новый раунд
+  const viewMap: Record<LobbyView, ReactNode> = {
+    canvas: <DrawCanvas hiddenWord={hiddenWord} />,
+    hostDrawing: <HostDrawingMessage />,
+    guessing: <></>,
+  }
+  const isChatDisabled = ['hostDrawing', 'canvas'].includes(view)
+
   return (
     <Box sx={styles.page}>
       <Box sx={styles.chatCol}>
-        <LobbyChat lobbyId={lobbyId} isHostDrawing={isHostDrawing} />
+        <LobbyChat lobbyId={lobbyId} isHostDrawing={isChatDisabled} />
       </Box>
-      <Box sx={styles.canvasCol}>
-        {isHostDrawing ? (
-          isCurrentUserHost ? (
-            <DrawCanvas hiddenWord={hiddenWord} />
-          ) : (
-            <HostDrawingMessage />
-          )
-        ) : (
-          <>пук</>
-        )}
-      </Box>
+      <Box sx={styles.canvasCol}>{viewMap[view]}</Box>
     </Box>
   )
 }
