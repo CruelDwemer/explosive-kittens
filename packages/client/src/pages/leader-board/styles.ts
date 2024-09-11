@@ -7,9 +7,6 @@ const styles = {
     marginLeft: 2,
     color: 'gold',
   },
-  tableContainer: {
-    marginTop: 2,
-  },
   title: {
     width: '100%',
     textAlign: 'center',

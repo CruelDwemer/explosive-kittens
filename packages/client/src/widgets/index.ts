@@ -4,5 +4,6 @@
 // export {CreateLobbyBlock} from './create-lobby-block'
 
 import AddPlayer from './add-player/add-player'
+import { default as LeaderBoardTable } from './leader-board-table'
 
-export { AddPlayer }
+export { AddPlayer, LeaderBoardTable }
