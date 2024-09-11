@@ -2,6 +2,7 @@ import './App.css'
 import { createBrowserRouter, RouterProvider, Link } from 'react-router-dom'
 import { Login, Play, Register, Finish } from '../pages'
 import Fullscreen from '../widgets/fullscreen/fullscreen'
+import { MessageBubble, MessagesContainer } from '../entities/chat/ui'
 
 const router = createBrowserRouter([
   {
@@ -52,6 +53,19 @@ function App() {
       <div className="App" style={{ display: 'none', position: 'absolute' }}>
         Вот тут будет жить ваше приложение :)
       </div>
+      <MessagesContainer>
+        <MessageBubble
+          messageId={1}
+          userName={'Вася'}
+          messageContent={'не знаю'}
+        />
+        <MessageBubble messageId={2} userName={'Петя'} messageContent={'ого'} />
+        <MessageBubble
+          messageId={3}
+          userName={'Коля'}
+          messageContent={'класс'}
+        />
+      </MessagesContainer>
       <Fullscreen />
       <RouterProvider router={router} />
     </div>
