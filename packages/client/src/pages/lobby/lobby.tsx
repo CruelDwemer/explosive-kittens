@@ -6,14 +6,13 @@ import styles from './styles'
 const Lobby: FC = () => {
   // Mock для отрисовки
   const isCurrentUserLeader = true
-
-  // Mock для отрисовки
   const hiddenWord = 'Котик'
+  const lobbyId = 0
 
   return (
     <Box sx={styles.page}>
       <Box sx={styles.chatCol}>
-        <LobbyChat lobbyId={0} />
+        <LobbyChat lobbyId={lobbyId} />
       </Box>
       <Box sx={styles.canvasCol}>
         {isCurrentUserLeader ? (
