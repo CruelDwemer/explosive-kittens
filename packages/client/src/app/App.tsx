@@ -6,6 +6,7 @@ import {
   Register,
   Finish,
   Lobby,
+  User,
   TestErrorBoundary,
 } from '../pages'
 import Fullscreen from '../widgets/fullscreen/fullscreen'
@@ -51,6 +52,10 @@ const router = createBrowserRouter([
   {
     path: '/lobby',
     element: <Lobby />,
+  },
+  {
+    path: '/user',
+    element: <User />,
   },
 ])
 
