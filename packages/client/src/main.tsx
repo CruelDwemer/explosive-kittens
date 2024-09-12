@@ -5,5 +5,6 @@ import './index.css'
 import { withErrorBoundary } from './features'
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-  withErrorBoundary((<App />) as unknown as ComponentType)
+  // withErrorBoundary((<App />) as unknown as ComponentType)
+  <App />
 )

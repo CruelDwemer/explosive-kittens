@@ -1,3 +1,3 @@
-import { CountdownTimer } from './countdown-timer/countdown-timer'
-import withErrorBoundary from './error-boundary/error-boundary'
-export { CountdownTimer, withErrorBoundary }
+export { default as ErrorBoundary } from './error-boundary/error-boundary'
+export { DrawCanvas } from './draw-canvas'
+export { CountdownTimer } from './countdown-timer'

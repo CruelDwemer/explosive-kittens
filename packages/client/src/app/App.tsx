@@ -1,7 +1,15 @@
 import './App.css'
 import { createBrowserRouter, RouterProvider, Link } from 'react-router-dom'
-import { Login, Play, Register, Finish, TestErrorBoundary } from '../pages'
+import {
+  Login,
+  Play,
+  Register,
+  Finish,
+  Lobby,
+  TestErrorBoundary,
+} from '../pages'
 import Fullscreen from '../widgets/fullscreen/fullscreen'
+import { ErrorBoundary } from '../features'
 
 const router = createBrowserRouter([
   {
@@ -40,6 +48,10 @@ const router = createBrowserRouter([
     path: '/test-error',
     element: <TestErrorBoundary />,
   },
+  {
+    path: '/lobby',
+    element: <Lobby />,
+  },
 ])
 
 function App() {
@@ -54,13 +66,13 @@ function App() {
   //   fetchServerData()
   // }, [])
   return (
-    <div>
+    <ErrorBoundary>
       <div className="App" style={{ display: 'none', position: 'absolute' }}>
         Вот тут будет жить ваше приложение :)
       </div>
       <Fullscreen />
       <RouterProvider router={router} />
-    </div>
+    </ErrorBoundary>
   )
 }
 

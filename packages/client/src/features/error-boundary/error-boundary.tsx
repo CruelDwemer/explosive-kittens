@@ -1,4 +1,4 @@
-import React, { Component, ErrorInfo, ComponentType } from 'react'
+import React, { Component, ErrorInfo } from 'react'
 import { Button, Card, CardContent, CardHeader } from '@mui/material'
 import styles from './styles'
 
@@ -8,12 +8,10 @@ interface ErrorBoundaryState {
 }
 
 interface Props {
-  children: ComponentType
+  children: React.ReactNode
 }
 
-type WithErrorBoundaryType = (component: ComponentType) => ComponentType
-
-class ErrorBoundary extends Component<Props, ErrorBoundaryState> {
+export class ErrorBoundary extends Component<Props, ErrorBoundaryState> {
   state = {
     error: null,
     errorInfo: null,
@@ -56,7 +54,4 @@ class ErrorBoundary extends Component<Props, ErrorBoundaryState> {
   }
 }
 
-const withErrorBoundary: WithErrorBoundaryType = (component: ComponentType) =>
-  (<ErrorBoundary>{component}</ErrorBoundary>) as unknown as ComponentType
-
-export default withErrorBoundary
+export default ErrorBoundary
