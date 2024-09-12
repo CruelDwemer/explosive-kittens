@@ -1,7 +1,4 @@
-const BASE_URL = 'https://ya-praktikum.tech/api/v2'
-export const example = () => {
-  console.log('user-api')
-}
+import { BASE_URL } from '../../../shared/constants/api'
 
 export const getUserInfo = async () => {
   const response = await fetch(`${BASE_URL}/auth/user`, {
