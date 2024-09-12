@@ -19,7 +19,7 @@ const RecordsTable = () => {
         <TableHead sx={styles.table_header}>
           <TableRow>
             {ROWS.map(row => (
-              <TableCell align="center">
+              <TableCell align="center" key={row}>
                 <Typography variant="caption" color={'primary'}>
                   {row}
                 </Typography>
