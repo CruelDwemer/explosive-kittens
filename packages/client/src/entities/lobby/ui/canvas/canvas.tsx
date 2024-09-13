@@ -5,6 +5,7 @@ import { Box } from '@mui/material'
 interface LobbyCanvasProps {
   color: string
   lineWidth: number
+  // getImage: (callback: () => string) => void
 }
 
 const Canvas: FC<LobbyCanvasProps> = ({ color, lineWidth }) => {
@@ -19,6 +20,7 @@ const Canvas: FC<LobbyCanvasProps> = ({ color, lineWidth }) => {
 
   // Инициализация canvas при первом рендере
   useEffect(() => {
+    // getImage(saveAsJPEG)
     const canvas = canvasRef.current
     if (canvas) {
       const { clientHeight, clientWidth } = canvas
@@ -89,6 +91,20 @@ const Canvas: FC<LobbyCanvasProps> = ({ color, lineWidth }) => {
     }
   }
 
+  // Функция для сохранения изображения в формате JPEG
+  const saveAsJPEG = () => {
+    const canvas = canvasRef.current
+    if (canvas) {
+      const image = canvas.toDataURL('image/jpeg', 1.0) // получить изображение в формате JPEG
+      return image
+      const link = document.createElement('a')
+      link.href = image
+      link.download = 'canvas-image.jpg' // имя загружаемого файла
+      link.click()
+    }
+    return ''
+  }
+
   return (
     <Box
       sx={{
@@ -108,8 +124,8 @@ const Canvas: FC<LobbyCanvasProps> = ({ color, lineWidth }) => {
       <div
         className="custom-canvas-cursor"
         style={{
-          top: cursorPos.y + 10 - lineWidth / 2,
-          left: cursorPos.x + 10 - lineWidth / 2,
+          top: cursorPos.y - lineWidth / 7,
+          left: cursorPos.x - lineWidth / 7,
           width: lineWidth,
           height: lineWidth,
           backgroundColor: color,
