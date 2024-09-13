@@ -1,5 +1,6 @@
 import { FC, useEffect, useRef, useState } from 'react'
 import './styles.css'
+import { Box } from '@mui/material'
 
 interface LobbyCanvasProps {
   color: string
@@ -11,6 +12,10 @@ const Canvas: FC<LobbyCanvasProps> = ({ color, lineWidth }) => {
   const contextRef = useRef<CanvasRenderingContext2D | null>(null)
 
   const [isDrawing, setIsDrawing] = useState<boolean>(false)
+  const [cursorPos, setCursorPos] = useState<{ x: number; y: number }>({
+    x: 0,
+    y: 0,
+  })
 
   // Инициализация canvas при первом рендере
   useEffect(() => {
@@ -75,15 +80,42 @@ const Canvas: FC<LobbyCanvasProps> = ({ color, lineWidth }) => {
     }
   }
 
+  // Обработка движения мыши для отображения кисти
+  const handleMouseMove = (event: React.MouseEvent<HTMLCanvasElement>) => {
+    const { offsetX, offsetY } = event.nativeEvent
+    setCursorPos({ x: offsetX, y: offsetY })
+    if (isDrawing) {
+      draw(event)
+    }
+  }
+
   return (
-    <canvas
-      ref={canvasRef}
-      onMouseDown={startDrawing}
-      onMouseMove={draw}
-      onMouseUp={stopDrawing}
-      onMouseLeave={stopDrawing}
-      className="custom-canvas"
-    />
+    <Box
+      sx={{
+        height: '100%',
+        position: 'relative',
+      }}
+      className="canvas-container">
+      <canvas
+        ref={canvasRef}
+        onMouseDown={startDrawing}
+        onMouseMove={handleMouseMove}
+        onMouseUp={stopDrawing}
+        onMouseLeave={stopDrawing}
+        className="custom-canvas"
+      />
+      {/* Элемент для отображения текущего размера кисти */}
+      <div
+        className="custom-canvas-cursor"
+        style={{
+          top: cursorPos.y + 10 - lineWidth / 2,
+          left: cursorPos.x + 10 - lineWidth / 2,
+          width: lineWidth,
+          height: lineWidth,
+          backgroundColor: color,
+        }}
+      />
+    </Box>
   )
 }
 

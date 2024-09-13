@@ -1,7 +1,14 @@
 .custom-canvas {
   width: 100% !important;
   height: 100% !important;
-  cursor: crosshair;
+  cursor: none;
   height: 100%;
   display: block;
+}
+
+.custom-canvas-cursor {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
 }

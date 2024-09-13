@@ -48,7 +48,6 @@ const LobbyChat: FC<LobbyChatProps> = ({ lobbyId, isHostDrawing = false }) => {
   //     setMessages((prev) => [...prev, newMessage])
   //   }
   // }, [newMessage])
-  // console.log(messages.length)
 
   return (
     <Box sx={styles.wrapper}>
