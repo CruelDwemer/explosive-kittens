@@ -6,6 +6,7 @@ import { Container, Typography, Box } from '@mui/material'
 import styles from './styles'
 import { InputData, AuthData } from '../../../entities/user/models'
 import { joiResolver } from '@hookform/resolvers/joi'
+import { useForm } from 'react-hook-form'
 import Joi from 'joi'
 
 type Props = {

@@ -5,6 +5,7 @@ import { passwordSchema } from '../../entities/user/lib'
 import Joi from 'joi'
 import { joiResolver } from '@hookform/resolvers/joi'
 import { NewPasswordData } from '../../entities/user/models'
+import { useForm } from 'react-hook-form'
 
 const schema = Joi.object({
   oldPassword: passwordSchema,
