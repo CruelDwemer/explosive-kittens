@@ -2,8 +2,9 @@ import { Avatar, Box, Button, Typography } from '@mui/material'
 import { useNavigate } from 'react-router'
 import Sidebar from '../sidebar'
 import styles from './styles'
+import { FC } from 'react'
 
-const Header = () => {
+const Header: FC = () => {
   const navigate = useNavigate()
   return (
     <Box sx={styles.container}>
