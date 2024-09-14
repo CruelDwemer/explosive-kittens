@@ -20,19 +20,7 @@ export interface LobbyChatProps {
 }
 
 const LobbyChat: FC<LobbyChatProps> = ({ lobbyId, isHostDrawing = false }) => {
-  // Для тестирования новых сообщений
-  // const [newMessage, setNewMessage] = useState<LobbyChatMessage>()
   const [messages, setMessages] = useState<LobbyChatMessage[]>([])
-
-  // Для тестирования новых сообщений
-  // setTimeout(()=>{
-  //   setNewMessage({
-  //     id: Math.random(),
-  //     userId: 66,
-  //     userName: 'Вера',
-  //     content: 'спам'
-  //   })
-  // }, 5000)
 
   useEffect(() => {
     // TODO: Запрос на получение сообщений
@@ -43,6 +31,8 @@ const LobbyChat: FC<LobbyChatProps> = ({ lobbyId, isHostDrawing = false }) => {
   }, [])
 
   // Для тестирования новых сообщений
+  // const [newMessage, setNewMessage] = useState<LobbyChatMessage>()
+  // testingNewMessages(setNewMessage)
   // useEffect(() => {
   //   if (newMessage){
   //     setMessages((prev) => [...prev, newMessage])

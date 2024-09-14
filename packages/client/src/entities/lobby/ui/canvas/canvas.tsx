@@ -3,12 +3,12 @@ import './styles.css'
 import { Box } from '@mui/material'
 
 interface LobbyCanvasProps {
+  id: string
   color: string
   lineWidth: number
-  // getImage: (callback: () => string) => void
 }
 
-const Canvas: FC<LobbyCanvasProps> = ({ color, lineWidth }) => {
+const Canvas: FC<LobbyCanvasProps> = ({ id, color, lineWidth }) => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null)
   const contextRef = useRef<CanvasRenderingContext2D | null>(null)
 
@@ -19,6 +19,7 @@ const Canvas: FC<LobbyCanvasProps> = ({ color, lineWidth }) => {
   })
 
   // Инициализация canvas при первом рендере
+  // getImage(saveAsJPEG)
   useEffect(() => {
     // getImage(saveAsJPEG)
     const canvas = canvasRef.current
@@ -30,9 +31,12 @@ const Canvas: FC<LobbyCanvasProps> = ({ color, lineWidth }) => {
 
       const ctx = canvas.getContext('2d')
       if (ctx) {
-        ctx.scale(2, 2) // для ретина-дисплеев
+        ctx.scale(2, 2)
         ctx.lineCap = 'round'
         contextRef.current = ctx
+
+        ctx.fillStyle = 'white'
+        ctx.fillRect(0, 0, canvas.width, canvas.height)
       }
     }
   }, [])
@@ -91,20 +95,6 @@ const Canvas: FC<LobbyCanvasProps> = ({ color, lineWidth }) => {
     }
   }
 
-  // Функция для сохранения изображения в формате JPEG
-  const saveAsJPEG = () => {
-    const canvas = canvasRef.current
-    if (canvas) {
-      const image = canvas.toDataURL('image/jpeg', 1.0) // получить изображение в формате JPEG
-      return image
-      const link = document.createElement('a')
-      link.href = image
-      link.download = 'canvas-image.jpg' // имя загружаемого файла
-      link.click()
-    }
-    return ''
-  }
-
   return (
     <Box
       sx={{
@@ -113,11 +103,15 @@ const Canvas: FC<LobbyCanvasProps> = ({ color, lineWidth }) => {
       }}
       className="canvas-container">
       <canvas
+        id={id}
         ref={canvasRef}
         onMouseDown={startDrawing}
         onMouseMove={handleMouseMove}
         onMouseUp={stopDrawing}
         onMouseLeave={stopDrawing}
+        onSubmit={() => {
+          console.log('===')
+        }}
         className="custom-canvas"
       />
       {/* Элемент для отображения текущего размера кисти */}

@@ -8,22 +8,31 @@ type LobbyView = 'waiting' | 'canvas' | 'hostDrawing' | 'guessing'
 const Lobby: FC = () => {
   // TODO: Сделать HOC, который будет возвращать нужный вью
   const [view, setView] = useState<LobbyView>('canvas')
+  const [image, setImage] = useState<string | null>(null)
 
   const hiddenWord = 'Котик'
   const lobbyId = 0
 
+  const changeCanvasToGuessing = (guessingImage: string) => {
+    // TODO: API запрос отправки сообщения в общий чат
+    // и отлавливания сообщения из чата
+    // и записи его в стейт
+    setImage(guessingImage)
+    setView('guessing')
+  }
+
   const viewMap: Record<LobbyView, ReactNode> = {
-    canvas: <DrawCanvas hiddenWord={hiddenWord} />,
-    hostDrawing: <HostDrawingMessage />,
-    guessing: (
-      <GuessImage
-        src={
-          'https://banner2.cleanpng.com/20190826/fxi/transparent-alligator-crocodilia-crocodile-green-reptile-5d661de9988780.0181618615669734176248.jpg'
-        }
+    canvas: (
+      <DrawCanvas
+        hiddenWord={hiddenWord}
+        onCompleteClick={changeCanvasToGuessing}
       />
     ),
+    hostDrawing: <HostDrawingMessage />,
+    guessing: <GuessImage src={image || ''} />,
     waiting: <></>,
   }
+
   const isChatDisabled = ['hostDrawing', 'canvas'].includes(view)
 
   return (
