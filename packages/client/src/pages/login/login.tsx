@@ -7,9 +7,9 @@ import { handleLogout } from '../../entities/user/lib'
 import { INPUTS_SIGIN } from '../../entities/user/constants'
 
 const Login = () => {
-  useEffect(() => {
-    formValidationSignin()
-  }, [])
+  // useEffect(() => {
+  //   formValidationSignin()
+  // }, [])
 
   const link = {
     route: '/register',
