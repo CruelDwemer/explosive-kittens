@@ -7,6 +7,7 @@ import styles from './styles'
 import { InputData, AuthData } from '../../../entities/user/models'
 import { useForm } from 'react-hook-form'
 import { joiResolver } from '@hookform/resolvers/joi'
+import Joi from 'joi'
 
 type Props = {
   id: string
@@ -14,7 +15,7 @@ type Props = {
   pageName: string
   buttonText: string
   link: Record<string, string>
-  schema: any
+  schema: Joi.ObjectSchema<AuthData>
   handleSubmitData: (data: AuthData) => void
 }
 

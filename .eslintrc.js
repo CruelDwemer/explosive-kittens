@@ -17,4 +17,12 @@ module.exports = {
   rules: {
     '@typescript-eslint/ban-ts-comment': 1,
   },
+  overrides: [
+    { 
+      "files": ["packages/client/src/entities/user/lib/validation.ts"],
+      "rules": { 
+        "no-useless-escape": "off", 
+      }
+    },  
+  ]
 }

@@ -2,16 +2,16 @@ import { FC } from 'react'
 import styles from './styles'
 import { FormControl, FormLabel, TextField } from '@mui/material'
 import { UseFormRegister, FieldErrors, UseFormTrigger } from 'react-hook-form'
-import { LoginData } from '../../../entities/user/models'
+import { AuthData } from '../../../entities/user/models'
 
 type Props = {
   name: string
   type: string
   label: string
   selector: string
-  register: UseFormRegister<LoginData>
-  errors: FieldErrors<LoginData>
-  trigger: UseFormTrigger<LoginData>
+  register: UseFormRegister<AuthData>
+  errors: FieldErrors<AuthData>
+  trigger: UseFormTrigger<AuthData>
 }
 
 const AuthInputElement: FC<Props> = ({
