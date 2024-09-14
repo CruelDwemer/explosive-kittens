@@ -1,5 +1,5 @@
-import { loginUser, logout } from '../api/request'
-// TODO: Переместить в папку entities/user/lib
+import { loginUser, logout, registerUser } from '../api/user-api'
+
 const handleLogin = async (form: HTMLFormElement) => {
   const inputs = form.querySelectorAll('input')
   const data: Record<string, string> = {}
@@ -8,16 +8,12 @@ const handleLogin = async (form: HTMLFormElement) => {
   })
 
   const response = await loginUser(JSON.stringify(data))
-  // const result = await response.json();
   if (response.status === 200) {
     console.log('Вход успешно выполнен.', response)
   }
-  // console.log(result)
 }
-// TODO: Переместить в папку entities/user/lib
 const handleLogout = async () => {
   const response = await logout()
-  // const result = await response.json();
   if (response.status != 200) {
     const result = await response.json()
     console.log('Ошибка: ', result)
@@ -26,4 +22,19 @@ const handleLogout = async () => {
   }
 }
 
-export { handleLogin, handleLogout }
+const handleRegister = async (form: HTMLFormElement) => {
+  const inputs = form.querySelectorAll('input')
+  const data: Record<string, string> = {}
+  inputs.forEach((input: HTMLInputElement) => {
+    data[input.name] = input.value
+  })
+  const response = await registerUser(JSON.stringify(data))
+  const result = await response.json()
+  if (response.status === 200) {
+    console.log('Регистрация успешно выполнена: ', result)
+  } else {
+    console.log('Ошибка регистрации: ', result)
+  }
+}
+
+export { handleLogin, handleLogout, handleRegister }
