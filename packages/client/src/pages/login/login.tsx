@@ -1,16 +1,10 @@
-import { useEffect } from 'react'
 import AuthForm from '../../shared/ui/auth-form/auth-form'
 import { Container, CssBaseline, Box, Button } from '@mui/material'
 import styles from './styles'
-import { formValidationSignin } from '../../entities/user/lib/validation'
 import { handleLogout } from '../../entities/user/lib'
 import { INPUTS_SIGIN } from '../../entities/user/constants'
 
 const Login = () => {
-  useEffect(() => {
-    formValidationSignin()
-  }, [])
-
   const link = {
     route: '/register',
     text: 'Регистрация',

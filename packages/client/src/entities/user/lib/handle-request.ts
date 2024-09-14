@@ -1,12 +1,7 @@
 import { loginUser, logout, registerUser } from '../api/user-api'
+import { LoginData } from '../models/validator-models'
 
-const handleLogin = async (form: HTMLFormElement) => {
-  const inputs = form.querySelectorAll('input')
-  const data: Record<string, string> = {}
-  inputs.forEach((input: HTMLInputElement) => {
-    data[input.name] = input.value
-  })
-
+const handleLogin = async (data: LoginData) => {
   const response = await loginUser(JSON.stringify(data))
   if (response.status === 200) {
     console.log('Вход успешно выполнен.', response)

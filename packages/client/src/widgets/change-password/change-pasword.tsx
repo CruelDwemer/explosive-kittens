@@ -5,11 +5,7 @@ import { changePassword } from '../../entities/user/api'
 import { passwordSchema } from '../../entities/user/lib'
 import Joi from 'joi'
 import { joiResolver } from '@hookform/resolvers/joi'
-
-type FormData = {
-  oldPassword: string
-  newPassword: string
-}
+import { NewPasswordData } from '../../entities/user/models'
 
 const schema = Joi.object({
   oldPassword: passwordSchema,
@@ -22,12 +18,12 @@ const ChangePassword = () => {
     handleSubmit,
     formState: { errors },
     trigger,
-  } = useForm<FormData>({
+  } = useForm<NewPasswordData>({
     resolver: joiResolver(schema),
     mode: 'onBlur',
   })
 
-  const handleSubmitPasswordChange = (data: FormData) => {
+  const handleSubmitPasswordChange = (data: NewPasswordData) => {
     event?.preventDefault()
     changePassword(data)
   }

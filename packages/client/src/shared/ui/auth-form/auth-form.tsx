@@ -1,18 +1,23 @@
 import { AuthInputElement } from '../'
 import { AuthButton } from '../'
-import React, { FC } from 'react'
+import { FC } from 'react'
 import { Link } from 'react-router-dom'
 import { Container, Typography, Box } from '@mui/material'
 import styles from './styles'
+import { InputData, LoginData } from '../../../entities/user/models'
+import { useForm } from 'react-hook-form'
+import Joi from 'joi'
+import { joiResolver } from '@hookform/resolvers/joi'
+import {
+  passwordSchema,
+  loginSchema,
+  handleLogin,
+} from '../../../entities/user/lib'
 
-// TODO: Вынести модель в сущность user
-type InputData = {
-  id: number
-  name: string
-  type: string
-  label: string
-  selector: string
-}
+const schema = Joi.object({
+  login: loginSchema,
+  password: passwordSchema,
+})
 
 type Props = {
   id: string
@@ -22,15 +27,29 @@ type Props = {
   link: Record<string, string>
 }
 
-// TODO: Вынести  в  feature папку - это Фича(действие) над сущностью
 const AuthForm: FC<Props> = ({ inputs, pageName, id, buttonText, link }) => {
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    trigger,
+  } = useForm<LoginData>({
+    resolver: joiResolver(schema),
+    mode: 'onBlur',
+  })
+
+  const handleSubmitLogin = (data: LoginData) => {
+    event?.preventDefault()
+    handleLogin(data)
   }
 
   return (
     <>
-      <Box component="form" id={id} sx={styles.form} onSubmit={handleSubmit}>
+      <Box
+        component="form"
+        id={id}
+        sx={styles.form}
+        onSubmit={handleSubmit(handleSubmitLogin)}>
         <Container disableGutters={true}>
           <Typography variant="h4" component="h1" sx={styles.title}>
             {pageName}
@@ -42,6 +61,9 @@ const AuthForm: FC<Props> = ({ inputs, pageName, id, buttonText, link }) => {
               type={element.type}
               label={element.label}
               selector={element.selector}
+              register={register}
+              errors={errors}
+              trigger={trigger}
             />
           ))}
         </Container>
