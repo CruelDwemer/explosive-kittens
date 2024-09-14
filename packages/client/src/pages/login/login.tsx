@@ -1,14 +1,14 @@
 import { useEffect } from 'react'
 import AuthForm from '../../shared/ui/auth-form/auth-form'
-import { formValidation } from './model/formValidation'
-import { INPUTS } from './model/constants'
 import { Container, CssBaseline, Box, Button } from '@mui/material'
 import styles from './styles'
-import { handleLogout } from './model/handleRequest'
+import { formValidationSignin } from '../../entities/user/lib/validation'
+import { handleLogout } from '../../entities/user/lib'
+import { INPUTS_SIGIN } from '../../entities/user/constants'
 
 const Login = () => {
   useEffect(() => {
-    formValidation()
+    formValidationSignin()
   }, [])
 
   const link = {
@@ -22,7 +22,7 @@ const Login = () => {
       <Container maxWidth="sm" className="box-shadow" sx={styles.container}>
         <AuthForm
           id="auth-form"
-          inputs={INPUTS}
+          inputs={INPUTS_SIGIN}
           pageName="Вход"
           buttonText="Войти"
           link={link}

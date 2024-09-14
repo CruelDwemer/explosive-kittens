@@ -2,24 +2,40 @@ import JustValidate from 'just-validate'
 import {
   loginRules,
   passwordRules,
-  confirmPasswordRule,
   nameRules,
   emailRules,
   phoneRules,
+  confirmPasswordRule,
 } from '../../../shared/constants/validation-rules'
-import { handleRegiser } from './handleRequest'
-// TODO: Переместить в папку entities/user/constants
-const options = {
-  errorLabelStyle: {
-    fontSize: '0.8rem',
-    lineHeight: '1rem',
-    color: 'rgb(184, 50, 50)',
-  },
-  errorLabelCssClass: 'auth-error-label',
+import { options } from '../constants'
+import { handleLogin, handleRegister } from './handle-request'
+
+export const formValidationSignin = () => {
+  const validator = new JustValidate('#auth-form', {
+    focusInvalidField: false,
+    errorsContainer: '.custom-error-container',
+  })
+  validator
+    .addField('#login', loginRules, {
+      ...options,
+      errorsContainer: '.login-error-container',
+    })
+    .addField('#password', passwordRules, {
+      ...options,
+      errorsContainer: '.password-error-container',
+    })
+    .onSuccess(event => {
+      const formEvent = event as FormDataEvent
+      const form = formEvent.target as HTMLFormElement
+      handleLogin(form)
+      console.log('Валидация прошла успешно.')
+    })
+    .onFail(() => {
+      console.log('Валидация завершена с ошибками.')
+    })
 }
 
-// TODO: Переместить в папку entities/user/lib
-const formValidation = () => {
+export const formValidationSignup = () => {
   const validator = new JustValidate('#auth-form', {
     focusInvalidField: false,
     errorsContainer: '.custom-error-container',
@@ -56,12 +72,10 @@ const formValidation = () => {
     .onSuccess(event => {
       const formEvent = event as FormDataEvent
       const form = formEvent.target as HTMLFormElement
-      handleRegiser(form)
+      handleRegister(form)
       console.log('Валидация прошла успешно.', formEvent.target)
     })
     .onFail(() => {
       console.log('Валидация завершена с ошибками.')
     })
 }
-
-export { formValidation }
