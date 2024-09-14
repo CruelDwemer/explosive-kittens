@@ -1,48 +1,63 @@
+import { useForm } from 'react-hook-form'
 import { Box, Button, CardContent, Divider, TextField } from '@mui/material'
-import { useState } from 'react'
-import { changePassword } from '../../entities/user/api'
 import styles from './styles'
+import { changePassword } from '../../entities/user/api'
+import { passwordSchema } from '../../entities/user/lib'
+import Joi from 'joi'
+import { joiResolver } from '@hookform/resolvers/joi'
+
+type FormData = {
+  oldPassword: string
+  newPassword: string
+}
+
+const schema = Joi.object({
+  oldPassword: passwordSchema,
+  newPassword: passwordSchema,
+})
 
 const ChangePassword = () => {
-  const [oldPassword, setOldPassword] = useState('')
-  const [newPassword, setNewPassword] = useState('')
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    trigger,
+  } = useForm<FormData>({
+    resolver: joiResolver(schema),
+    mode: 'onBlur',
+  })
 
-  const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target
-    if (name === 'oldPassword') {
-      setOldPassword(value)
-    } else if (name === 'newPassword') {
-      setNewPassword(value)
-    }
-  }
-
-  const handleSubmitPasswordChange = (event: React.MouseEvent) => {
-    event.preventDefault()
-    changePassword({ oldPassword, newPassword })
-    setNewPassword('')
-    setOldPassword('')
+  const handleSubmitPasswordChange = (data: FormData) => {
+    event?.preventDefault()
+    changePassword(data)
   }
 
   return (
-    <CardContent sx={{ padding: '24px' }}>
+    <CardContent
+      component="form"
+      noValidate
+      onSubmit={handleSubmit(handleSubmitPasswordChange)}
+      sx={{ padding: '24px' }}>
       <Box sx={styles.container}>
         <TextField
-          id="outlined-password-input"
+          id="oldPassword"
           label="Старый пароль"
           type="password"
-          name="oldPassword"
-          value={oldPassword}
-          onChange={handlePasswordChange}
+          {...register('oldPassword')}
+          error={errors.oldPassword ? true : false}
+          helperText={errors.oldPassword?.message}
+          onBlur={() => trigger('oldPassword')}
           sx={styles.input}
         />
 
         <TextField
-          id="outlined-password-input"
+          id="newPassword"
           label="Новый пароль"
           type="password"
-          name="newPassword"
-          value={newPassword}
-          onChange={handlePasswordChange}
+          {...register('newPassword')}
+          error={errors.newPassword ? true : false}
+          helperText={errors.newPassword?.message}
+          onBlur={() => trigger('newPassword')}
           sx={styles.input}
         />
       </Box>
@@ -50,7 +65,7 @@ const ChangePassword = () => {
       <Divider orientation="horizontal" flexItem />
 
       <Box sx={styles.button_container}>
-        <Button variant="contained" onClick={handleSubmitPasswordChange}>
+        <Button type="submit" variant="contained">
           Сохранить
         </Button>
       </Box>

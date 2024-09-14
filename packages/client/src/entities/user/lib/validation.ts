@@ -1,4 +1,6 @@
 import JustValidate from 'just-validate'
+import Joi from 'joi'
+
 import {
   loginRules,
   passwordRules,
@@ -79,3 +81,15 @@ export const formValidationSignup = () => {
       console.log('Валидация завершена с ошибками.')
     })
 }
+
+export const passwordSchema = Joi.string()
+  .min(8)
+  .max(40)
+  .pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W)/)
+  .messages({
+    'string.min': 'Поле должно быть не короче 8 символов',
+    'string.max': 'Поле должно быть не длиннее 40 символов',
+    'string.empty': 'Поле обязательно для заполнения.',
+    'string.pattern.base': 'Поле не валидно',
+  })
+  .required()
