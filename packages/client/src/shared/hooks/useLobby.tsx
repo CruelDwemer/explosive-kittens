@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { LobbyView } from '../../entities/lobby/models'
+// import { randomWord } from '../../entities/lobby/api'
 
 type SendImageFunc = (guessingImage: string) => void
 type StartNewRoundFunc = (guessedUserId: number) => void
@@ -29,8 +30,23 @@ const useLobby: UseLobbyHook = ({ lobbyId, currentUserId }) => {
   })
 
   useEffect(() => {
-    changeWaitingToDrawing(0, 'котик')
+    getDataForNewRound(0, 'котик')
   }, [])
+
+  // TODO: Выкачен нерабочий функционал, временно заморожен
+  //   const getRandomWord = async (): Promise<string> => {
+  //     try {
+  //       const response = await randomWord()
+  //       if (response.ok) {
+  //         const data = await response.json() as {word: {word: string}}
+  //         return data.word.word
+  //       } else {
+  //         throw new Error(`Error fetching word: ${response.status}`)
+  //       }
+  //     } catch (error) {
+  //       throw new Error(`Error fetching word: ${error}`)
+  //     }
+  //   }
 
   const changeCanvasToGuessing: SendImageFunc = guessingImage => {
     // TODO: API запрос отправки картинки в чат
@@ -47,14 +63,14 @@ const useLobby: UseLobbyHook = ({ lobbyId, currentUserId }) => {
 
     // TODO: API запрос отправки id следующего ведущего в общий чат
     setTimeout(() => {
-      changeWaitingToDrawing(1, 'ежик')
+      getDataForNewRound(1, 'ежик')
     }, 3000)
   }
 
-  const changeWaitingToDrawing = (hostId: number, newHiddenWord: string) => {
+  const getDataForNewRound = async (hostId: number, newHiddenWord: string) => {
     // TODO: API запрос отправки id уагавшего в общий чат для того, что бы начислить ему балл
     // TODO: API запрос отправки id следующего ведущего в общий чат
-    // setView('hostDrawing')
+    // const newHiddenWord = await getRandomWord()
     setLobbyData(prev => ({
       ...prev,
       view: currentUserId === hostId ? 'canvas' : 'hostDrawing',

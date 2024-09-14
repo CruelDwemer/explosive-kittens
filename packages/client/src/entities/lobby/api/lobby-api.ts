@@ -55,7 +55,10 @@ export const deleteUserFromChat = (chatId: number, userId: number) => {
 export const randomWord = () => {
   return fetch(`http://free-generator.ru/generator.php?action=word&type=1`, {
     method: 'GET',
-    credentials: 'include',
-    mode: 'cors',
+    // credentials: 'include',
+    // // mode: 'no-cors',
+    // headers: {
+    //   'Access-Control-Allow-Origin': '*'
+    // }
   })
 }

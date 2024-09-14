@@ -8,7 +8,6 @@ import {
 } from '../../entities/lobby/ui'
 import { useLobby } from '../../shared/hooks'
 import { LobbyView } from '../../entities/lobby/models'
-import { randomWord } from '../../entities/lobby/api'
 
 const LOBBY_ID = 0
 const CURRENT_USER_ID = 0
@@ -27,25 +26,6 @@ const Lobby: FC = () => {
     hostDrawing: <HostDrawingMessage />,
     guessing: <GuessImage src={guessImage || ''} />,
     waiting: <SelectHostWaitingMessage />,
-  }
-
-  useEffect(() => {
-    getRandomWord()
-  }, [])
-
-  const getRandomWord = async () => {
-    try {
-      const response = await randomWord()
-      if (response.ok) {
-        const data = await response.json()
-        setHiddenWord(data.word.word)
-      } else {
-        throw new Error(`Error fetching word: ${response.status}`)
-      }
-    } catch (error) {
-      console.error('Error fetching word:', error)
-      throw error
-    }
   }
 
   return (
