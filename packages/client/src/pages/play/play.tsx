@@ -22,7 +22,7 @@ const Play = () => {
   const handleClose = () => setOpen(false)
 
   const handleTimer = () => {
-    navigate('/start')
+    navigate('/lobby')
   }
 
   const handlePlayStart = () => {
