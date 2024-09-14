@@ -1,13 +1,13 @@
-export interface ITopic {
-  title?: string
+export interface Topic {
   id: number
+  text: string
+  comments: Comment[]
+  title?: string
   date?: string
-  content: string
-  comments: IComment[]
 }
 
 // TODO: тут еще скорее всего будет аватарка
-export interface IComment {
+export interface Comment {
   text: string
   user_name: string
   date: string

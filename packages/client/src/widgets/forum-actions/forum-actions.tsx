@@ -1,28 +1,23 @@
 import { Box, Button, Grid2, Pagination, TextField } from '@mui/material'
-import { useState } from 'react'
+import { FC, useState } from 'react'
 import styles from './styles'
-const ForumActions = () => {
-  const [create, setCreate] = useState(false)
+
+const CreateForumTopic: FC = () => {
+  const [isCreate, setIsCreate] = useState(false)
   return (
     <>
       <Grid2 container sx={styles.container}>
         <Box>
-          {create ? (
-            <Button variant="contained" onClick={() => setCreate(!create)}>
-              Закрыть
-            </Button>
-          ) : (
-            <Button variant="contained" onClick={() => setCreate(!create)}>
-              Создать топик
-            </Button>
-          )}
+          <Button variant="contained" onClick={() => setIsCreate(!isCreate)}>
+            {isCreate ? 'Закрыть' : 'Создать топик'}
+          </Button>
         </Box>
 
         <Box>
           <Pagination count={10} color="primary" />
         </Box>
       </Grid2>
-      {create ? (
+      {isCreate && (
         <Box sx={styles.input_container}>
           <TextField
             placeholder="Напишите топик"
@@ -32,9 +27,9 @@ const ForumActions = () => {
           />
           <Button variant="contained">Создать</Button>
         </Box>
-      ) : null}
+      )}
     </>
   )
 }
 
-export default ForumActions
+export default CreateForumTopic

@@ -1,2 +1,2 @@
-import Topic from './topic'
-export default Topic
+import TopicItem from './topic'
+export default TopicItem

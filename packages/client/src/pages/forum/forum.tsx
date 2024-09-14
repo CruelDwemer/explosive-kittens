@@ -6,11 +6,13 @@ import {
   Typography,
 } from '@mui/material'
 import { List } from '@mui/material'
-import { TOPICS } from './model/constants'
+import { TOPICS } from '../../entities/forum/model/constants'
 import ForumActions from '../../widgets/forum-actions'
-import Topic from '../../widgets/topic'
-import { ITopic } from './model/forumData'
-const Forum = () => {
+import TopicItem from '../../widgets/topic'
+import { Topic } from '../../entities/forum/model/forumData'
+import { FC } from 'react'
+
+const Forum: FC = () => {
   // TODO: разобраться со ширино, когда добавляется скроллбар
   return (
     <Container>
@@ -26,8 +28,8 @@ const Forum = () => {
 
         <CardContent>
           <List>
-            {TOPICS.map((topic: ITopic) => (
-              <Topic key={topic.id} data={topic} />
+            {TOPICS.map((topic: Topic) => (
+              <TopicItem key={topic.id} data={topic} />
             ))}
           </List>
         </CardContent>

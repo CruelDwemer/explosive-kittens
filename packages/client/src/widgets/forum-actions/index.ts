@@ -1,2 +1,2 @@
-import ForumActions from './forum-actions'
-export default ForumActions
+import CreateForumTopic from './forum-actions'
+export default CreateForumTopic

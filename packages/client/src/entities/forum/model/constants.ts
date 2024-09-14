@@ -3,8 +3,7 @@ const TOPICS = [
     title: 'Topic 1',
     id: 1,
     date: '2021-01-01',
-    content:
-      'Some textSome textSome textSome textSome textSome textSome textSome textSome textSome textSome textSome textSome textSome textSome textSome textSome textSome textSome textSome textSome textSome textSome textSome textSome textSome textSome textSome textSome textSome textSome textSome textSome textSome textSome textSome textSome text',
+    text: 'Some textSome textSome textSome textSome textSome textSome textSome textSome textSome textSome textSome textSome textSome textSome textSome textSome textSome textSome textSome textSome textSome textSome textSome textSome textSome textSome textSome textSome textSome textSome textSome textSome textSome textSome textSome textSome text',
     comments: [
       {
         text: 'Some text',
@@ -17,7 +16,7 @@ const TOPICS = [
     title: 'Topic 2',
     id: 2,
     date: '2021-01-01',
-    content: 'Some text',
+    text: 'Some text',
     comments: [
       {
         text: 'Some text',
@@ -35,7 +34,7 @@ const TOPICS = [
     title: 'Topic 3',
     id: 3,
     date: '2021-01-01',
-    content: 'Some text',
+    text: 'Some text',
     comments: [
       {
         text: 'Some text',
@@ -48,7 +47,7 @@ const TOPICS = [
     title: 'Topic 4',
     id: 3,
     date: '2021-01-01',
-    content: 'Some text',
+    text: 'Some text',
     comments: [
       {
         text: 'Some text',
@@ -76,8 +75,7 @@ const TOPICS = [
     title: 'Topic 1',
     id: 1,
     date: '2021-01-01',
-    content:
-      'Some textSome textSome textSome textSome textSome textSome textSome textSome textSome textSome textSome textSome textSome textSome textSome textSome textSome textSome textSome textSome textSome textSome textSome textSome textSome textSome textSome textSome textSome textSome textSome textSome textSome textSome textSome textSome text',
+    text: 'Some textSome textSome textSome textSome textSome textSome textSome textSome textSome textSome textSome textSome textSome textSome textSome textSome textSome textSome textSome textSome textSome textSome textSome textSome textSome textSome textSome textSome textSome textSome textSome textSome textSome textSome textSome textSome text',
     comments: [
       {
         text: 'Some text',

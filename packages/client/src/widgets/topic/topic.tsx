@@ -12,12 +12,12 @@ import {
   TextField,
   Typography,
 } from '@mui/material'
-import { IComment, ITopic } from '../../pages/forum/model/forumData'
+import { Comment, Topic } from '../../entities/forum/model/forumData'
 import styles from './styles'
 interface PropsType {
-  data: ITopic
+  data: Topic
 }
-const Topic = ({ data }: PropsType) => {
+const TopicItem = ({ data }: PropsType) => {
   return (
     <Accordion key={data.id} sx={{ padding: 2 }}>
       <AccordionSummary expandIcon={<ExpandMore />}>
@@ -31,7 +31,7 @@ const Topic = ({ data }: PropsType) => {
               {data.title}
             </Typography>
             <Typography component="p" variant="caption">
-              {data.content}
+              {data.text}
             </Typography>
           </Grid2>
 
@@ -45,35 +45,33 @@ const Topic = ({ data }: PropsType) => {
 
       <AccordionDetails>
         <List component="div">
-          {data.comments.map((comment: IComment) => (
-            <Card>
-              <Grid2 container padding={2}>
-                <Grid2 size={1} sx={styles.flex_center}>
-                  <Avatar />
-                </Grid2>
-                <Grid2 size={9}>
-                  <>
-                    <Typography
-                      component="span"
-                      variant="subtitle2"
-                      color={'primary'}>
-                      {comment.user_name}
-                    </Typography>
-                    <Typography component="p" variant="caption">
-                      {comment.text}
-                    </Typography>
-                  </>
-                </Grid2>
-                <Grid2 size={2} sx={styles.flex_center}>
+          {data.comments.map((comment: Comment) => (
+            <Grid2 container padding={2}>
+              <Grid2 size={1} sx={styles.flex_center}>
+                <Avatar />
+              </Grid2>
+              <Grid2 size={9}>
+                <>
                   <Typography
                     component="span"
-                    variant="caption"
+                    variant="subtitle2"
                     color={'primary'}>
-                    {comment.date}
+                    {comment.user_name}
                   </Typography>
-                </Grid2>
+                  <Typography component="p" variant="caption">
+                    {comment.text}
+                  </Typography>
+                </>
               </Grid2>
-            </Card>
+              <Grid2 size={2} sx={styles.flex_center}>
+                <Typography
+                  component="span"
+                  variant="caption"
+                  color={'primary'}>
+                  {comment.date}
+                </Typography>
+              </Grid2>
+            </Grid2>
           ))}
         </List>
         <Box sx={styles.input_container}>
@@ -92,4 +90,4 @@ const Topic = ({ data }: PropsType) => {
   )
 }
 
-export default Topic
+export default TopicItem
