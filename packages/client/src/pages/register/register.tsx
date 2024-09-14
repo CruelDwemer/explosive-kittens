@@ -18,7 +18,7 @@ const Register = () => {
     text: 'Войти',
   }
 
-  const schema = Joi.object({
+  const schema = Joi?.object({
     first_name: nameSchema,
     second_name: nameSchema,
     email: emailSchema,

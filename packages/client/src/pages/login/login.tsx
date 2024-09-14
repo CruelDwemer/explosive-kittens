@@ -16,7 +16,7 @@ const Login = () => {
     text: 'Регистрация',
   }
 
-  const schema = Joi.object({
+  const schema = Joi?.object({
     login: loginSchema,
     password: passwordSchema,
   })
