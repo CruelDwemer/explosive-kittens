@@ -21,7 +21,7 @@ const VisuallyHiddenInput = styled('input')({
 
 const UserAvatar = (props: IUserAvatar) => {
   const [isAvatarChanging, setIsAvatarChanging] = useState(false)
-  const [avatarFormData, setAvatarFormData] = useState<FormData>(new FormData())
+  const [avatarFormData, setAvatarFormData] = useState<FormData | null>(null)
   const { user, setUser } = props
 
   const handleAvatarChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -30,19 +30,27 @@ const UserAvatar = (props: IUserAvatar) => {
       const formData = new FormData()
       formData.append('avatar', file)
       setIsAvatarChanging(true)
-      setUser((prevUser: IUser) => ({
-        ...prevUser,
+      setUser({
         avatar: URL.createObjectURL(file),
-      }))
+      })
       setAvatarFormData(formData)
     }
   }
 
   const handleAvatarUpdate = async () => {
-    const response = await updateAvatar(avatarFormData)
-    const data = await response.json()
-    setUser((prevUser: IUser) => ({ ...prevUser, avatar: data.avatar }))
-    setIsAvatarChanging(false)
+    if (!avatarFormData) return
+    try {
+      const response: Response = await updateAvatar(avatarFormData)
+      if (!response.ok) {
+        throw new Error('Network response was not ok')
+      }
+      const data: { avatar: string } = await response.json()
+      setUser({ avatar: data.avatar })
+    } catch (error) {
+      console.error('Error updating avatar:', error)
+    } finally {
+      setIsAvatarChanging(false)
+    }
   }
 
   return (
