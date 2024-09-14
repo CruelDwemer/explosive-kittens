@@ -26,7 +26,7 @@ export const loginSchema = Joi.string()
 
 export const nameSchema = Joi.string()
   .pattern(/^[A-ZА-Я]/)
-  .pattern(/([A-ZА-Я][a-zа-я\-]+$)/)
+  .pattern(/([A-ZА-Я][a-zа-я]+$)/)
   .messages({
     'string.empty': 'Поле обязательно для заполнения.',
     'string.pattern.base': 'Первая буква должна быть заглавной',
