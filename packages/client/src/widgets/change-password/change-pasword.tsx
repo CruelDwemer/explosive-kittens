@@ -1,4 +1,3 @@
-import { useForm } from 'react-hook-form'
 import { Box, Button, CardContent, Divider, TextField } from '@mui/material'
 import styles from './styles'
 import { changePassword } from '../../entities/user/api'
