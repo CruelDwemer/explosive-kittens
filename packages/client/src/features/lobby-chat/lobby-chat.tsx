@@ -18,14 +18,14 @@ import { testingNewMessages } from '../../entities/chat/utils/test-messages'
 export interface LobbyChatProps {
   lobbyId: number
   hiddenWord?: string
-  isHostDrawing?: boolean
+  isGuessing?: boolean
   onRightGuessWord: (guessedUserId: number) => void
 }
 
 const LobbyChat: FC<LobbyChatProps> = ({
   lobbyId,
   hiddenWord,
-  isHostDrawing = false,
+  isGuessing = false,
   onRightGuessWord,
 }) => {
   const [messages, setMessages] = useState<LobbyChatMessage[]>([])
@@ -40,12 +40,15 @@ const LobbyChat: FC<LobbyChatProps> = ({
 
   // Для тестирования новых сообщений
   const [newMessage, setNewMessage] = useState<LobbyChatMessage>()
-  testingNewMessages(setNewMessage)
+  isGuessing && testingNewMessages(setNewMessage)
   useEffect(() => {
     if (newMessage) {
       setMessages(prev => [...prev, newMessage])
 
-      if (hiddenWord && hiddenWord === newMessage.content) {
+      if (
+        hiddenWord &&
+        hiddenWord.toLowerCase() === newMessage.content.toLowerCase()
+      ) {
         onRightGuessWord(newMessage.userId)
       }
     }
@@ -75,7 +78,7 @@ const LobbyChat: FC<LobbyChatProps> = ({
             })}
         </MessagesContainer>
         <Box sx={styles.inputBox}>
-          <SendChatMessage disabled={isHostDrawing} />
+          <SendChatMessage disabled={!isGuessing} />
         </Box>
       </Paper>
     </Box>

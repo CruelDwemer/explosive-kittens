@@ -9,7 +9,7 @@ export const testingNewMessages = (
       id: Math.random(),
       userId: 66,
       userName: 'Вера',
-      content: 'спам',
+      content: 'котик',
     })
   }, 5000)
 }

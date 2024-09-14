@@ -7,3 +7,5 @@ export interface Player {
   avatar: string | null
   role: string
 }
+
+export type { LobbyView } from './lobby-view'

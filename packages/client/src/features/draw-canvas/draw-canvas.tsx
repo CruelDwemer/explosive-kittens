@@ -27,10 +27,7 @@ const DrawCanvas: FC<DrawCanvasProps> = ({ hiddenWord, onCompleteClick }) => {
       const image = canvas.toDataURL('image/jpeg', 1.0)
       onCompleteClick(image)
       // Для теста и проверки картинки
-      // const link = document.createElement('a')
-      // link.href = image
-      // link.download = `${CANVAS_ID}.jpg` // имя загружаемого файла
-      // link.click()
+      // downloadImage(image,CANVAS_ID)
     }
   }
 
