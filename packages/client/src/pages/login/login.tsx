@@ -1,14 +1,25 @@
 import AuthForm from '../../shared/ui/auth-form/auth-form'
 import { Container, CssBaseline, Box, Button } from '@mui/material'
 import styles from './styles'
-import { handleLogout } from '../../entities/user/lib'
+import {
+  handleLogin,
+  handleLogout,
+  loginSchema,
+  passwordSchema,
+} from '../../entities/user/lib'
 import { INPUTS_SIGIN } from '../../entities/user/constants'
+import Joi from 'joi'
 
 const Login = () => {
   const link = {
     route: '/register',
     text: 'Регистрация',
   }
+
+  const schema = Joi.object({
+    login: loginSchema,
+    password: passwordSchema,
+  })
 
   return (
     <Box sx={styles.page}>
@@ -20,6 +31,8 @@ const Login = () => {
           pageName="Вход"
           buttonText="Войти"
           link={link}
+          schema={schema}
+          handleSubmitData={handleLogin}
         />
       </Container>
       <Button

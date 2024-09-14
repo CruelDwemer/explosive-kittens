@@ -4,20 +4,9 @@ import { FC } from 'react'
 import { Link } from 'react-router-dom'
 import { Container, Typography, Box } from '@mui/material'
 import styles from './styles'
-import { InputData, LoginData } from '../../../entities/user/models'
+import { InputData, AuthData } from '../../../entities/user/models'
 import { useForm } from 'react-hook-form'
-import Joi from 'joi'
 import { joiResolver } from '@hookform/resolvers/joi'
-import {
-  passwordSchema,
-  loginSchema,
-  handleLogin,
-} from '../../../entities/user/lib'
-
-const schema = Joi.object({
-  login: loginSchema,
-  password: passwordSchema,
-})
 
 type Props = {
   id: string
@@ -25,23 +14,28 @@ type Props = {
   pageName: string
   buttonText: string
   link: Record<string, string>
+  schema: any
+  handleSubmitData: (data: AuthData) => void
 }
 
-const AuthForm: FC<Props> = ({ inputs, pageName, id, buttonText, link }) => {
+const AuthForm: FC<Props> = ({
+  inputs,
+  pageName,
+  id,
+  buttonText,
+  link,
+  schema,
+  handleSubmitData,
+}) => {
   const {
     register,
     handleSubmit,
     formState: { errors },
     trigger,
-  } = useForm<LoginData>({
+  } = useForm<AuthData>({
     resolver: joiResolver(schema),
     mode: 'onBlur',
   })
-
-  const handleSubmitLogin = (data: LoginData) => {
-    event?.preventDefault()
-    handleLogin(data)
-  }
 
   return (
     <>
@@ -49,7 +43,7 @@ const AuthForm: FC<Props> = ({ inputs, pageName, id, buttonText, link }) => {
         component="form"
         id={id}
         sx={styles.form}
-        onSubmit={handleSubmit(handleSubmitLogin)}>
+        onSubmit={handleSubmit(handleSubmitData)}>
         <Container disableGutters={true}>
           <Typography variant="h4" component="h1" sx={styles.title}>
             {pageName}

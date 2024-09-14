@@ -1,60 +1,4 @@
-import JustValidate from 'just-validate'
 import Joi from 'joi'
-
-import {
-  passwordRules,
-  nameRules,
-  emailRules,
-  phoneRules,
-  confirmPasswordRule,
-} from '../../../shared/constants/validation-rules'
-import { options } from '../constants'
-import { handleRegister } from './handle-request'
-
-export const formValidationSignup = () => {
-  const validator = new JustValidate('#auth-form', {
-    focusInvalidField: false,
-    errorsContainer: '.custom-error-container',
-  })
-  validator
-    .addField('#first_name', nameRules, {
-      ...options,
-      errorsContainer: `.first_name-error-container`,
-    })
-    .addField('#second_name', nameRules, {
-      ...options,
-      errorsContainer: `.second_name-error-container`,
-    })
-    .addField('#email', emailRules, {
-      ...options,
-      errorsContainer: `.email-error-container`,
-    })
-    .addField('#phone', phoneRules, {
-      ...options,
-      errorsContainer: `.phone-error-container`,
-    })
-    // .addField('#login', loginRules, {
-    //   ...options,
-    //   errorsContainer: `.login-error-container`,
-    // })
-    .addField('#password', passwordRules, {
-      ...options,
-      errorsContainer: `.password-error-container`,
-    })
-    .addField('#confirm_password', confirmPasswordRule, {
-      ...options,
-      errorsContainer: `.confirm_password-error-container`,
-    })
-    .onSuccess(event => {
-      const formEvent = event as FormDataEvent
-      const form = formEvent.target as HTMLFormElement
-      handleRegister(form)
-      console.log('Валидация прошла успешно.', formEvent.target)
-    })
-    .onFail(() => {
-      console.log('Валидация завершена с ошибками.')
-    })
-}
 
 export const passwordSchema = Joi.string()
   .min(8)
@@ -77,5 +21,34 @@ export const loginSchema = Joi.string()
     'string.max': 'Поле "Логин" должно быть не длиннее 20 символов',
     'string.empty': 'Поле "Логин" обязательно для заполнения.',
     'string.pattern.base': 'Поле "Логин" не валидно',
+  })
+  .required()
+
+export const nameSchema = Joi.string()
+  .pattern(/^[A-ZА-Я]/)
+  .pattern(/([A-ZА-Я][a-zа-я\-]+$)/)
+  .messages({
+    'string.empty': 'Поле обязательно для заполнения.',
+    'string.pattern.base': 'Первая буква должна быть заглавной',
+  })
+  .required()
+
+export const emailSchema = Joi.string()
+  .pattern(/([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9_-]+)/)
+  .messages({
+    'string.empty': 'Поле "Email" обязательно для заполнения.',
+    'string.pattern.base': 'Поле Email должен содержать @ и точку после.',
+  })
+  .required()
+
+export const phoneSchema = Joi.string()
+  .min(10)
+  .max(15)
+  .pattern(/^[+]?(?:[0-9]{10}|[0-9]{15})$/)
+  .messages({
+    'string.min': 'Поле "Телефон" должно быть не короче 10 символов',
+    'string.max': 'Поле "Телефон" должно быть не длиннее 15 символов',
+    'string.empty': 'Поле "Телефон" обязательно для заполнения.',
+    'string.pattern.base': 'Телефон "Логин" не валидно',
   })
   .required()

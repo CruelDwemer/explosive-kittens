@@ -3,7 +3,16 @@ export type NewPasswordData = {
   newPassword: string
 }
 
-export type LoginData = {
-  login: string
-  password: string
-}
+export type AuthData =
+  | {
+      login: string
+      password: string
+    }
+  | {
+      first_name: string
+      second_name: string
+      email: string
+      phone: string
+      login: string
+      password: string
+    }
