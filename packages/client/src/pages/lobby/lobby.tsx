@@ -14,11 +14,17 @@ const Lobby: FC = () => {
   const lobbyId = 0
 
   const changeCanvasToGuessing = (guessingImage: string) => {
-    // TODO: API запрос отправки сообщения в общий чат
+    // TODO: API запрос отправки картинки в чат
     // и отлавливания сообщения из чата
     // и записи его в стейт
     setImage(guessingImage)
     setView('guessing')
+  }
+
+  const changeGuessingToWaiting = (guessedUserId: number) => {
+    // TODO: API запрос отправки id уагавшего в общий чат для того, что бы начислить ему балл
+    // TODO: API запрос отправки id следующего ведущего в общий чат
+    setView('waiting')
   }
 
   const viewMap: Record<LobbyView, ReactNode> = {
@@ -38,7 +44,12 @@ const Lobby: FC = () => {
   return (
     <Box sx={styles.page}>
       <Box sx={styles.chatCol}>
-        <LobbyChat lobbyId={lobbyId} isHostDrawing={isChatDisabled} />
+        <LobbyChat
+          lobbyId={lobbyId}
+          hiddenWord={hiddenWord}
+          isHostDrawing={isChatDisabled}
+          onRightGuessWord={changeGuessingToWaiting}
+        />
       </Box>
       <Box sx={styles.canvasCol}>{viewMap[view]}</Box>
     </Box>

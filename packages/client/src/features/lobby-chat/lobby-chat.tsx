@@ -13,13 +13,21 @@ import {
   isLastUserMessage,
 } from '../../entities/chat/utils'
 import { customPaperBlock } from '../../shared/styles'
+import { testingNewMessages } from '../../entities/chat/utils/test-messages'
 
 export interface LobbyChatProps {
   lobbyId: number
+  hiddenWord?: string
   isHostDrawing?: boolean
+  onRightGuessWord: (guessedUserId: number) => void
 }
 
-const LobbyChat: FC<LobbyChatProps> = ({ lobbyId, isHostDrawing = false }) => {
+const LobbyChat: FC<LobbyChatProps> = ({
+  lobbyId,
+  hiddenWord,
+  isHostDrawing = false,
+  onRightGuessWord,
+}) => {
   const [messages, setMessages] = useState<LobbyChatMessage[]>([])
 
   useEffect(() => {
@@ -31,13 +39,17 @@ const LobbyChat: FC<LobbyChatProps> = ({ lobbyId, isHostDrawing = false }) => {
   }, [])
 
   // Для тестирования новых сообщений
-  // const [newMessage, setNewMessage] = useState<LobbyChatMessage>()
-  // testingNewMessages(setNewMessage)
-  // useEffect(() => {
-  //   if (newMessage){
-  //     setMessages((prev) => [...prev, newMessage])
-  //   }
-  // }, [newMessage])
+  const [newMessage, setNewMessage] = useState<LobbyChatMessage>()
+  testingNewMessages(setNewMessage)
+  useEffect(() => {
+    if (newMessage) {
+      setMessages(prev => [...prev, newMessage])
+
+      if (hiddenWord && hiddenWord === newMessage.content) {
+        onRightGuessWord(newMessage.userId)
+      }
+    }
+  }, [newMessage])
 
   return (
     <Box sx={styles.wrapper}>
