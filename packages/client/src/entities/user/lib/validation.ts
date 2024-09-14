@@ -1,6 +1,6 @@
 import Joi from 'joi'
 
-export const passwordSchema = Joi.string()
+export const passwordSchema = Joi?.string()
   .min(8)
   .max(40)
   .pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W)/)
@@ -12,7 +12,7 @@ export const passwordSchema = Joi.string()
   })
   .required()
 
-export const loginSchema = Joi.string()
+export const loginSchema = Joi?.string()
   .min(3)
   .max(20)
   .pattern(/^[a-z0-9_-]/)
@@ -24,7 +24,7 @@ export const loginSchema = Joi.string()
   })
   .required()
 
-export const nameSchema = Joi.string()
+export const nameSchema = Joi?.string()
   .pattern(/^[A-ZА-Я]/)
   .pattern(/([A-ZА-Я][a-zа-я]+$)/)
   .messages({
@@ -33,7 +33,7 @@ export const nameSchema = Joi.string()
   })
   .required()
 
-export const emailSchema = Joi.string()
+export const emailSchema = Joi?.string()
   .pattern(/([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9_-]+)/)
   .messages({
     'string.empty': 'Поле "Email" обязательно для заполнения.',
@@ -41,7 +41,7 @@ export const emailSchema = Joi.string()
   })
   .required()
 
-export const phoneSchema = Joi.string()
+export const phoneSchema = Joi?.string()
   .min(10)
   .max(15)
   .pattern(/^[+]?(?:[0-9]{10}|[0-9]{15})$/)
