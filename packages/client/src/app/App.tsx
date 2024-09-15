@@ -1,8 +1,17 @@
 import './App.css'
 import { createBrowserRouter, RouterProvider, Link } from 'react-router-dom'
-import { Login, Play, Register, Finish, LeaderBoard, Lobby } from '../pages'
+import {
+  Login,
+  Play,
+  Register,
+  Finish,
+  LeaderBoard,
+  Lobby,
+  User,
+} from '../pages'
 import Fullscreen from '../widgets/fullscreen/fullscreen'
 
+// TODO: Возможно добавить lazy загрузку
 const router = createBrowserRouter([
   {
     path: '/',
@@ -43,6 +52,10 @@ const router = createBrowserRouter([
   {
     path: '/lobby',
     element: <Lobby />,
+  },
+  {
+    path: '/user',
+    element: <User />,
   },
 ])
 
