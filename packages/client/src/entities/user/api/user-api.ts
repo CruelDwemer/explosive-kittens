@@ -1,5 +1,40 @@
 import { BASE_URL } from '../../../shared/constants/api'
 
+export const loginUser = (data: string) => {
+  return fetch(`${BASE_URL}/auth/signin`, {
+    method: 'POST',
+    mode: 'cors',
+    credentials: 'include',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: data,
+  })
+}
+
+export const logout = () => {
+  return fetch(`${BASE_URL}/auth/logout`, {
+    method: 'POST',
+    mode: 'cors',
+    credentials: 'include',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+}
+
+export const registerUser = (data: string) => {
+  return fetch(`${BASE_URL}/auth/signup`, {
+    method: 'POST',
+    mode: 'cors',
+    credentials: 'include',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: data,
+  })
+}
+
 export const userSearch = (login: string) => {
   return fetch(`${BASE_URL}/user/search`, {
     method: 'POST',
@@ -13,6 +48,7 @@ export const userSearch = (login: string) => {
     }),
   })
 }
+
 export const getUserInfo = async () => {
   const response = await fetch(`${BASE_URL}/auth/user`, {
     method: 'GET',
