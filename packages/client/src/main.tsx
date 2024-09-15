@@ -4,7 +4,9 @@ import './index.css'
 
 if ('serviceWorker' in navigator) {
   try {
-    const registration = await navigator.serviceWorker.register('/src/sw.js')
+    const registration = await navigator.serviceWorker.register('./sw.ts', {
+      scope: './',
+    })
     if (registration.installing) {
       console.log('Service worker installing')
     } else if (registration.waiting) {
