@@ -1,6 +1,14 @@
 import './App.css'
 import { createBrowserRouter, RouterProvider, Link } from 'react-router-dom'
-import { Login, Play, Register, Finish, Lobby, User } from '../pages'
+import {
+  Login,
+  Play,
+  Register,
+  Finish,
+  LeaderBoard,
+  Lobby,
+  User,
+} from '../pages'
 import Fullscreen from '../widgets/fullscreen/fullscreen'
 
 // TODO: Возможно добавить lazy загрузку
@@ -16,6 +24,8 @@ const router = createBrowserRouter([
         <Link to="/play">Play</Link>
         <br />
         <Link to="/finish">Finish</Link>
+        <br />
+        <Link to="/leader-board">Leaderboard</Link>
       </div>
     ),
   },
@@ -34,6 +44,10 @@ const router = createBrowserRouter([
   {
     path: '/finish',
     element: <Finish />,
+  },
+  {
+    path: '/leader-board',
+    element: <LeaderBoard />,
   },
   {
     path: '/lobby',

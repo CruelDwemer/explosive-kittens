@@ -4,8 +4,10 @@
 // export {CreateLobbyBlock} from './create-lobby-block'
 
 import AddPlayer from './add-player/add-player'
-export { AddPlayer }
+import { default as LeaderBoardTable } from './leader-board-table'
 import UserAvatar from './avatar/avatar'
 import ChangePassword from './change-password/change-pasword'
 import RecordsTable from './records-table/records-table'
+
+export { AddPlayer, LeaderBoardTable }
 export default { UserAvatar, ChangePassword, RecordsTable }
