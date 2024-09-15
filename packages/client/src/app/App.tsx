@@ -8,10 +8,12 @@ import {
   Lobby,
   User,
   TestErrorBoundary,
+  LeaderBoard,
 } from '../pages'
 import Fullscreen from '../widgets/fullscreen/fullscreen'
 import { ErrorBoundary } from '../features'
 
+// TODO: Возможно добавить lazy загрузку
 const router = createBrowserRouter([
   {
     path: '/',
@@ -26,6 +28,8 @@ const router = createBrowserRouter([
         <Link to="/finish">Finish</Link>
         <br />
         <Link to="/test-error">Test Error Boundary</Link>
+        <br />
+        <Link to="/leader-board">Leaderboard</Link>
       </div>
     ),
   },
@@ -48,6 +52,10 @@ const router = createBrowserRouter([
   {
     path: '/test-error',
     element: <TestErrorBoundary />,
+  },
+  {
+    path: '/leader-board',
+    element: <LeaderBoard />,
   },
   {
     path: '/lobby',
