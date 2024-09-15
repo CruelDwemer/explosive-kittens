@@ -9,6 +9,8 @@ import {
   User,
   TestErrorBoundary,
   LeaderBoard,
+  Error400,
+  Error500,
 } from '../pages'
 import Fullscreen from '../widgets/fullscreen/fullscreen'
 import { ErrorBoundary } from '../features'
@@ -22,6 +24,10 @@ const router = createBrowserRouter([
         <Link to="/login">Login</Link>
         <br />
         <Link to="/register">Register</Link>
+        <br />
+        <Link to="/400">Error 400</Link>
+        <br />
+        <Link to="/500">Error 500</Link>
         <br />
         <Link to="/play">Play</Link>
         <br />
@@ -40,6 +46,14 @@ const router = createBrowserRouter([
   {
     path: '/register',
     element: <Register />,
+  },
+  {
+    path: '/400',
+    element: <Error400 />,
+  },
+  {
+    path: '/500',
+    element: <Error500 />,
   },
   {
     path: '/play',
