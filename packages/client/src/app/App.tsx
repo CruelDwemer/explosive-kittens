@@ -1,8 +1,21 @@
 import './App.css'
 import { createBrowserRouter, RouterProvider, Link } from 'react-router-dom'
-import { Login, Register, Error400, Error500, Play, Finish } from '../pages'
+import {
+  Login,
+  Play,
+  Register,
+  Finish,
+  Lobby,
+  User,
+  TestErrorBoundary,
+  LeaderBoard,
+  Error400,
+  Error500,
+} from '../pages'
 import Fullscreen from '../widgets/fullscreen/fullscreen'
+import { ErrorBoundary } from '../features'
 
+// TODO: Возможно добавить lazy загрузку
 const router = createBrowserRouter([
   {
     path: '/',
@@ -19,6 +32,10 @@ const router = createBrowserRouter([
         <Link to="/play">Play</Link>
         <br />
         <Link to="/finish">Finish</Link>
+        <br />
+        <Link to="/test-error">Test Error Boundary</Link>
+        <br />
+        <Link to="/leader-board">Leaderboard</Link>
       </div>
     ),
   },
@@ -46,6 +63,22 @@ const router = createBrowserRouter([
     path: '/finish',
     element: <Finish />,
   },
+  {
+    path: '/test-error',
+    element: <TestErrorBoundary />,
+  },
+  {
+    path: '/leader-board',
+    element: <LeaderBoard />,
+  },
+  {
+    path: '/lobby',
+    element: <Lobby />,
+  },
+  {
+    path: '/user',
+    element: <User />,
+  },
 ])
 
 function App() {
@@ -60,13 +93,13 @@ function App() {
   //   fetchServerData()
   // }, [])
   return (
-    <div>
+    <ErrorBoundary>
       <div className="App" style={{ display: 'none', position: 'absolute' }}>
         Вот тут будет жить ваше приложение :)
       </div>
       <Fullscreen />
       <RouterProvider router={router} />
-    </div>
+    </ErrorBoundary>
   )
 }
 
