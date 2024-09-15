@@ -1,69 +1,47 @@
-self.addEventListener('install', (event) => {
-  console.log('installed', event)
-  // event.waitUntil(
-  //   addResourcesToCache([
-  //     '/sw-test/',
-  //     '/sw-test/index.html',
-  //     '/sw-test/style.css',
-  //     '/sw-test/app.js',
-  //     '/sw-test/image-list.js',
-  //     '/sw-test/star-wars-logo.jpg',
-  //     '/sw-test/gallery/bountyHunters.jpg',
-  //     '/sw-test/gallery/myLittleVader.jpg',
-  //     '/sw-test/gallery/snowTroopers.jpg',
-  //   ])
-  // );
+const CACHE_NAME = 'cache_v1';
+
+self.addEventListener('install', event => {
+  console.log("install", event)
+  event.waitUntil(
+    (async () => {
+      const c = await caches.open(CACHE_NAME);
+      console.log("caches", c)
+      console.log("caches", await c.keys())
+      // активирует Service Worker минуя фазу ожидания активации
+      await self.skipWaiting();
+    })()
+  );
 });
 
-const putInCache = async (request, response) => {
-  const cache = await caches.open('v1');
-  await cache.put(request, response);
-};
+self.addEventListener('activate', (event) => {
+  console.log("activate", event)
+  // с помощью self.clients.claim() можно начать перехватывать запросы не ожидая перезагрузки страницы, работает в паре с self.skipWaiting()
+  event.waitUntil(self.clients.claim());
+});
 
-const cacheFirst = async ({ request, preloadResponsePromise }) => {
-  // First try to get the resource from the cache
-  const responseFromCache = await caches.match(request);
-  if (responseFromCache) {
-    return responseFromCache;
-  }
-
-  // Next try to use the preloaded response, if it's there
-  const preloadResponse = await preloadResponsePromise;
-  if (preloadResponse) {
-    console.info('using preload response', preloadResponse);
-    await putInCache(request, preloadResponse.clone());
-    return preloadResponse;
-  }
-
-  // Next try to get the resource from the network
-  try {
-    const responseFromNetwork = await fetch(request);
-    // response may be used only once
-    // we need to save clone to put one copy in cache
-    // and serve second one
-    await putInCache(request, responseFromNetwork.clone());
-    return responseFromNetwork;
-  } catch (error) {
-    // const fallbackResponse = await caches.match(fallbackUrl);
-    // if (fallbackResponse) {
-    //   return fallbackResponse;
-    // }
-    // when even the fallback response is not available,
-    // there is nothing we can do, but we must always
-    // return a Response object
-    return new Response('Network error happened', {
-      status: 408,
-      headers: { 'Content-Type': 'text/plain' },
-    });
-  }
-};
-
-self.addEventListener('fetch', (event) => {
+self.addEventListener('fetch', event => {
   console.log('fetch event', event)
   event.respondWith(
-    cacheFirst({
-      request: event.request,
-      preloadResponsePromise: event.preloadResponse
-    })
+    (async () => {
+      try {
+        // Пытаемся получить данные с помощью запроса
+        const response = await fetch(event.request);
+
+        // Если запрос прошел успешно, обновляем кэш
+        const cache = await caches.open(CACHE_NAME);
+        await cache.put(event.request, response.clone());
+
+        return response;
+      } catch (error) {
+        // Если запрос упал с ошибкой, находим нужный нам кэш и возвращаем его
+        const cachedResponse = await caches.match(event.request);
+        // Если закэшированный ресурс есть, то возвращаем его
+        if (cachedResponse) {
+          return cachedResponse;
+        }
+        // Если кэша нету, возвращаем страницу fallback.html или какое-то кастомное сообщение об этом, тут уже на ваше усмотрение
+        return await caches.match('fallback.html');
+      }
+    })()
   );
 });
