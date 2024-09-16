@@ -1,44 +1,44 @@
-import { FC, useEffect, useState } from 'react'
-import { DrawCanvas } from '../../features'
+import { FC, ReactNode } from 'react'
+import { DrawCanvas, GuessImage, LobbyChat } from '../../features'
 import { Box } from '@mui/material'
 import styles from './styles'
-import { randomWord } from '../../entities/lobby/api'
+import {
+  HostDrawingMessage,
+  SelectHostWaitingMessage,
+} from '../../entities/lobby/ui'
+import { useLobby } from '../../shared/hooks'
+import { LobbyView } from '../../entities/lobby/models'
+
+const LOBBY_ID = 0
+const CURRENT_USER_ID = 0
 
 const Lobby: FC = () => {
-  // Mock для отрисовки
-  const isCurrentUserLeader = true
+  const { id, view, guessImage, hiddenWord, sendImage, startNewRound } =
+    useLobby({
+      lobbyId: LOBBY_ID,
+      currentUserId: CURRENT_USER_ID,
+    })
 
-  const [hiddenWord, setHiddenWord] = useState('')
-
-  useEffect(() => {
-    getRandomWord()
-  }, [])
-
-  const getRandomWord = async () => {
-    try {
-      const response = await randomWord()
-      if (response.ok) {
-        const data = await response.json()
-        setHiddenWord(data.word.word)
-      } else {
-        throw new Error(`Error fetching word: ${response.status}`)
-      }
-    } catch (error) {
-      console.error('Error fetching word:', error)
-      throw error
-    }
+  const viewMap: Record<LobbyView, ReactNode> = {
+    canvas: (
+      <DrawCanvas hiddenWord={hiddenWord || ''} onCompleteClick={sendImage} />
+    ),
+    hostDrawing: <HostDrawingMessage />,
+    guessing: <GuessImage src={guessImage || ''} />,
+    waiting: <SelectHostWaitingMessage />,
   }
 
   return (
     <Box sx={styles.page}>
-      <Box sx={styles.chatCol}>чатик</Box>
-      <Box sx={styles.canvasCol}>
-        {isCurrentUserLeader && hiddenWord ? (
-          <DrawCanvas hiddenWord={hiddenWord} />
-        ) : (
-          <>Ведущий рисует...</>
-        )}
+      <Box sx={styles.chatCol}>
+        <LobbyChat
+          lobbyId={id}
+          hiddenWord={hiddenWord || ''}
+          isGuessing={view === 'guessing'}
+          onRightGuessWord={startNewRound}
+        />
       </Box>
+      <Box sx={styles.canvasCol}>{viewMap[view]}</Box>
     </Box>
   )
 }

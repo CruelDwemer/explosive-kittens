@@ -1,19 +1,27 @@
 import { FC, useEffect, useRef, useState } from 'react'
 import './styles.css'
+import { Box } from '@mui/material'
 
 interface LobbyCanvasProps {
+  id: string
   color: string
   lineWidth: number
 }
 
-const Canvas: FC<LobbyCanvasProps> = ({ color, lineWidth }) => {
+const Canvas: FC<LobbyCanvasProps> = ({ id, color, lineWidth }) => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null)
   const contextRef = useRef<CanvasRenderingContext2D | null>(null)
 
   const [isDrawing, setIsDrawing] = useState<boolean>(false)
+  const [cursorPos, setCursorPos] = useState<{ x: number; y: number }>({
+    x: 0,
+    y: 0,
+  })
 
   // Инициализация canvas при первом рендере
+  // getImage(saveAsJPEG)
   useEffect(() => {
+    // getImage(saveAsJPEG)
     const canvas = canvasRef.current
     if (canvas) {
       const { clientHeight, clientWidth } = canvas
@@ -23,9 +31,12 @@ const Canvas: FC<LobbyCanvasProps> = ({ color, lineWidth }) => {
 
       const ctx = canvas.getContext('2d')
       if (ctx) {
-        ctx.scale(2, 2) // для ретина-дисплеев
+        ctx.scale(2, 2)
         ctx.lineCap = 'round'
         contextRef.current = ctx
+
+        ctx.fillStyle = 'white'
+        ctx.fillRect(0, 0, canvas.width, canvas.height)
       }
     }
   }, [])
@@ -75,15 +86,46 @@ const Canvas: FC<LobbyCanvasProps> = ({ color, lineWidth }) => {
     }
   }
 
+  // Обработка движения мыши для отображения кисти
+  const handleMouseMove = (event: React.MouseEvent<HTMLCanvasElement>) => {
+    const { offsetX, offsetY } = event.nativeEvent
+    setCursorPos({ x: offsetX, y: offsetY })
+    if (isDrawing) {
+      draw(event)
+    }
+  }
+
   return (
-    <canvas
-      ref={canvasRef}
-      onMouseDown={startDrawing}
-      onMouseMove={draw}
-      onMouseUp={stopDrawing}
-      onMouseLeave={stopDrawing}
-      className="custom-canvas"
-    />
+    <Box
+      sx={{
+        height: '100%',
+        position: 'relative',
+      }}
+      className="canvas-container">
+      <canvas
+        id={id}
+        ref={canvasRef}
+        onMouseDown={startDrawing}
+        onMouseMove={handleMouseMove}
+        onMouseUp={stopDrawing}
+        onMouseLeave={stopDrawing}
+        onSubmit={() => {
+          console.log('===')
+        }}
+        className="custom-canvas"
+      />
+      {/* Элемент для отображения текущего размера кисти */}
+      <div
+        className="custom-canvas-cursor"
+        style={{
+          top: cursorPos.y - lineWidth / 7,
+          left: cursorPos.x - lineWidth / 7,
+          width: lineWidth,
+          height: lineWidth,
+          backgroundColor: color,
+        }}
+      />
+    </Box>
   )
 }
 

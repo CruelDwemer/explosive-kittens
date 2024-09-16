@@ -14,6 +14,6 @@ const styles = {
     justifyContent: 'flex-end',
     padding: '16px 0',
   },
-} as const
+}
 
 export default styles

@@ -11,6 +11,8 @@ const styles = {
       padding: '0',
       outline: '0',
       cursor: 'pointer',
+      border: '1px solid black',
+      borderRadius: '50%',
     },
     'input[type="color"]::-webkit-color-swatch-wrapper': {
       padding: 0,

@@ -7,11 +7,14 @@ const styles = {
     boxSizing: 'border-box',
   },
   chatCol: {
+    maxWidth: '30%',
     flexBasis: '30%',
+    padding: '12px',
   },
   canvasCol: {
     flexBasis: '70%',
     padding: '12px',
+    boxSizing: 'border-box',
   },
 }
 

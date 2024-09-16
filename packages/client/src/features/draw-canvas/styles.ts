@@ -1,18 +1,10 @@
 const styles = {
   wrapper: {
-    // TODO[1]: Используется на странице login, поэтому стоит вынести как отдельную переменную\theme mui
     maxHeight: '100vh',
     display: 'flex',
     flexDirection: 'column',
     gap: '12px',
     height: '100%',
-  },
-  paper: {
-    padding: '8px',
-    flexGrow: 0,
-    height: '100%',
-    position: 'relative',
-    boxShadow: 'rgba(100, 100, 111, 0.2) 0px 7px 29px 0px',
   },
   wordBlock: {
     flexBasis: '5%',
