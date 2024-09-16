@@ -1,19 +1,31 @@
-import { useEffect } from 'react'
 import AuthForm from '../../shared/ui/auth-form/auth-form'
 import { Container, CssBaseline, Box } from '@mui/material'
 import styles from './styles'
 import { INPUTS_SIGUP } from '../../entities/user/constants'
-import { formValidationSignup } from '../../entities/user/lib'
+import Joi from 'joi'
+import {
+  handleRegisterQuery,
+  loginSchema,
+  nameSchema,
+  emailSchema,
+  passwordSchema,
+  phoneSchema,
+} from '../../entities/user/lib'
 
 const Register = () => {
-  useEffect(() => {
-    formValidationSignup()
-  }, [])
-
   const link = {
     route: '/login',
     text: 'Войти',
   }
+
+  const schema = Joi?.object({
+    first_name: nameSchema,
+    second_name: nameSchema,
+    email: emailSchema,
+    phone: phoneSchema,
+    login: loginSchema,
+    password: passwordSchema,
+  })
 
   return (
     <Box sx={styles.page}>
@@ -25,6 +37,8 @@ const Register = () => {
           pageName="Регистрация"
           buttonText="Зарегистрироваться"
           link={link}
+          schema={schema}
+          handleSubmitData={handleRegisterQuery}
         />
       </Container>
     </Box>
