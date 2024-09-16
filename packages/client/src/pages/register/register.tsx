@@ -4,7 +4,7 @@ import styles from './styles'
 import { INPUTS_SIGUP } from '../../entities/user/constants'
 import Joi from 'joi'
 import {
-  handleRegister,
+  handleRegisterQuery,
   loginSchema,
   nameSchema,
   emailSchema,
@@ -38,7 +38,7 @@ const Register = () => {
           buttonText="Зарегистрироваться"
           link={link}
           schema={schema}
-          handleSubmitData={handleRegister}
+          handleSubmitData={handleRegisterQuery}
         />
       </Container>
     </Box>

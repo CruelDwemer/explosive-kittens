@@ -2,7 +2,7 @@ import AuthForm from '../../shared/ui/auth-form/auth-form'
 import { Container, CssBaseline, Box, Button } from '@mui/material'
 import styles from './styles'
 import {
-  handleLogin,
+  handleLoginQuery,
   handleLogout,
   loginSchema,
   passwordSchema,
@@ -32,7 +32,7 @@ const Login = () => {
           buttonText="Войти"
           link={link}
           schema={schema}
-          handleSubmitData={handleLogin}
+          handleSubmitData={handleLoginQuery}
         />
       </Container>
       <Button
