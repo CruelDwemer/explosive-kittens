@@ -4,5 +4,9 @@ import Play from './play/play'
 import Register from './register/register'
 import LeaderBoard from './leader-board'
 import User from './user/user'
+import Error400 from './error400'
+import Error500 from './error500'
+
+export { default as TestErrorBoundary } from './test-error-boundary'
 export { Lobby } from './lobby/'
-export { Login, Register, Play, Finish, LeaderBoard, User }
+export { Login, Register, Play, Finish, LeaderBoard, User, Error500, Error400 }

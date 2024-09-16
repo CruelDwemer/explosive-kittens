@@ -5,11 +5,15 @@ import {
   Play,
   Register,
   Finish,
-  LeaderBoard,
   Lobby,
   User,
+  TestErrorBoundary,
+  LeaderBoard,
+  Error400,
+  Error500,
 } from '../pages'
 import Fullscreen from '../widgets/fullscreen/fullscreen'
+import { ErrorBoundary } from '../features'
 
 // TODO: Возможно добавить lazy загрузку
 const router = createBrowserRouter([
@@ -21,9 +25,15 @@ const router = createBrowserRouter([
         <br />
         <Link to="/register">Register</Link>
         <br />
+        <Link to="/400">Error 400</Link>
+        <br />
+        <Link to="/500">Error 500</Link>
+        <br />
         <Link to="/play">Play</Link>
         <br />
         <Link to="/finish">Finish</Link>
+        <br />
+        <Link to="/test-error">Test Error Boundary</Link>
         <br />
         <Link to="/leader-board">Leaderboard</Link>
       </div>
@@ -38,12 +48,24 @@ const router = createBrowserRouter([
     element: <Register />,
   },
   {
+    path: '/400',
+    element: <Error400 />,
+  },
+  {
+    path: '/500',
+    element: <Error500 />,
+  },
+  {
     path: '/play',
     element: <Play />,
   },
   {
     path: '/finish',
     element: <Finish />,
+  },
+  {
+    path: '/test-error',
+    element: <TestErrorBoundary />,
   },
   {
     path: '/leader-board',
@@ -71,13 +93,13 @@ function App() {
   //   fetchServerData()
   // }, [])
   return (
-    <>
+    <ErrorBoundary>
       <div className="App" style={{ display: 'none', position: 'absolute' }}>
         Вот тут будет жить ваше приложение :)
       </div>
       <Fullscreen />
       <RouterProvider router={router} />
-    </>
+    </ErrorBoundary>
   )
 }
 
