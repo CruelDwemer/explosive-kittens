@@ -5,8 +5,11 @@ import { LOGIN_INPUTS } from '../../entities/user/constants'
 import { Container, CssBaseline, Box, Button } from '@mui/material'
 import styles from './styles'
 import { logoutUser } from '../../entities/user/lib'
+import { useCheckAuth } from '../../entities/user/lib'
 
 const Login = () => {
+  useCheckAuth()
+
   useEffect(() => {
     loginFormValidation()
   }, [])
