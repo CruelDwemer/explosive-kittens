@@ -15,7 +15,7 @@ const handleLoginQuery = async (data: AuthData, dispatch: AppDispatch) => {
     if (response.status === 200) {
       console.log('Вход успешно выполнен.')
       saveToStore(dispatch)
-      // window.location.href = '/play'
+      window.location.href = '/play'
     } else {
       const message = await response.json()
       console.log('Ошибка входа: ', message)

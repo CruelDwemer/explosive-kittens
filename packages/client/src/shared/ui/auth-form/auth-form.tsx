@@ -45,7 +45,7 @@ const AuthForm: FC<Props> = ({
 
   // проверка срабатывания dispatch в redux store
   useEffect(() => {
-    function checkStoreChange() {
+    const checkStoreChange = () => {
       const change = store.getState()
       console.log('Хранилище Redux: ', change.user.userData)
     }
