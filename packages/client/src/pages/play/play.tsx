@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { FC, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import styles from './styles'
 
@@ -14,19 +14,27 @@ import {
 import { AddPlayer } from '../../widgets'
 import { CountdownTimer } from '../../features'
 
-const Play = () => {
-  const [showCountdown, setShowCountdown] = React.useState(false)
-  const [open, setOpen] = React.useState(false)
+// TODO: Заменить на ID чата
+const Play: FC = () => {
+  const [lobbyId, setLobbyId] = useState<number | null>(null)
+  const [showCountdown, setShowCountdown] = useState(false)
+  const [open, setOpen] = useState(false)
   const navigate = useNavigate()
 
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
 
   const handleTimer = () => {
-    navigate('/lobby')
+    if (lobbyId) {
+      navigate(`/lobby/${lobbyId}`)
+    } else {
+      alert('Не получилось перейти в лобби')
+    }
   }
 
-  const handlePlayStart = () => {
+  const handlePlayStart = (lobbyId: number) => {
+    handleClose()
+    setLobbyId(lobbyId)
     setShowCountdown(true)
   }
 
@@ -72,8 +80,8 @@ const Play = () => {
       {showCountdown && <CountdownTimer onEnd={handleTimer} />}
       <AddPlayer
         open={open}
-        handleClose={handleClose}
-        handlePlayStart={handlePlayStart}
+        onClose={handleClose}
+        onPlayStart={handlePlayStart}
       />
     </Box>
   )

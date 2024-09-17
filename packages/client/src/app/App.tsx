@@ -57,7 +57,7 @@ const router = createBrowserRouter([
         element: <LeaderBoard />,
       },
       {
-        path: '/lobby',
+        path: '/lobby/:id',
         element: <Lobby />,
       },
       {
@@ -69,6 +69,30 @@ const router = createBrowserRouter([
         element: <Forum />,
       },
     ],
+  },
+  {
+    path: '/login',
+    element: <Login />,
+  },
+  {
+    path: '/register',
+    element: <Register />,
+  },
+  {
+    path: '/400',
+    element: <Error400 />,
+  },
+  {
+    path: '/500',
+    element: <Error500 />,
+  },
+  {
+    path: '/test-error',
+    element: <TestErrorBoundary />,
+  },
+  {
+    path: '*',
+    element: <Error400 />,
   },
 ])
 

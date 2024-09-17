@@ -11,6 +11,7 @@ type UseLobbyHook = (data: { lobbyId: number; currentUserId: number }) => {
   hiddenWord: string | null
   sendImage: SendImageFunc
   startNewRound: StartNewRoundFunc
+  close: VoidFunction
 }
 type UseLobbyHookState = {
   id: number
@@ -81,6 +82,11 @@ const useLobby: UseLobbyHook = ({ lobbyId, currentUserId }) => {
     }))
   }
 
+  const deleteLobby = () => {
+    // TODO: Запрос на удаление всех пользователей из лобби
+    // TODO: Запрос на удаление лобби
+  }
+
   return {
     id: lobbyId,
     view: lobbyData.view,
@@ -88,6 +94,7 @@ const useLobby: UseLobbyHook = ({ lobbyId, currentUserId }) => {
     hiddenWord: lobbyData.hiddenWord,
     sendImage: changeCanvasToGuessing,
     startNewRound: changeGuessingToWaiting,
+    close: deleteLobby,
   }
 }
 
