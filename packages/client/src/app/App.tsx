@@ -37,7 +37,7 @@ const router = createBrowserRouter([
         element: <LeaderBoard />,
       },
       {
-        path: '/lobby',
+        path: '/lobby/:id',
         element: <Lobby />,
       },
       {
@@ -69,6 +69,10 @@ const router = createBrowserRouter([
   {
     path: '/test-error',
     element: <TestErrorBoundary />,
+  },
+  {
+    path: '*',
+    element: <Error400 />,
   },
 ])
 

@@ -6,7 +6,7 @@ import {
   MessageBubble,
   SendChatMessage,
 } from '../../entities/chat/ui'
-import { testData } from '../../entities/chat/constants'
+// import { testData } from '../../entities/chat/constants'
 import { LobbyChatMessage } from '../../entities/chat/models'
 import {
   isFirstUserMessage,
@@ -33,7 +33,7 @@ const LobbyChat: FC<LobbyChatProps> = ({
   useEffect(() => {
     // TODO: Запрос на получение сообщений
     const getOldMessages = (lobbyId: number) => {
-      setMessages(testData)
+      setMessages([])
     }
     getOldMessages(lobbyId)
   }, [])
@@ -42,13 +42,20 @@ const LobbyChat: FC<LobbyChatProps> = ({
   const [newMessage, setNewMessage] = useState<LobbyChatMessage>()
   isGuessing && testingNewMessages(setNewMessage)
   useEffect(() => {
-    if (newMessage) {
+    if (newMessage && isGuessing) {
       setMessages(prev => [...prev, newMessage])
-
       if (
         hiddenWord &&
         hiddenWord.toLowerCase() === newMessage.content.toLowerCase()
       ) {
+        const techMessage: LobbyChatMessage = {
+          id: newMessage.id,
+          date: new Date().toISOString(),
+          userId: newMessage.id,
+          userName: '',
+          content: `Игрок ${newMessage.userName} отгадал слово: ${hiddenWord}`,
+        }
+        setMessages(prev => [...prev, techMessage])
         onRightGuessWord(newMessage.userId)
       }
     }
@@ -64,11 +71,13 @@ const LobbyChat: FC<LobbyChatProps> = ({
         </Box>
         <MessagesContainer>
           {messages
-            .reverse()
+            .sort((a, b) => {
+              return new Date(b.date).getTime() - new Date(a.date).getTime()
+            })
             .map(({ id, userId, userName, content }, i, arr) => {
               return (
                 <MessageBubble
-                  key={id}
+                  key={id + userId}
                   messageId={id}
                   userName={isFirstUserMessage(userId, i, arr) ? userName : ''}
                   messageContent={content}

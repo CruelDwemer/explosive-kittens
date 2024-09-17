@@ -26,18 +26,18 @@ import { Player } from '../../entities/lobby/models'
 
 interface AddPlayerProps {
   open: boolean
-  handleClose: () => void
-  handlePlayStart: () => void
+  onClose: () => void
+  onPlayStart: (lobbyId: number) => void
 }
 
 const AddPlayer: React.FC<AddPlayerProps> = ({
   open,
-  handleClose,
-  handlePlayStart,
+  onClose,
+  onPlayStart,
 }) => {
   const [lobbyData, setLobbyData] = useState({
     playName: '',
-    chatId: null as number | null,
+    lobbyId: null as number | null,
     playersList: [],
   })
   const [searchResults, setSearchResults] = useState<
@@ -68,16 +68,16 @@ const AddPlayer: React.FC<AddPlayerProps> = ({
     }
   }
 
-  const getPlayerList = async (chatId: number) => {
-    if (chatId) {
+  const getPlayerList = async (lobbyId: number) => {
+    if (lobbyId) {
       try {
-        const response = await playerList(chatId)
+        const response = await playerList(lobbyId)
         if (response.ok) {
           const data = await response.json()
           setLobbyData({
             ...lobbyData,
             playersList: data,
-            chatId: chatId,
+            lobbyId: lobbyId,
           })
           return data
         } else {
@@ -107,11 +107,11 @@ const AddPlayer: React.FC<AddPlayerProps> = ({
   }
 
   const addNewUserToChat = async (userId: number) => {
-    if (lobbyData.chatId) {
+    if (lobbyData.lobbyId) {
       try {
-        const response = await addUserToChat(lobbyData.chatId, userId)
+        const response = await addUserToChat(lobbyData.lobbyId, userId)
         if (response.ok) {
-          getPlayerList(lobbyData.chatId)
+          getPlayerList(lobbyData.lobbyId)
         } else {
           throw new Error(`Error adding user to chat: ${response.status}`)
         }
@@ -144,11 +144,11 @@ const AddPlayer: React.FC<AddPlayerProps> = ({
   }
 
   const handleDeleteUser = async (userId: number) => {
-    if (userId && lobbyData.chatId) {
+    if (userId && lobbyData.lobbyId) {
       try {
-        const response = await deleteUserFromChat(lobbyData.chatId, userId)
+        const response = await deleteUserFromChat(lobbyData.lobbyId, userId)
         if (response.ok) {
-          getPlayerList(lobbyData.chatId)
+          getPlayerList(lobbyData.lobbyId)
         } else {
           throw new Error(`Error delete user from chat: ${response.status}`)
         }
@@ -164,14 +164,17 @@ const AddPlayer: React.FC<AddPlayerProps> = ({
   }
 
   const handlePlayClick = () => {
-    handlePlayStart()
-    handleClose()
+    const { lobbyId } = lobbyData
+    if (lobbyId) {
+      onPlayStart(lobbyId)
+      // onClose()
+    }
   }
 
   return (
     <Modal
       open={open}
-      onClose={handleClose}
+      onClose={onClose}
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description">
       <Box sx={styles.modal}>
