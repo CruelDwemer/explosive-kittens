@@ -13,8 +13,7 @@ const Header: FC = () => {
 
   // TODO: Сделать флаг isAuth в редакс
   const [user, setUser] = useState<IUser>({})
-  const [isAvatarChange, setIsAvatarChange] = useState(false)
-  const fullname = `${user.first_name} ${user.second_name}`
+  const fullName = `${user.first_name} ${user.second_name}`
 
   const handleClickLogout = async () => {
     await handleLogout()
@@ -37,7 +36,7 @@ const Header: FC = () => {
     <Box sx={styles.container}>
       <Sidebar />
       <Box sx={styles.actions}>
-        <Typography variant="subtitle1">{fullname}</Typography>
+        <Typography variant="subtitle1">{fullName}</Typography>
         {user && <UserAvatar user={user} setUser={setUser} header />}
         <Button variant="contained" onClick={() => handleClickLogout()}>
           Выйти
