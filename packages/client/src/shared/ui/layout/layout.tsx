@@ -1,7 +1,7 @@
 import { Outlet } from 'react-router'
 import { Box } from '@mui/material'
 import Header from '../../../widgets/header'
-import { FC } from 'react'
+import { FC, useEffect } from 'react'
 import styles from './styles'
 import { useCheckAuth } from '../../hooks'
 

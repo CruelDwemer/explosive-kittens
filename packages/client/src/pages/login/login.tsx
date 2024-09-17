@@ -3,7 +3,6 @@ import { Container, CssBaseline, Box, Button } from '@mui/material'
 import styles from './styles'
 import {
   handleLoginQuery,
-  handleLogout,
   loginSchema,
   passwordSchema,
 } from '../../entities/user/lib'
@@ -35,16 +34,19 @@ const Login = () => {
           handleSubmitData={handleLoginQuery}
         />
       </Container>
-      <Button
-        variant="contained"
-        color="primary"
-        size="medium"
-        onClick={handleLogout}
-        sx={{ maxWidth: '100px' }}>
-        Выйти
-      </Button>
     </Box>
   )
+}
+
+{
+  /* <Button
+  variant="contained"
+  color="primary"
+  size="medium"
+  onClick={handleLogout}
+  sx={{ maxWidth: '100px' }}>
+  Выйти
+</Button> */
 }
 
 export default Login

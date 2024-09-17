@@ -7,7 +7,9 @@ function useCheckAuth() {
   useEffect(() => {
     const checkUserLoggedIn = async () => {
       const response = await getUserInfoQuery()
-      if (!response.ok) {
+      if (response.ok) {
+        navigate('/play')
+      } else {
         navigate('/login')
       }
     }
