@@ -1,10 +1,5 @@
 import './App.css'
-import {
-  createBrowserRouter,
-  RouterProvider,
-  Link,
-  Navigate,
-} from 'react-router-dom'
+import { createBrowserRouter, RouterProvider, Navigate } from 'react-router-dom'
 import {
   Login,
   Play,
@@ -19,7 +14,7 @@ import {
   Layout,
   Forum,
 } from '../pages'
-import Fullscreen from '../widgets/fullscreen/fullscreen'
+import { Fullscreen } from '../widgets'
 import { ErrorBoundary } from '../features'
 
 // TODO: Возможно добавить lazy загрузку

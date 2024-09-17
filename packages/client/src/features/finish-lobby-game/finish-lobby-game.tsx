@@ -1,7 +1,6 @@
 import { Paper, Button } from '@mui/material'
 import { FC } from 'react'
 import { customPaperBlock } from '../../shared/styles'
-import { useNavigate } from 'react-router'
 
 interface FinishLobbyGameProps {
   lobbyId: number
@@ -9,11 +8,8 @@ interface FinishLobbyGameProps {
 }
 
 const FinishLobbyGame: FC<FinishLobbyGameProps> = ({ onDeleteLobby }) => {
-  const navigate = useNavigate()
-
   const handleClick = () => {
     onDeleteLobby()
-    navigate('/finish')
   }
 
   return (

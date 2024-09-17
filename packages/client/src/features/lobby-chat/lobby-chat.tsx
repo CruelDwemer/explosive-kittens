@@ -19,7 +19,7 @@ export interface LobbyChatProps {
   lobbyId: number
   hiddenWord?: string
   isGuessing?: boolean
-  onRightGuessWord: (guessedUserId: number) => void
+  onRightGuessWord: (guessedUserId: number, guessedUserName: string) => void
 }
 
 const LobbyChat: FC<LobbyChatProps> = ({
@@ -56,7 +56,7 @@ const LobbyChat: FC<LobbyChatProps> = ({
           content: `Игрок ${newMessage.userName} отгадал слово: ${hiddenWord}`,
         }
         setMessages(prev => [...prev, techMessage])
-        onRightGuessWord(newMessage.userId)
+        onRightGuessWord(newMessage.userId, newMessage.userName)
       }
     }
   }, [newMessage])

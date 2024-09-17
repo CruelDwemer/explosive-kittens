@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams, useSearchParams } from 'react-router-dom'
 
 import {
   Box,
@@ -12,6 +12,10 @@ import {
 } from '@mui/material'
 
 const Finish: FC = () => {
+  const [searchParams, setSearchParams] = useSearchParams()
+  // const id = searchParams.get('id')
+  const name = searchParams.get('name')
+  const score = searchParams.get('score')
   // const [showCountdown, setShowCountdown] = React.useState(false)
   const navigate = useNavigate()
 
@@ -58,7 +62,7 @@ const Finish: FC = () => {
             Игра завершена!
           </Typography>
           <Typography variant="h5" sx={{ mb: 10, textAlign: 'center' }}>
-            Победитель Вера! (1 балл)
+            Победитель {name}! ({score} балл)
           </Typography>
         </CardContent>
         <CardActions

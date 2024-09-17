@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 import { IconButton, Tooltip } from '@mui/material'
 import FullscreenIcon from '@mui/icons-material/Fullscreen'
 import styles from './styles'
@@ -9,7 +9,7 @@ interface DocumentElementWithFullscreen extends HTMLElement {
   webkitRequestFullscreen?: VoidFunction
 }
 
-const Fullscreen = () => {
+const Fullscreen: FC = () => {
   const [isFullscreen, setIsFullscreen] = useState(false)
 
   useEffect(() => {
