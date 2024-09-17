@@ -11,33 +11,63 @@ import {
   LeaderBoard,
   Error400,
   Error500,
+  Layout,
+  Forum,
 } from '../pages'
 import Fullscreen from '../widgets/fullscreen/fullscreen'
 import { ErrorBoundary } from '../features'
 
 // TODO: Возможно добавить lazy загрузку
+// TODO: Стоит квынести в однельный файл
 const router = createBrowserRouter([
   {
     path: '/',
-    element: (
-      <div>
-        <Link to="/login">Login</Link>
-        <br />
-        <Link to="/register">Register</Link>
-        <br />
-        <Link to="/400">Error 400</Link>
-        <br />
-        <Link to="/500">Error 500</Link>
-        <br />
-        <Link to="/play">Play</Link>
-        <br />
-        <Link to="/finish">Finish</Link>
-        <br />
-        <Link to="/test-error">Test Error Boundary</Link>
-        <br />
-        <Link to="/leader-board">Leaderboard</Link>
-      </div>
-    ),
+    // element: (
+    //   <div>
+    //     <Link to="/login">Login</Link>
+    //     <br />
+    //     <Link to="/register">Register</Link>
+    //     <br />
+    //     <Link to="/400">Error 400</Link>
+    //     <br />
+    //     <Link to="/500">Error 500</Link>
+    //     <br />
+    //     <Link to="/play">Play</Link>
+    //     <br />
+    //     <Link to="/finish">Finish</Link>
+    //     <br />
+    //     <Link to="/test-error">Test Error Boundary</Link>
+    //     <br />
+    //     <Link to="/leader-board">Leaderboard</Link>
+    //   </div>
+    // ),
+    element: <Layout />,
+    children: [
+      {
+        path: '/play',
+        element: <Play />,
+      },
+      {
+        path: '/finish',
+        element: <Finish />,
+      },
+      {
+        path: '/leader-board',
+        element: <LeaderBoard />,
+      },
+      {
+        path: '/lobby',
+        element: <Lobby />,
+      },
+      {
+        path: '/user',
+        element: <User />,
+      },
+      {
+        path: '/forum',
+        element: <Forum />,
+      },
+    ],
   },
   {
     path: '/login',
@@ -56,28 +86,8 @@ const router = createBrowserRouter([
     element: <Error500 />,
   },
   {
-    path: '/play',
-    element: <Play />,
-  },
-  {
-    path: '/finish',
-    element: <Finish />,
-  },
-  {
     path: '/test-error',
     element: <TestErrorBoundary />,
-  },
-  {
-    path: '/leader-board',
-    element: <LeaderBoard />,
-  },
-  {
-    path: '/lobby',
-    element: <Lobby />,
-  },
-  {
-    path: '/user',
-    element: <User />,
   },
 ])
 
