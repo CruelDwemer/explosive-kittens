@@ -1,5 +1,5 @@
-import React, { FC } from 'react'
-import { useNavigate, useParams, useSearchParams } from 'react-router-dom'
+import { FC } from 'react'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 
 import {
   Box,
@@ -12,7 +12,7 @@ import {
 } from '@mui/material'
 
 const Finish: FC = () => {
-  const [searchParams, setSearchParams] = useSearchParams()
+  const [searchParams] = useSearchParams()
   // const id = searchParams.get('id')
   const name = searchParams.get('name')
   const score = searchParams.get('score')
@@ -28,9 +28,9 @@ const Finish: FC = () => {
   //   navigate('/lobby/123')
   // }
 
-  const handleClickToResults = () => {
-    navigate('/res')
-  }
+  // const handleClickToResults = () => {
+  //   navigate('/res')
+  // }
 
   return (
     <Box
