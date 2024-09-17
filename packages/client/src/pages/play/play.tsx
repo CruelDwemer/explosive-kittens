@@ -55,15 +55,25 @@ const Play: FC = () => {
               src="./public/crocodile.png"
             />
           </Box>
-          <Typography variant="h5" sx={{ mb: 2 }} component="div">
+          <Typography
+            variant="h5"
+            sx={{ mb: 2 }}
+            component="div"
+            align="center">
             Правила игры
           </Typography>
-          <Typography sx={{ mb: 1, fontSize: 14 }} color="text.secondary">
+          <Typography
+            sx={{ mb: 1, fontSize: 14 }}
+            color="text.secondary"
+            align="center">
             Один игрок <b>рисует</b> загаданное слово, а остальные пытаются его{' '}
             <b>угадать</b>.
           </Typography>
-          <Typography sx={{ mb: 4, fontSize: 14 }} color="text.secondary">
-            Побеждает тот, кто отгадает первым.
+          <Typography
+            sx={{ mb: 4, fontSize: 14 }}
+            color="text.secondary"
+            align="center">
+            Балл получает тот, кто отгадает первым.
           </Typography>
         </CardContent>
         <CardActions
