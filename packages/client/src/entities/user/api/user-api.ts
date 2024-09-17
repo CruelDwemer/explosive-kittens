@@ -62,6 +62,17 @@ export const getUserInfo = async () => {
   return data
 }
 
+export const getUserInfoQuery = async () => {
+  return fetch(`${BASE_URL}/auth/user`, {
+    method: 'GET',
+    mode: 'cors',
+    credentials: 'include',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+}
+
 export const changePassword = async (data: {
   oldPassword: string
   newPassword: string
