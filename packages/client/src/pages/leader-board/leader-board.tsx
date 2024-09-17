@@ -6,7 +6,7 @@ import { LeaderBoardTable } from '../../widgets'
 
 const LeaderBoard: FC = () => (
   <Box sx={styles.container}>
-    <Card>
+    <Card style={{ margin: '30px' }}>
       <CardHeader
         title={
           <Box sx={styles.title}>

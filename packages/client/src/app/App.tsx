@@ -1,5 +1,5 @@
 import './App.css'
-import { createBrowserRouter, RouterProvider, Link } from 'react-router-dom'
+import { createBrowserRouter, RouterProvider, Navigate } from 'react-router-dom'
 import {
   Login,
   Play,
@@ -15,7 +15,7 @@ import {
   Forum,
   Landing,
 } from '../pages'
-import Fullscreen from '../widgets/fullscreen/fullscreen'
+import { Fullscreen } from '../widgets'
 import { ErrorBoundary } from '../features'
 
 // TODO: Возможно добавить lazy загрузку
@@ -23,25 +23,6 @@ import { ErrorBoundary } from '../features'
 const router = createBrowserRouter([
   {
     path: '/',
-    // element: (
-    //   <div>
-    //     <Link to="/login">Login</Link>
-    //     <br />
-    //     <Link to="/register">Register</Link>
-    //     <br />
-    //     <Link to="/400">Error 400</Link>
-    //     <br />
-    //     <Link to="/500">Error 500</Link>
-    //     <br />
-    //     <Link to="/play">Play</Link>
-    //     <br />
-    //     <Link to="/finish">Finish</Link>
-    //     <br />
-    //     <Link to="/test-error">Test Error Boundary</Link>
-    //     <br />
-    //     <Link to="/leader-board">Leaderboard</Link>
-    //   </div>
-    // ),
     element: <Layout />,
     children: [
       {
@@ -57,7 +38,7 @@ const router = createBrowserRouter([
         element: <LeaderBoard />,
       },
       {
-        path: '/lobby',
+        path: '/lobby/:id',
         element: <Lobby />,
       },
       {
@@ -71,6 +52,10 @@ const router = createBrowserRouter([
       {
         path: '/landing',
         element: <Landing />,
+      },
+      {
+        path: '/',
+        element: <Navigate to="play" />,
       },
     ],
   },
@@ -93,6 +78,10 @@ const router = createBrowserRouter([
   {
     path: '/test-error',
     element: <TestErrorBoundary />,
+  },
+  {
+    path: '*',
+    element: <Error400 />,
   },
 ])
 

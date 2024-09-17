@@ -1,7 +1,8 @@
-import React, { ComponentType } from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './app/App'
 import './index.css'
+import { store } from './shared/lib'
+import { Provider } from 'react-redux'
 import { withErrorBoundary } from './features'
 
 if ('serviceWorker' in navigator) {
@@ -23,5 +24,7 @@ if ('serviceWorker' in navigator) {
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   // withErrorBoundary((<App />) as unknown as ComponentType)
-  <App />
+  <Provider store={store}>
+    <App />
+  </Provider>
 )

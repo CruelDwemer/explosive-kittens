@@ -15,7 +15,7 @@ import { FC } from 'react'
 const Forum: FC = () => {
   // TODO: разобраться со ширино, когда добавляется скроллбар
   return (
-    <Container>
+    <Container sx={{ padding: '24px' }}>
       <Paper sx={{ padding: 3, marginBottom: 3 }}>
         <Typography component="h4" variant="h4">
           Форум

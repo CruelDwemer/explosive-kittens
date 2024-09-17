@@ -11,3 +11,4 @@ import RecordsTable from './records-table/records-table'
 
 export { AddPlayer, LeaderBoardTable }
 export default { UserAvatar, ChangePassword, RecordsTable }
+export { Fullscreen } from './fullscreen'
