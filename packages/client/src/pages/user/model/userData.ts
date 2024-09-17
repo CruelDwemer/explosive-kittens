@@ -20,4 +20,5 @@ export interface IRecords {
 export interface IUserAvatar {
   user: IUser
   setUser: (user: IUser) => void
+  header?: boolean
 }

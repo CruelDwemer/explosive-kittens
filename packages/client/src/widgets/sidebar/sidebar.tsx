@@ -16,6 +16,7 @@ import { ROUTES } from './model/constants'
 import ChatIcon from '@mui/icons-material/Chat'
 import PersonIcon from '@mui/icons-material/Person'
 import SmartDisplayIcon from '@mui/icons-material/SmartDisplay'
+import EmojiEventsIcon from '@mui/icons-material/EmojiEvents'
 
 // TODO: Можно в разные стороны прикрутить, оставил слева
 type Anchor = 'left'
@@ -29,6 +30,7 @@ const Sidebar: FC = () => {
     Игра: <SmartDisplayIcon />,
     Профиль: <PersonIcon />,
     Форум: <ChatIcon />,
+    Рекорды: <EmojiEventsIcon />,
   }
 
   const handleNavItemClick = (path: string) => {

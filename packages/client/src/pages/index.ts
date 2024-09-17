@@ -7,7 +7,7 @@ import User from './user/user'
 import Error400 from './error400'
 import Error500 from './error500'
 import Layout from '../shared/ui/layout/layout.tsx'
-
+import Forum from './forum/forum'
 export { default as TestErrorBoundary } from './test-error-boundary'
 export { Lobby } from './lobby/'
 export {
@@ -20,4 +20,5 @@ export {
   Error500,
   Error400,
   Layout,
+  Forum,
 }

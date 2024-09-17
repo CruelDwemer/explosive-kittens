@@ -4,11 +4,15 @@ export const ROUTES = [
     name: 'Игра',
   },
   {
-    path: '/profile',
+    path: '/user',
     name: 'Профиль',
   },
   {
     path: '/forum',
     name: 'Форум',
+  },
+  {
+    path: '/leader-board',
+    name: 'Рекорды',
   },
 ]

@@ -5,7 +5,7 @@ const handleLoginQuery = async (data: AuthData) => {
   try {
     const response = await loginUser(JSON.stringify(data))
     if (response.status === 200) {
-      console.log('Вход успешно выполнен.', response)
+      window.location.href = '/play'
     }
   } catch (error) {
     console.error('Error login:', error)

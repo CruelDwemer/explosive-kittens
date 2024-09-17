@@ -3,7 +3,7 @@ import Joi from 'joi'
 export const passwordSchema = Joi?.string()
   .min(8)
   .max(40)
-  .pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W)/)
+  // .pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W)/)
   .messages({
     'string.min': 'Поле "Пароль" должно быть не короче 8 символов',
     'string.max': 'Поле "Пароль" должно быть не длиннее 40 символов',

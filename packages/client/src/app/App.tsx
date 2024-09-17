@@ -12,11 +12,13 @@ import {
   Error400,
   Error500,
   Layout,
+  Forum,
 } from '../pages'
 import Fullscreen from '../widgets/fullscreen/fullscreen'
 import { ErrorBoundary } from '../features'
 
 // TODO: Возможно добавить lazy загрузку
+// TODO: Стоит квынести в однельный файл
 const router = createBrowserRouter([
   {
     path: '/',
@@ -61,6 +63,10 @@ const router = createBrowserRouter([
         path: '/user',
         element: <User />,
       },
+      {
+        path: '/forum',
+        element: <Forum />,
+      },
     ],
   },
   {
@@ -78,14 +84,6 @@ const router = createBrowserRouter([
   {
     path: '/500',
     element: <Error500 />,
-  },
-  {
-    path: '/play',
-    element: <Play />,
-  },
-  {
-    path: '/finish',
-    element: <Finish />,
   },
   {
     path: '/test-error',

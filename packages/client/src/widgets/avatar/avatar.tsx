@@ -19,10 +19,9 @@ const VisuallyHiddenInput = styled('input')({
   width: 1,
 })
 
-const UserAvatar = (props: IUserAvatar) => {
+const UserAvatar = ({ user, setUser, header = false }: IUserAvatar) => {
   const [isAvatarChanging, setIsAvatarChanging] = useState(false)
   const [avatarFormData, setAvatarFormData] = useState<FormData | null>(null)
-  const { user, setUser } = props
 
   const handleAvatarChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0]
@@ -54,42 +53,48 @@ const UserAvatar = (props: IUserAvatar) => {
   }
 
   return (
-    <CardMedia sx={styles.container}>
-      <Card variant="outlined" sx={styles.image_container}>
-        <Avatar
-          src={
-            isAvatarChanging
-              ? user.avatar
-              : `${BASE_URL}/resources${user.avatar}`
-          }
-          sx={styles.image}
-        />
-      </Card>
+    <>
+      {!header ? (
+        <CardMedia sx={styles.container}>
+          <Card variant="outlined" sx={styles.image_container}>
+            <Avatar
+              src={
+                isAvatarChanging
+                  ? user.avatar
+                  : `${BASE_URL}/resources${user.avatar}`
+              }
+              sx={styles.image}
+            />
+          </Card>
 
-      <Typography gutterBottom variant="caption" component="span">
-        Вы можете сменить свой аватар
-      </Typography>
-      <Button
-        component="label"
-        role={undefined}
-        variant="contained"
-        tabIndex={-1}
-        endIcon={<Create />}
-        size="small">
-        Сменить аватар
-        <VisuallyHiddenInput type="file" onChange={handleAvatarChange} />
-      </Button>
-      {isAvatarChanging && avatarFormData && (
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={() => {
-            handleAvatarUpdate()
-          }}>
-          Сохранить
-        </Button>
+          <Typography gutterBottom variant="caption" component="span">
+            Вы можете сменить свой аватар
+          </Typography>
+          <Button
+            component="label"
+            role={undefined}
+            variant="contained"
+            tabIndex={-1}
+            endIcon={<Create />}
+            size="small">
+            Сменить аватар
+            <VisuallyHiddenInput type="file" onChange={handleAvatarChange} />
+          </Button>
+          {isAvatarChanging && avatarFormData && (
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={() => {
+                handleAvatarUpdate()
+              }}>
+              Сохранить
+            </Button>
+          )}
+        </CardMedia>
+      ) : (
+        <Avatar src={`${BASE_URL}/resources${user.avatar}`} />
       )}
-    </CardMedia>
+    </>
   )
 }
 
