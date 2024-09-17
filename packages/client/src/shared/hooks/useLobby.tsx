@@ -30,23 +30,26 @@ const useLobby: UseLobbyHook = ({ lobbyId, currentUserId }) => {
   })
 
   useEffect(() => {
-    getDataForNewRound(0, 'котик')
+    getDataForNewRound(0)
   }, [])
 
-  // TODO: Выкачен нерабочий функционал, временно заморожен
-  //   const getRandomWord = async (): Promise<string> => {
-  //     try {
-  //       const response = await randomWord()
-  //       if (response.ok) {
-  //         const data = await response.json() as {word: {word: string}}
-  //         return data.word.word
-  //       } else {
-  //         throw new Error(`Error fetching word: ${response.status}`)
-  //       }
-  //     } catch (error) {
-  //       throw new Error(`Error fetching word: ${error}`)
-  //     }
-  //   }
+  const getRandomWord = async () => {
+    // // TODO: Выкачен нерабочий функционал, временно заморожен
+    // try {
+    // const response = await randomWord()
+    // if (response.ok) {
+    //     const data = await response.json() as {word: {word: string}}
+    //     return data.word.word
+    // } else {
+    //     throw new Error(`Error fetching word: ${response.status}`)
+    // }
+    // } catch (error) {
+    // throw new Error(`Error fetching word: ${error}`)
+    // }
+
+    const mockArray = ['котик', 'ежик', 'зайчик']
+    return mockArray[Math.floor(Math.random() * mockArray.length)]
+  }
 
   const changeCanvasToGuessing: SendImageFunc = guessingImage => {
     // TODO: API запрос отправки картинки в чат
@@ -63,14 +66,14 @@ const useLobby: UseLobbyHook = ({ lobbyId, currentUserId }) => {
 
     // TODO: API запрос отправки id следующего ведущего в общий чат
     setTimeout(() => {
-      getDataForNewRound(1, 'ежик')
+      getDataForNewRound(1)
     }, 3000)
   }
 
-  const getDataForNewRound = async (hostId: number, newHiddenWord: string) => {
+  const getDataForNewRound = async (hostId: number) => {
     // TODO: API запрос отправки id уагавшего в общий чат для того, что бы начислить ему балл
     // TODO: API запрос отправки id следующего ведущего в общий чат
-    // const newHiddenWord = await getRandomWord()
+    const newHiddenWord = await getRandomWord()
     setLobbyData(prev => ({
       ...prev,
       view: currentUserId === hostId ? 'canvas' : 'hostDrawing',
