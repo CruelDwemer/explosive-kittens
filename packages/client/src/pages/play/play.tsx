@@ -1,5 +1,6 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
+import styles from './styles'
 
 import {
   Box,
@@ -30,16 +31,10 @@ const Play = () => {
   }
 
   return (
-    <Box
-      sx={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        height: '100vh',
-      }}>
-      <Card sx={{ width: 450, p: 3, pb: 5, position: 'relative' }}>
+    <Box sx={styles.container}>
+      <Card sx={styles.card}>
         <CardContent>
-          <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+          <Box display="flex" justifyContent="center">
             <Avatar
               sx={{
                 width: 110,

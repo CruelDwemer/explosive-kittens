@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react'
 import { IconButton, Tooltip } from '@mui/material'
 import FullscreenIcon from '@mui/icons-material/Fullscreen'
+import styles from './styles'
 
-// TODO: () => void можно заменить на встроенную типизацию VoidFunction
 interface DocumentElementWithFullscreen extends HTMLElement {
-  msRequestFullscreen?: () => void
-  mozRequestFullScreen?: () => void
-  webkitRequestFullscreen?: () => void
+  msRequestFullscreen?: VoidFunction
+  mozRequestFullScreen?: VoidFunction
+  webkitRequestFullscreen?: VoidFunction
 }
 
 const Fullscreen = () => {
@@ -45,9 +45,7 @@ const Fullscreen = () => {
         onClick={handleFullscreen}
         color="primary"
         sx={{
-          right: '20px',
-          bottom: '35px',
-          position: 'absolute',
+          ...styles.fullscreen,
           display: isFullscreen ? 'none' : 'inline-flex',
         }}>
         <FullscreenIcon />

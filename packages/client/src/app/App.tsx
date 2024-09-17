@@ -22,25 +22,6 @@ import { ErrorBoundary } from '../features'
 const router = createBrowserRouter([
   {
     path: '/',
-    // element: (
-    //   <div>
-    //     <Link to="/login">Login</Link>
-    //     <br />
-    //     <Link to="/register">Register</Link>
-    //     <br />
-    //     <Link to="/400">Error 400</Link>
-    //     <br />
-    //     <Link to="/500">Error 500</Link>
-    //     <br />
-    //     <Link to="/play">Play</Link>
-    //     <br />
-    //     <Link to="/finish">Finish</Link>
-    //     <br />
-    //     <Link to="/test-error">Test Error Boundary</Link>
-    //     <br />
-    //     <Link to="/leader-board">Leaderboard</Link>
-    //   </div>
-    // ),
     element: <Layout />,
     children: [
       {

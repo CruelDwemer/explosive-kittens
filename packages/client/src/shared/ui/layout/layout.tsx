@@ -11,7 +11,7 @@ const Layout: FC = () => {
   return (
     <Box sx={styles.container}>
       <Header />
-      <main>
+      <main style={styles.main}>
         <Outlet />
       </main>
     </Box>
