@@ -44,13 +44,13 @@ const AuthForm: FC<Props> = ({
   const dispatch = useDispatch()
 
   // проверка срабатывания dispatch в redux store
-  useEffect(() => {
-    const checkStoreChange = () => {
-      const change = store.getState()
-      console.log('Хранилище Redux: ', change.user.userData)
-    }
-    store.subscribe(checkStoreChange)
-  }, [])
+  // useEffect(() => {
+  //   const checkStoreChange = () => {
+  //     const change = store.getState()
+  //     console.log('Хранилище Redux: ', change.user.userData)
+  //   }
+  //   store.subscribe(checkStoreChange)
+  // }, [])
   //
 
   return (
