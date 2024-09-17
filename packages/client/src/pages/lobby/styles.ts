@@ -10,6 +10,9 @@ const styles = {
     maxWidth: '30%',
     flexBasis: '30%',
     padding: '12px',
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '12px',
   },
   canvasCol: {
     flexBasis: '70%',

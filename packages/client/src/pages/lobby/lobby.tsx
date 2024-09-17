@@ -1,6 +1,11 @@
 import { FC, ReactNode } from 'react'
-import { DrawCanvas, GuessImage, LobbyChat } from '../../features'
-import { Box } from '@mui/material'
+import {
+  DrawCanvas,
+  FinishLobbyGame,
+  GuessImage,
+  LobbyChat,
+} from '../../features'
+import { Box, Button, Paper } from '@mui/material'
 import styles from './styles'
 import {
   HostDrawingMessage,
@@ -18,7 +23,7 @@ const Lobby: FC = () => {
     return <Navigate to={'/400'} />
   }
 
-  const { id, view, guessImage, hiddenWord, sendImage, startNewRound } =
+  const { id, view, guessImage, hiddenWord, sendImage, startNewRound, close } =
     useLobby({
       lobbyId: Number(lobbyId),
       currentUserId: CURRENT_USER_ID,
@@ -42,6 +47,7 @@ const Lobby: FC = () => {
           isGuessing={view === 'guessing'}
           onRightGuessWord={startNewRound}
         />
+        <FinishLobbyGame lobbyId={id} onDeleteLobby={close} />
       </Box>
       <Box sx={styles.canvasCol}>{viewMap[view]}</Box>
     </Box>
