@@ -21,6 +21,26 @@ import { ErrorBoundary } from '../features'
 // TODO: Стоит квынести в однельный файл
 const router = createBrowserRouter([
   {
+    path: '/login',
+    element: <Login />,
+  },
+  {
+    path: '/register',
+    element: <Register />,
+  },
+  {
+    path: '/400',
+    element: <Error400 />,
+  },
+  {
+    path: '/500',
+    element: <Error500 />,
+  },
+  {
+    path: '/test-error',
+    element: <TestErrorBoundary />,
+  },
+  {
     path: '/',
     element: <Layout />,
     children: [
@@ -49,26 +69,6 @@ const router = createBrowserRouter([
         element: <Forum />,
       },
     ],
-  },
-  {
-    path: '/login',
-    element: <Login />,
-  },
-  {
-    path: '/register',
-    element: <Register />,
-  },
-  {
-    path: '/400',
-    element: <Error400 />,
-  },
-  {
-    path: '/500',
-    element: <Error500 />,
-  },
-  {
-    path: '/test-error',
-    element: <TestErrorBoundary />,
   },
 ])
 
