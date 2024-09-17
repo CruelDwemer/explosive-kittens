@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import { FC } from 'react'
 import { TableCell, Typography } from '@mui/material'
 
 interface Props {

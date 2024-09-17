@@ -1,5 +1,5 @@
-import React from 'react'
-import { useNavigate } from 'react-router-dom'
+import { FC } from 'react'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 
 import {
   Box,
@@ -10,23 +10,27 @@ import {
   CardActions,
   Avatar,
 } from '@mui/material'
-import { CountdownTimer } from '../../features'
 
-const Finish = () => {
-  const [showCountdown, setShowCountdown] = React.useState(false)
+const Finish: FC = () => {
+  const [searchParams] = useSearchParams()
+  // const id = searchParams.get('id')
+  const name = searchParams.get('name')
+  const score = searchParams.get('score')
+  // const [showCountdown, setShowCountdown] = React.useState(false)
   const navigate = useNavigate()
 
   const handlePlayClick = () => {
-    setShowCountdown(true)
+    navigate('/play')
+    // setShowCountdown(true)
   }
 
-  const handleTimer = () => {
-    navigate('/start')
-  }
+  // const handleTimer = () => {
+  //   navigate('/lobby/123')
+  // }
 
-  const handleClickToResults = () => {
-    navigate('/res')
-  }
+  // const handleClickToResults = () => {
+  //   navigate('/res')
+  // }
 
   return (
     <Box
@@ -57,25 +61,28 @@ const Finish = () => {
             component="div">
             Игра завершена!
           </Typography>
+          <Typography variant="h5" sx={{ mb: 10, textAlign: 'center' }}>
+            Победитель {name}! ({score} балл)
+          </Typography>
         </CardContent>
         <CardActions
           sx={{
             display: 'flex',
-            justifyContent: 'space-between',
+            justifyContent: 'center',
             alignItems: 'center',
           }}>
           <Button onClick={handlePlayClick} variant="contained" size="large">
-            Играть снова
+            На главный
           </Button>
-          <Button
+          {/* <Button
             onClick={handleClickToResults}
             variant="contained"
             size="large">
             К результатам
-          </Button>
+          </Button> */}
         </CardActions>
       </Card>
-      {showCountdown && <CountdownTimer onEnd={handleTimer} />}
+      {/* {showCountdown && <CountdownTimer onEnd={handleTimer} />} */}
     </Box>
   )
 }

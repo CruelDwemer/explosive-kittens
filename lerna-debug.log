@@ -1,21 +1,44 @@
 0 silly argv {
 0 silly argv   _: [ 'run' ],
 0 silly argv   lernaVersion: '5.4.3',
-0 silly argv   '$0': 'node_modules\\lerna\\cli.js',
+0 silly argv   '$0': 'node_modules/.bin/lerna',
 0 silly argv   script: 'dev'
 0 silly argv }
 1 notice cli v5.4.3
-2 verbose rootPath C:\Users\user\edu\teamPr\explosive-kittens
-3 error JSONError: Unexpected token "<" (0x3C) in JSON at position 354 while parsing near "...yled\": \"^11.13.0\",\r\n<<<<<<< HEAD\r\n    \"@..." in packages\client\package.json
+2 verbose rootPath /home/user/Documents/study/Crocodile/explosive-kittens
+3 error Error: Could not deserialize project graph.
+3 error Message: Unexpected end of JSON input
 3 error
-3 error [0m [90m 14 |[39m     [32m"@emotion/react"[39m[33m:[39m [32m"^11.13.3"[39m[33m,[39m[0m
-3 error [0m [90m 15 |[39m     [32m"@emotion/styled"[39m[33m:[39m [32m"^11.13.0"[39m[33m,[39m[0m
-3 error [0m[31m[1m>[22m[39m[90m 16 |[39m [33m<<[39m[33m<<[39m[33m<<[39m[33m<[39m [33mHEAD[39m[0m
-3 error [0m [90m    |[39m [31m[1m^[22m[39m[0m
-3 error [0m [90m 17 |[39m     [32m"@mui/icons-material"[39m[33m:[39m [32m"^6.0.1"[39m[33m,[39m[0m
-3 error [0m [90m 18 |[39m     [32m"@mui/material"[39m[33m:[39m [32m"^6.0.1"[39m[33m,[39m[0m
-3 error [0m [90m 19 |[39m [33m===[39m[33m===[39m[33m=[39m[0m
 3 error
-3 error     at parseJson (C:\Users\user\edu\teamPr\explosive-kittens\node_modules\parse-json\index.js:29:21)
-3 error     at parse (C:\Users\user\edu\teamPr\explosive-kittens\node_modules\load-json-file\index.js:15:9)
-3 error     at module.exports (C:\Users\user\edu\teamPr\explosive-kittens\node_modules\load-json-file\index.js:18:47)
+3 error Received:
+3 error
+3 error
+3 error
+3 error Messages from the log:
+3 error [NX Daemon Server] - 2024-09-15T17:20:53.678Z - [WATCHER]: packages/client/vite.config.ts.timestamp-1726420853192.mjs was deleted
+3 error [NX Daemon Server] - 2024-09-15T17:20:53.889Z - [REQUEST]: Updated file-hasher based on watched changes, recomputing project graph...
+3 error [NX Daemon Server] - 2024-09-15T17:20:53.901Z - Time taken for 'hash changed files from watcher' 0.07560000000012224ms
+3 error [NX Daemon Server] - 2024-09-15T18:13:42.518Z - [WATCHER]: Unsubscribed from changes within: /home/user/Documents/study/Crocodile/explosive-kittens
+3 error [NX Daemon Server] - 2024-09-15T18:13:42.519Z - Server stopped because: "Stopping the daemon the set of ignored files changed."
+3 error [NX Daemon Server] - 2024-09-17T13:25:16.645Z - Started listening on: /home/user/Documents/study/Crocodile/explosive-kittens/node_modules/.cache/nx/d/d.sock
+3 error [NX Daemon Server] - 2024-09-17T13:25:16.658Z - [REQUEST]: Client Request for Project Graph Received
+3 error [NX Daemon Server] - 2024-09-17T13:25:16.687Z - [REQUEST]: Updated file-hasher based on watched changes, recomputing project graph...
+3 error [NX Daemon Server] - 2024-09-17T13:25:16.726Z - Time taken for 'hash changed files from watcher' 0.0721460000000036ms
+3 error
+3 error  >  NX   inotify_add_watch on '/home/user/Documents/study/Crocodile/explosive-kittens/packages/client/node_modules/dotenv' failed: No space left on device
+3 error
+3 error [NX Daemon Server] - 2024-09-17T13:26:26.112Z - Started listening on: /home/user/Documents/study/Crocodile/explosive-kittens/node_modules/.cache/nx/d/d.sock
+3 error [NX Daemon Server] - 2024-09-17T13:26:26.123Z - [REQUEST]: Client Request for Project Graph Received
+3 error [NX Daemon Server] - 2024-09-17T13:26:26.142Z - [REQUEST]: Updated file-hasher based on watched changes, recomputing project graph...
+3 error [NX Daemon Server] - 2024-09-17T13:26:26.178Z - Time taken for 'hash changed files from watcher' 0.06937999999999533ms
+3 error
+3 error  >  NX   inotify_add_watch on '/home/user/Documents/study/Crocodile/explosive-kittens/packages/client/node_modules/jest-matcher-utils' failed: No space left on device
+3 error
+3 error
+3 error
+3 error
+3 error More information: /home/user/Documents/study/Crocodile/explosive-kittens/node_modules/.cache/nx/d/daemon.log
+3 error     at daemonProcessException (/home/user/Documents/study/Crocodile/explosive-kittens/node_modules/nx/src/daemon/client/client.js:66:16)
+3 error     at Socket.<anonymous> (/home/user/Documents/study/Crocodile/explosive-kittens/node_modules/nx/src/daemon/client/client.js:188:32)
+3 error     at Socket.emit (node:events:530:35)
+3 error     at endReadableNT (node:internal/streams/readable:1696:12)

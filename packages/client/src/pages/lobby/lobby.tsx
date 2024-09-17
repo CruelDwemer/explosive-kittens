@@ -1,5 +1,10 @@
 import { FC, ReactNode } from 'react'
-import { DrawCanvas, GuessImage, LobbyChat } from '../../features'
+import {
+  DrawCanvas,
+  FinishLobbyGame,
+  GuessImage,
+  LobbyChat,
+} from '../../features'
 import { Box } from '@mui/material'
 import styles from './styles'
 import {
@@ -8,14 +13,19 @@ import {
 } from '../../entities/lobby/ui'
 import { useLobby } from '../../shared/hooks'
 import { LobbyView } from '../../entities/lobby/models'
+import { Navigate, useParams } from 'react-router-dom'
 
-const LOBBY_ID = 0
 const CURRENT_USER_ID = 0
 
 const Lobby: FC = () => {
-  const { id, view, guessImage, hiddenWord, sendImage, startNewRound } =
+  const { id: lobbyId } = useParams()
+  if (!lobbyId) {
+    return <Navigate to={'/400'} />
+  }
+
+  const { id, view, guessImage, hiddenWord, sendImage, startNewRound, close } =
     useLobby({
-      lobbyId: LOBBY_ID,
+      lobbyId: Number(lobbyId),
       currentUserId: CURRENT_USER_ID,
     })
 
@@ -37,6 +47,7 @@ const Lobby: FC = () => {
           isGuessing={view === 'guessing'}
           onRightGuessWord={startNewRound}
         />
+        <FinishLobbyGame lobbyId={id} onDeleteLobby={close} />
       </Box>
       <Box sx={styles.canvasCol}>{viewMap[view]}</Box>
     </Box>

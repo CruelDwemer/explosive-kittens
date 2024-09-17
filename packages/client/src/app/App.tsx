@@ -1,5 +1,5 @@
 import './App.css'
-import { createBrowserRouter, RouterProvider, Link } from 'react-router-dom'
+import { createBrowserRouter, RouterProvider, Navigate } from 'react-router-dom'
 import {
   Login,
   Play,
@@ -15,7 +15,7 @@ import {
   Forum,
   Spinner,
 } from '../pages'
-import Fullscreen from '../widgets/fullscreen/fullscreen'
+import { Fullscreen } from '../widgets'
 import { ErrorBoundary } from '../features'
 import { useEffect } from 'react'
 
@@ -48,7 +48,7 @@ const router = createBrowserRouter([
         element: <LeaderBoard />,
       },
       {
-        path: '/lobby',
+        path: '/lobby/:id',
         element: <Lobby />,
       },
       {
@@ -58,6 +58,10 @@ const router = createBrowserRouter([
       {
         path: '/forum',
         element: <Forum />,
+      },
+      {
+        path: '/',
+        element: <Navigate to="play" />,
       },
     ],
   },
@@ -84,6 +88,10 @@ const router = createBrowserRouter([
   {
     path: '/spinner',
     element: <Spinner />,
+  },
+  {
+    path: '*',
+    element: <Error400 />,
   },
 ])
 
