@@ -3,7 +3,7 @@ import App from './app/App'
 import './index.css'
 import { store } from './shared/lib'
 import { Provider } from 'react-redux'
-import { withErrorBoundary } from './features'
+import { ErrorBoundary } from './features'
 
 if ('serviceWorker' in navigator) {
   try {
@@ -23,7 +23,7 @@ if ('serviceWorker' in navigator) {
 }
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-  // withErrorBoundary((<App />) as unknown as ComponentType)
+  // ErrorBoundary((<App />) as unknown as ComponentType)
   <Provider store={store}>
     <App />
   </Provider>
