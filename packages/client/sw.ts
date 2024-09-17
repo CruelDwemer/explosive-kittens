@@ -8,7 +8,7 @@ const staticUrl = 'https://ya-praktikum.tech/api/v2/resources/'
       await cache.addAll([
         '/public/crocodile.png',
         '/public/crocodile-win.png',
-        '/public/loading.png',
+        '/public/loading.gif',
       ])
       await self.skipWaiting()
     })()
@@ -53,3 +53,5 @@ const staticUrl = 'https://ya-praktikum.tech/api/v2/resources/'
     })()
   )
 })
+
+// '/public/loading.gif',
