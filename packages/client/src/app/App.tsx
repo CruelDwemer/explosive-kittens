@@ -1,5 +1,10 @@
 import './App.css'
-import { createBrowserRouter, RouterProvider, Link } from 'react-router-dom'
+import {
+  createBrowserRouter,
+  RouterProvider,
+  Link,
+  Navigate,
+} from 'react-router-dom'
 import {
   Login,
   Play,
@@ -47,6 +52,10 @@ const router = createBrowserRouter([
       {
         path: '/forum',
         element: <Forum />,
+      },
+      {
+        path: '/',
+        element: <Navigate to="play" />,
       },
     ],
   },
