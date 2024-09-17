@@ -15,4 +15,8 @@ export const ROUTES = [
     path: '/leader-board',
     name: 'Рекорды',
   },
+  {
+    path: '/landing',
+    name: 'Лендинг',
+  },
 ]

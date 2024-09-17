@@ -13,6 +13,7 @@ import {
   Error500,
   Layout,
   Forum,
+  Landing,
 } from '../pages'
 import Fullscreen from '../widgets/fullscreen/fullscreen'
 import { ErrorBoundary } from '../features'
@@ -66,6 +67,10 @@ const router = createBrowserRouter([
       {
         path: '/forum',
         element: <Forum />,
+      },
+      {
+        path: '/landing',
+        element: <Landing />,
       },
     ],
   },
