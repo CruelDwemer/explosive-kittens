@@ -1,6 +1,6 @@
 import { AuthInputElement } from '../'
 import { AuthButton } from '../'
-import { FC } from 'react'
+import { FC, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { Container, Typography, Box } from '@mui/material'
 import styles from './styles'
@@ -8,6 +8,9 @@ import { InputData, AuthData } from '../../../entities/user/models'
 import { joiResolver } from '@hookform/resolvers/joi'
 import { useForm } from 'react-hook-form'
 import Joi from 'joi'
+import { useDispatch } from 'react-redux'
+import type { AppDispatch } from '../../lib'
+import { store } from '../../lib'
 
 type Props = {
   id: string
@@ -16,7 +19,7 @@ type Props = {
   buttonText: string
   link: Record<string, string>
   schema: Joi.ObjectSchema<AuthData>
-  handleSubmitData: (data: AuthData) => void
+  handleSubmitData: (data: AuthData, dispatch: AppDispatch) => void
 }
 
 const AuthForm: FC<Props> = ({
@@ -38,13 +41,27 @@ const AuthForm: FC<Props> = ({
     mode: 'onBlur',
   })
 
+  const dispatch = useDispatch()
+
+  // проверка срабатывания dispatch в redux store
+  useEffect(() => {
+    function checkStoreChange() {
+      const change = store.getState()
+      console.log('Хранилище Redux: ', change.user.userData)
+    }
+    store.subscribe(checkStoreChange)
+  }, [])
+  //
+
   return (
     <>
       <Box
         component="form"
         id={id}
         sx={styles.form}
-        onSubmit={handleSubmit(handleSubmitData)}>
+        onSubmit={handleSubmit((data: AuthData) =>
+          handleSubmitData(data, dispatch)
+        )}>
         <Container disableGutters={true}>
           <Typography variant="h4" component="h1" sx={styles.title}>
             {pageName}

@@ -1,11 +1,24 @@
-import { loginUser, logout, registerUser } from '../api/user-api'
+import {
+  loginUser,
+  logout,
+  registerUser,
+  getUserInfoQuery,
+} from '../api/user-api'
 import { AuthData } from '../models/validator-models'
+import { AppDispatch } from '../../../shared/lib'
+import type { User } from '../models'
+import { saveUserData } from './'
 
-const handleLoginQuery = async (data: AuthData) => {
+const handleLoginQuery = async (data: AuthData, dispatch: AppDispatch) => {
   try {
     const response = await loginUser(JSON.stringify(data))
     if (response.status === 200) {
-      window.location.href = '/play'
+      console.log('Вход успешно выполнен.')
+      saveToStore(dispatch)
+      // window.location.href = '/play'
+    } else {
+      const message = await response.json()
+      console.log('Ошибка входа: ', message)
     }
   } catch (error) {
     console.error('Error login:', error)
@@ -41,6 +54,21 @@ const handleRegisterQuery = async (data: AuthData) => {
     console.error('Error register:', error)
     throw error
   }
+}
+
+const saveToStore = async (dispatch: AppDispatch) => {
+  const response = await getUserInfoQuery()
+  const result = await response.json()
+
+  dispatch(saveUserData(result))
+
+  // console.log(store)
+
+  // store.dispatch(saveUserData(result))
+
+  // setTimeout(() => {
+  //   console.log('Помещенные в хранилище данные: ', userState)
+  // }, 500)
 }
 
 export { handleLoginQuery, handleLogout, handleRegisterQuery }
