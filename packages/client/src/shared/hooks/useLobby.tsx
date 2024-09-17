@@ -83,6 +83,7 @@ const useLobby: UseLobbyHook = ({ lobbyId, currentUserId }) => {
   }
 
   const deleteLobby = () => {
+    // TODO: Запрос на запись результата в лидерборд
     // TODO: Запрос на удаление всех пользователей из лобби
     // TODO: Запрос на удаление лобби
   }
