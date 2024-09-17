@@ -5,12 +5,15 @@ const staticUrl = 'https://ya-praktikum.tech/api/v2/resources/'
   event.waitUntil(
     (async () => {
       const cache = await caches.open(CACHE_NAME)
-      await cache.addAll(['/public/crocodile.png', '/public/crocodile-win.png'])
+      await cache.addAll([
+        '/public/crocodile.png',
+        '/public/crocodile-win.png',
+        '/public/loading.png',
+      ])
       await self.skipWaiting()
     })()
   )
 })
-
 ;(self as ServiceWorkerGlobalScope).addEventListener(
   'activate',
   async event => {
@@ -26,7 +29,6 @@ const staticUrl = 'https://ya-praktikum.tech/api/v2/resources/'
     )
   }
 )
-
 ;(self as ServiceWorkerGlobalScope).addEventListener('fetch', event => {
   event.respondWith(
     (async () => {
