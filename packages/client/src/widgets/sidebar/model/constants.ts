@@ -1,18 +1,20 @@
+import { ROUTER_PATH } from '../../../shared/models'
+
 export const ROUTES = [
   {
-    path: '/play',
+    path: ROUTER_PATH.PLAY,
     name: 'Игра',
   },
   {
-    path: '/user',
+    path: ROUTER_PATH.USER,
     name: 'Профиль',
   },
   {
-    path: '/forum',
+    path: ROUTER_PATH.FORUM,
     name: 'Форум',
   },
   {
-    path: '/leader-board',
+    path: ROUTER_PATH.LEADER_BOARD,
     name: 'Рекорды',
   },
   {

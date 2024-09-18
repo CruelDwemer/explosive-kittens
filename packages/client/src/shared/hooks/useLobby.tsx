@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { LobbyView } from '../../entities/lobby/models'
 import { useNavigate } from 'react-router'
 import { createSearchParams } from 'react-router-dom'
+import { ROUTER_PATH } from '../models'
 // import { randomWord } from '../../entities/lobby/api'
 
 type SendImageFunc = (guessingImage: string) => void
@@ -114,7 +115,7 @@ const useLobby: UseLobbyHook = ({ lobbyId, currentUserId }) => {
       (a, b) => a[1].score - b[1].score
     )
     navigate({
-      pathname: '/finish',
+      pathname: ROUTER_PATH.FINISH,
       search: createSearchParams({
         id: winner[0][0].toString(),
         name: winner[0][1].name.toString(),

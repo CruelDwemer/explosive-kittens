@@ -17,6 +17,7 @@ import {
 } from '../pages'
 import { Fullscreen } from '../widgets'
 import { ErrorBoundary } from '../features'
+import { ROUTER_PATH } from '../shared/models'
 
 // TODO: Возможно добавить lazy загрузку
 // TODO: Стоит квынести в однельный файл
@@ -26,27 +27,27 @@ const router = createBrowserRouter([
     element: <Layout />,
     children: [
       {
-        path: '/play',
+        path: ROUTER_PATH.PLAY,
         element: <Play />,
       },
       {
-        path: '/finish',
+        path: ROUTER_PATH.FINISH,
         element: <Finish />,
       },
       {
-        path: '/leader-board',
+        path: ROUTER_PATH.LEADER_BOARD,
         element: <LeaderBoard />,
       },
       {
-        path: '/lobby/:id',
+        path: ROUTER_PATH.LOBBY,
         element: <Lobby />,
       },
       {
-        path: '/user',
+        path: ROUTER_PATH.USER,
         element: <User />,
       },
       {
-        path: '/forum',
+        path: ROUTER_PATH.FORUM,
         element: <Forum />,
       },
       {
@@ -54,25 +55,25 @@ const router = createBrowserRouter([
         element: <Landing />,
       },
       {
-        path: '/',
-        element: <Navigate to="play" />,
+        path: ROUTER_PATH.MAIN,
+        element: <Navigate to={ROUTER_PATH.PLAY} />,
       },
     ],
   },
   {
-    path: '/login',
+    path: ROUTER_PATH.LOGIN,
     element: <Login />,
   },
   {
-    path: '/register',
+    path: ROUTER_PATH.REGISTER,
     element: <Register />,
   },
   {
-    path: '/400',
+    path: ROUTER_PATH.NOT_FOUND,
     element: <Error400 />,
   },
   {
-    path: '/500',
+    path: ROUTER_PATH.ERROR,
     element: <Error500 />,
   },
   {
@@ -80,7 +81,7 @@ const router = createBrowserRouter([
     element: <TestErrorBoundary />,
   },
   {
-    path: '*',
+    path: ROUTER_PATH.ANOTHER,
     element: <Error400 />,
   },
 ])

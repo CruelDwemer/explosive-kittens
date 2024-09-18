@@ -1,4 +1,4 @@
-import { Avatar, Box, Button, Typography } from '@mui/material'
+import { Box, Button, Typography } from '@mui/material'
 import { useNavigate } from 'react-router'
 import Sidebar from '../sidebar'
 import styles from './styles'
@@ -7,6 +7,7 @@ import { getUserInfo } from '../../entities/user/api'
 import { IUser } from '../../pages/user/model/userData'
 import { handleLogout } from '../../entities/user/lib'
 import UserAvatar from '../avatar/avatar'
+import { ROUTER_PATH } from '../../shared/models'
 
 const Header: FC = () => {
   const navigate = useNavigate()
@@ -17,7 +18,7 @@ const Header: FC = () => {
 
   const handleClickLogout = async () => {
     await handleLogout()
-    navigate('/login')
+    navigate(ROUTER_PATH.LOGIN)
   }
 
   useEffect(() => {

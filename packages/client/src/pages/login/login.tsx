@@ -1,18 +1,22 @@
 import AuthForm from '../../shared/ui/auth-form/auth-form'
-import { Container, CssBaseline, Box, Button } from '@mui/material'
+import { Container, CssBaseline, Box } from '@mui/material'
 import styles from './styles'
 import {
   handleLoginQuery,
-  handleLogout,
   loginSchema,
   passwordSchema,
 } from '../../entities/user/lib'
-import { INPUTS_SIGIN } from '../../entities/user/constants'
+import { INPUTS_SIGN_IN } from '../../entities/user/constants'
 import Joi from 'joi'
+import { FC } from 'react'
+import { useCheckAuth } from '../../shared/hooks'
+import { ROUTER_PATH } from '../../shared/models'
 
-const Login = () => {
+const Login: FC = () => {
+  useCheckAuth()
+
   const link = {
-    route: '/register',
+    route: ROUTER_PATH.REGISTER,
     text: 'Регистрация',
   }
 
@@ -27,22 +31,22 @@ const Login = () => {
       <Container maxWidth="sm" className="box-shadow" sx={styles.container}>
         <AuthForm
           id="auth-form"
-          inputs={INPUTS_SIGIN}
+          inputs={INPUTS_SIGN_IN}
           pageName="Вход"
           buttonText="Войти"
           link={link}
           schema={schema}
-          handleSubmitData={handleLoginQuery}
+          onSubmitData={handleLoginQuery}
         />
       </Container>
-      <Button
+      {/* <Button
         variant="contained"
         color="primary"
         size="medium"
         onClick={handleLogout}
         sx={{ maxWidth: '100px' }}>
         Выйти
-      </Button>
+      </Button> */}
     </Box>
   )
 }

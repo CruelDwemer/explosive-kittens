@@ -8,7 +8,7 @@ export const options = {
   errorLabelCssClass: 'auth-error-label',
 }
 
-export const INPUTS_SIGIN = [
+export const INPUTS_SIGN_IN = [
   {
     id: 1,
     selector: 'login',
@@ -25,7 +25,7 @@ export const INPUTS_SIGIN = [
   },
 ]
 
-export const INPUTS_SIGUP = [
+export const INPUTS_SIGN_UP = [
   {
     id: 1,
     name: 'first_name',
@@ -70,7 +70,7 @@ export const INPUTS_SIGUP = [
   },
   {
     id: 7,
-    name: 'password',
+    name: 'confirm_password',
     selector: 'confirm_password',
     type: 'password',
     label: 'Подтвердите пароль',

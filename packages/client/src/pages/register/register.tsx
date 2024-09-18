@@ -1,7 +1,7 @@
 import AuthForm from '../../shared/ui/auth-form/auth-form'
 import { Container, CssBaseline, Box } from '@mui/material'
 import styles from './styles'
-import { INPUTS_SIGUP } from '../../entities/user/constants'
+import { INPUTS_SIGN_UP } from '../../entities/user/constants'
 import Joi from 'joi'
 import {
   handleRegisterQuery,
@@ -10,11 +10,13 @@ import {
   emailSchema,
   passwordSchema,
   phoneSchema,
+  confirmPassword,
 } from '../../entities/user/lib'
+import { ROUTER_PATH } from '../../shared/models'
 
 const Register = () => {
   const link = {
-    route: '/login',
+    route: ROUTER_PATH.LOGIN,
     text: 'Войти',
   }
 
@@ -25,6 +27,7 @@ const Register = () => {
     phone: phoneSchema,
     login: loginSchema,
     password: passwordSchema,
+    confirm_password: confirmPassword,
   })
 
   return (
@@ -33,12 +36,12 @@ const Register = () => {
       <Container maxWidth="sm" sx={styles.container}>
         <AuthForm
           id="auth-form"
-          inputs={INPUTS_SIGUP}
+          inputs={INPUTS_SIGN_UP}
           pageName="Регистрация"
           buttonText="Зарегистрироваться"
           link={link}
           schema={schema}
-          handleSubmitData={handleRegisterQuery}
+          onSubmitData={handleRegisterQuery}
         />
       </Container>
     </Box>

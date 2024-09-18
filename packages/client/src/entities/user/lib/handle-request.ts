@@ -6,8 +6,8 @@ import {
 } from '../api/user-api'
 import { AuthData } from '../models/validator-models'
 import { AppDispatch } from '../../../shared/lib'
-import type { User } from '../models'
 import { saveUserData } from './'
+import { ROUTER_PATH } from '../../../shared/models'
 
 const handleLoginQuery = async (data: AuthData, dispatch: AppDispatch) => {
   try {
@@ -15,9 +15,10 @@ const handleLoginQuery = async (data: AuthData, dispatch: AppDispatch) => {
     if (response.status === 200) {
       // console.log('Вход успешно выполнен.')
       saveToStore(dispatch)
-      window.location.href = '/play'
+      window.location.href = ROUTER_PATH.PLAY
     } else {
-      const message = await response.json()
+      const result = await response.json()
+      alert(`${result.reason}`)
       // console.log('Ошибка входа: ', message)
     }
   } catch (error) {
@@ -31,6 +32,7 @@ const handleLogout = async () => {
     const response = await logout()
     if (response.status != 200) {
       const result = await response.json()
+      alert(`${result.reason}`)
       // console.log('Ошибка: ', result)
     } else {
       // console.log('Выход упешно выполнен: ', response)
@@ -46,8 +48,9 @@ const handleRegisterQuery = async (data: AuthData) => {
     const response = await registerUser(JSON.stringify(data))
     const result = await response.json()
     if (response.status === 200) {
-      // console.log('Регистрация успешно выполнена: ', result)
+      alert(`Регистрация успешно выполнена`)
     } else {
+      alert(`${result.reason}`)
       // console.log('Ошибка регистрации: ', result)
     }
   } catch (error) {

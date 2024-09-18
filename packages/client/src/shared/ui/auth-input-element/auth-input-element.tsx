@@ -1,24 +1,26 @@
 import { FC } from 'react'
 import styles from './styles'
 import { FormControl, FormLabel, TextField } from '@mui/material'
+import { FieldErrors, UseFormRegister, UseFormTrigger } from 'react-hook-form'
+import { AuthData } from '../../../entities/user/models'
 
-type Props = {
-  name: string
+interface AuthInputElementProps {
+  name: keyof AuthData
   type: string
   label: string
   selector: string
-  register: any
-  errors: any
-  trigger: any
+  errors: FieldErrors<AuthData>
+  register: UseFormRegister<AuthData>
+  trigger: UseFormTrigger<AuthData>
 }
 
-const AuthInputElement: FC<Props> = ({
+const AuthInputElement: FC<AuthInputElementProps> = ({
   name,
   type,
   label,
   selector,
-  register,
   errors,
+  register,
   trigger,
 }) => {
   return (
@@ -32,7 +34,7 @@ const AuthInputElement: FC<Props> = ({
         size="small"
         variant="standard"
         {...register(name)}
-        error={errors[name] ? true : false}
+        error={Boolean(errors[name])}
         helperText={errors[name]?.message}
         onBlur={() => trigger(name)}
       />

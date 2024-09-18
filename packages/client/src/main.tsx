@@ -3,7 +3,6 @@ import App from './app/App'
 import './index.css'
 import { store } from './shared/lib'
 import { Provider } from 'react-redux'
-import { withErrorBoundary } from './features'
 
 if ('serviceWorker' in navigator) {
   try {

@@ -1,6 +1,6 @@
 import { AuthInputElement } from '../'
 import { AuthButton } from '../'
-import { FC, useEffect } from 'react'
+import { FC } from 'react'
 import { Link } from 'react-router-dom'
 import { Container, Typography, Box } from '@mui/material'
 import styles from './styles'
@@ -10,7 +10,6 @@ import { useForm } from 'react-hook-form'
 import Joi from 'joi'
 import { useDispatch } from 'react-redux'
 import type { AppDispatch } from '../../lib'
-import { store } from '../../lib'
 
 type Props = {
   id: string
@@ -19,7 +18,7 @@ type Props = {
   buttonText: string
   link: Record<string, string>
   schema: Joi.ObjectSchema<AuthData>
-  handleSubmitData: (data: AuthData, dispatch: AppDispatch) => void
+  onSubmitData: (data: AuthData, dispatch: AppDispatch) => void
 }
 
 const AuthForm: FC<Props> = ({
@@ -29,7 +28,7 @@ const AuthForm: FC<Props> = ({
   buttonText,
   link,
   schema,
-  handleSubmitData,
+  onSubmitData,
 }) => {
   const {
     register,
@@ -54,42 +53,41 @@ const AuthForm: FC<Props> = ({
   //
 
   return (
-    <>
-      <Box
-        component="form"
-        id={id}
-        sx={styles.form}
-        onSubmit={handleSubmit((data: AuthData) =>
-          handleSubmitData(data, dispatch)
-        )}>
-        <Container disableGutters={true}>
-          <Typography variant="h4" component="h1" sx={styles.title}>
-            {pageName}
-          </Typography>
-          {inputs.map((element: InputData) => (
+    <Box
+      component="form"
+      id={id}
+      sx={styles.form}
+      onSubmit={handleSubmit((data: AuthData) => onSubmitData(data, dispatch))}>
+      <Container disableGutters={true}>
+        <Typography variant="h4" component="h1" sx={styles.title}>
+          {pageName}
+        </Typography>
+        {inputs.map((element: InputData) => {
+          const { id, name, type, label, selector } = element
+          return (
             <AuthInputElement
-              key={element.id}
-              name={element.name}
-              type={element.type}
-              label={element.label}
-              selector={element.selector}
-              register={register}
+              key={id}
+              name={name as keyof AuthData}
+              type={type}
+              label={label}
+              selector={selector}
               errors={errors}
+              register={register}
               trigger={trigger}
             />
-          ))}
-        </Container>
-        <Container disableGutters={true} sx={styles.bottomContainer}>
-          <AuthButton text={buttonText} />
-          <Link to={link.route}>
-            <Typography sx={styles.link} color="primary">
-              {link.text}
-            </Typography>
-          </Link>
-        </Container>
-        <div className="custom-error-container"></div>
-      </Box>
-    </>
+          )
+        })}
+      </Container>
+      <Container disableGutters={true} sx={styles.bottomContainer}>
+        <AuthButton text={buttonText} />
+        <Link to={link.route}>
+          <Typography sx={styles.link} color="primary">
+            {link.text}
+          </Typography>
+        </Link>
+      </Container>
+      <div className="custom-error-container"></div>
+    </Box>
   )
 }
 

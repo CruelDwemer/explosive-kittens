@@ -14,13 +14,14 @@ import {
 import { useLobby } from '../../shared/hooks'
 import { LobbyView } from '../../entities/lobby/models'
 import { Navigate, useParams } from 'react-router-dom'
+import { ROUTER_PATH } from '../../shared/models'
 
 const CURRENT_USER_ID = 0
 
 const Lobby: FC = () => {
   const { id: lobbyId } = useParams()
   if (!lobbyId) {
-    return <Navigate to={'/400'} />
+    return <Navigate to={ROUTER_PATH.NOT_FOUND} />
   }
 
   const { id, view, guessImage, hiddenWord, sendImage, startNewRound, close } =

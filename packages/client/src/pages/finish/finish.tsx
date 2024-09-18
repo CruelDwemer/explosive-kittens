@@ -10,6 +10,7 @@ import {
   CardActions,
   Avatar,
 } from '@mui/material'
+import { ROUTER_PATH } from '../../shared/models'
 
 const Finish: FC = () => {
   const [searchParams] = useSearchParams()
@@ -20,7 +21,7 @@ const Finish: FC = () => {
   const navigate = useNavigate()
 
   const handlePlayClick = () => {
-    navigate('/play')
+    navigate(ROUTER_PATH.PLAY)
     // setShowCountdown(true)
   }
 
