@@ -6,7 +6,7 @@ import styles from './styles'
 import { useCheckAuth } from '../../hooks'
 
 const Layout: FC = () => {
-  const { isLoading, text } = useCheckAuth()
+  const { isLoading } = useCheckAuth()
 
   return (
     <>
