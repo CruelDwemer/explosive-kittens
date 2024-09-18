@@ -17,6 +17,7 @@ import ChatIcon from '@mui/icons-material/Chat'
 import PersonIcon from '@mui/icons-material/Person'
 import SmartDisplayIcon from '@mui/icons-material/SmartDisplay'
 import EmojiEventsIcon from '@mui/icons-material/EmojiEvents'
+import CoPresentIcon from '@mui/icons-material/CoPresent'
 
 // TODO: Можно в разные стороны прикрутить, оставил слева
 type Anchor = 'left'
@@ -31,6 +32,7 @@ const Sidebar: FC = () => {
     Профиль: <PersonIcon />,
     Форум: <ChatIcon />,
     Рекорды: <EmojiEventsIcon />,
+    Лендинг: <CoPresentIcon />,
   }
 
   const handleNavItemClick = (path: string) => {

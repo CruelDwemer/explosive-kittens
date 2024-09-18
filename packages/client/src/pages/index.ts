@@ -8,6 +8,7 @@ import Error400 from './error400'
 import Error500 from './error500'
 import Layout from '../shared/ui/layout/layout'
 import Forum from './forum/forum'
+import Landing from './landing'
 export { default as TestErrorBoundary } from './test-error-boundary'
 export { Lobby } from './lobby/'
 export {
@@ -21,4 +22,5 @@ export {
   Error400,
   Layout,
   Forum,
+  Landing,
 }
