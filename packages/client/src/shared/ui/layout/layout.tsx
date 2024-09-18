@@ -1,20 +1,29 @@
 import { Outlet } from 'react-router'
-import { Box } from '@mui/material'
+import { Box, CircularProgress } from '@mui/material'
 import Header from '../../../widgets/header'
 import { FC } from 'react'
 import styles from './styles'
 import { useCheckAuth } from '../../hooks'
 
 const Layout: FC = () => {
-  useCheckAuth()
+  const { isLoading, text } = useCheckAuth()
 
   return (
-    <Box sx={styles.container}>
-      <Header />
-      <main style={styles.main}>
-        <Outlet />
-      </main>
-    </Box>
+    <>
+      {isLoading ? (
+        <CircularProgress
+          size={'50px'}
+          sx={{ top: '50%', left: '50%', position: 'absolute' }}
+        />
+      ) : (
+        <Box sx={styles.container}>
+          <Header />
+          <main style={styles.main}>
+            <Outlet />
+          </main>
+        </Box>
+      )}
+    </>
   )
 }
 

@@ -13,8 +13,11 @@ import {
   confirmPassword,
 } from '../../entities/user/lib'
 import { ROUTER_PATH } from '../../shared/models'
+import { useCheckAuth } from '../../shared/hooks'
 
 const Register = () => {
+  useCheckAuth()
+
   const link = {
     route: ROUTER_PATH.LOGIN,
     text: 'Войти',

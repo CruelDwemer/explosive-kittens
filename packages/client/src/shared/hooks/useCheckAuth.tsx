@@ -1,18 +1,30 @@
-import { useEffect } from 'react'
+import { useLayoutEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { getUserInfoQuery } from '../../entities/user/api'
 import { ROUTER_PATH } from '../models'
 
 function useCheckAuth() {
   const navigate = useNavigate()
-  useEffect(() => {
+  const [isLoading, setIsLoading] = useState(false)
+
+  useLayoutEffect(() => {
     const checkUserLoggedIn = async () => {
-      const response = await getUserInfoQuery()
+      const path = document.location.pathname as ROUTER_PATH
+      const isNeedAuthRoute = ![
+        ROUTER_PATH.LOGIN,
+        ROUTER_PATH.REGISTER,
+      ].includes(path)
+
+      setIsLoading(true)
+      const response = await getUserInfoQuery().finally(() => {
+        setIsLoading(false)
+      })
       if (!response.ok) {
-        navigate(ROUTER_PATH.LOGIN)
+        if (isNeedAuthRoute) {
+          navigate(ROUTER_PATH.LOGIN)
+        }
       } else {
-        const path = document.location.pathname as ROUTER_PATH
-        if ([ROUTER_PATH.LOGIN, ROUTER_PATH.REGISTER].includes(path)) {
+        if (!isNeedAuthRoute) {
           navigate(ROUTER_PATH.PLAY)
         }
       }
@@ -20,6 +32,7 @@ function useCheckAuth() {
 
     checkUserLoggedIn()
   }, [])
+  return { isLoading }
 }
 
 export { useCheckAuth }
