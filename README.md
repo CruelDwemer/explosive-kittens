@@ -6,6 +6,8 @@
 
 В работе используется [`API Yandex Practikum`](https://ya-praktikum.tech/api/v2/swagger/). Реализация взаимодействия между клиентами опирается на websocket API для чата.
 
+Презентацию проекта можно посмотреть [`здесь`](https://drive.google.com/file/d/1Xfno7yWYp5bsnEdMmNCoscRfXUE73e9Y/view)
+
 ### Команда проекта
 
 [`Абазовская Анастасия`](https://github.com/ryabayeah)
