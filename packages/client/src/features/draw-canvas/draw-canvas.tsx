@@ -17,7 +17,7 @@ export interface DrawCanvasProps {
 const DEFAULT_COLOR = '#000000'
 const CANVAS_ID = 'lobby-canvas'
 
-const DrawCanvas: FC<DrawCanvasProps> = ({ hiddenWord, onCompleteClick }) => {
+const DrawCanvas = ({ hiddenWord, onCompleteClick }: DrawCanvasProps) => {
   const [color, setColor] = useState<string>(DEFAULT_COLOR)
   const [lineWidth, setLineWidth] = useState<number>(5)
 

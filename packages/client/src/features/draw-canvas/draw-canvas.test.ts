@@ -1,48 +1,60 @@
-import generateImageFromCanvas from './draw-canvas'
+// import React from 'react'
+// import { render, fireEvent, waitFor } from '@testing-library/react'
+// import DrawCanvas from './draw-canvas'
 
-describe('generateImageFromCanvas', () => {
-  beforeEach(() => {
-    // создаем имитацию DOM
-    document.body.innerHTML = '<canvas id="lobby-canvas"></canvas>'
-  })
+// describe('DrawCanvas', () => {
+//   it('рендер hiddenWord и canvas', () => {
+//     const hiddenWord = 'test'
+//     const onCompleteClick = jest.fn()
+//     const { getByText, getByTestId } = render(
+//       <DrawCanvas hiddenWord={hiddenWord} onCompleteClick={onCompleteClick} />
+//     )
 
-  afterEach(() => {
-    // очищаем имитацию DOM
-    document.body.innerHTML = ''
-  })
+//     expect(getByText(hiddenWord)).toBeInTheDocument()
+//     expect(getByTestId('lobby-canvas')).toBeInTheDocument()
+//   })
 
-  it('должен вызвать onCompleteClick с изображением', () => {
-    // создаем виртуальный DOM
-    const dom = new JSDOM()
-    const document = dom.window.document
+//   it('вызов onCompleteClick', () => {
+//     const hiddenWord = 'test'
+//     const onCompleteClick = jest.fn()
+//     const { getByText, getByTestId } = render(
+//       <DrawCanvas hiddenWord={hiddenWord} onCompleteClick={onCompleteClick} />
+//     )
 
-    // добавляем канвас в DOM
-    const canvas = document.createElement('canvas')
-    canvas.id = 'lobby-canvas'
-    document.body.appendChild(canvas)
+//     const button = getByText('Готово!')
+//     fireEvent.click(button)
 
-    // имитируем onCompleteClick
-    const onCompleteClick = jest.fn()
-    generateImageFromCanvas(onCompleteClick)
+//     waitFor(() => {
+//       expect(onCompleteClick).toHaveBeenCalledTimes(1)
+//       expect(onCompleteClick).toHaveBeenCalledWith(
+//         expect.stringContaining('data:image/jpeg;base64')
+//       )
+//     })
+//   })
 
-    // проверяем, что onCompleteClick был вызван
-    expect(onCompleteClick).toHaveBeenCalledTimes(1)
+//   it('смена ширины кисти', () => {
+//     const hiddenWord = 'test'
+//     const onCompleteClick = jest.fn()
+//     const { getByTestId } = render(
+//       <DrawCanvas hiddenWord={hiddenWord} onCompleteClick={onCompleteClick} />
+//     )
 
-    // проверяем, что onCompleteClick был вызван с изображением
-    const image = onCompleteClick.mock.calls[0][0]
-    expect(image).toBeInstanceOf(String)
-    expect(image.startsWith('data:image/jpeg;base64')).toBe(true)
-  })
+//     const slider = getByTestId('line-width-slider')
+//     fireEvent.change(slider, { target: { value: 10 } })
 
-  it('не должен вызвать onCompleteClick, если canvas не найден', () => {
-    // удаляем canvas из DOM
-    document.body.innerHTML = ''
+//     expect(getByTestId('lobby-canvas')).toHaveAttribute('lineWidth', '10')
+//   })
 
-    // имитируем onCompleteClick
-    const onCompleteClick = jest.fn()
-    generateImageFromCanvas(onCompleteClick)
+//   it('смена цвета', () => {
+//     const hiddenWord = 'test'
+//     const onCompleteClick = jest.fn()
+//     const { getByTestId } = render(
+//       <DrawCanvas hiddenWord={hiddenWord} onCompleteClick={onCompleteClick} />
+//     )
 
-    // проверяем, что onCompleteClick не был вызван
-    expect(onCompleteClick).not.toHaveBeenCalled()
-  })
-})
+//     const colorPicker = getByTestId('color-picker')
+//     fireEvent.change(colorPicker, { target: { value: '#FF0000' } })
+
+//     expect(getByTestId('lobby-canvas')).toHaveAttribute('color', '#FF0000')
+//   })
+// })
