@@ -22,8 +22,9 @@ const CanvasLineWidth: FC<CanvasLineWidthProps> = ({ lineWidth, onChange }) => {
         aria-label="Default"
         valueLabelDisplay="auto"
         onChange={handleWidthChange}
+        data-testid="line-width-slider"
       />
-      <Typography noWrap>Толщина линии </Typography>
+      <Typography noWrap>Толщина линии</Typography>
     </Box>
   )
 }

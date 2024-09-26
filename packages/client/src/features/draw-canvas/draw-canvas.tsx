@@ -17,7 +17,7 @@ export interface DrawCanvasProps {
 const DEFAULT_COLOR = '#000000'
 const CANVAS_ID = 'lobby-canvas'
 
-const DrawCanvas = ({ hiddenWord, onCompleteClick }: DrawCanvasProps) => {
+const DrawCanvas: FC<DrawCanvasProps> = ({ hiddenWord, onCompleteClick }) => {
   const [color, setColor] = useState<string>(DEFAULT_COLOR)
   const [lineWidth, setLineWidth] = useState<number>(5)
 
@@ -26,25 +26,43 @@ const DrawCanvas = ({ hiddenWord, onCompleteClick }: DrawCanvasProps) => {
     if (canvas) {
       const image = canvas.toDataURL('image/jpeg', 1.0)
       onCompleteClick(image)
-      // Для теста и проверки картинки
-      // downloadImage(image,CANVAS_ID)
     }
   }
 
   return (
-    <Box sx={styles.wrapper}>
-      <Paper sx={{ ...customPaperBlock, ...styles.wordBlock }}>
+    <Box sx={styles.wrapper} data-testid="draw-canvas">
+      <Paper
+        sx={{ ...customPaperBlock, ...styles.wordBlock }}
+        data-testid="hidden-word-paper">
         <HiddenWord hiddenWord={hiddenWord} />
       </Paper>
-      <Paper sx={customPaperBlock}>
-        <Canvas id={CANVAS_ID} lineWidth={lineWidth} color={color} />
+      <Paper sx={customPaperBlock} data-testid="canvas-paper">
+        <Canvas
+          id={CANVAS_ID}
+          data-testid="lobby-canvas"
+          lineWidth={lineWidth}
+          color={color}
+        />
       </Paper>
-      <Paper sx={{ ...customPaperBlock, ...styles.toolsBlock }}>
-        <Box sx={styles.tools}>
-          <CanvasLineWidth lineWidth={lineWidth} onChange={setLineWidth} />
-          <CanvasColor color={color} onColorChange={setColor} />
+      <Paper
+        sx={{ ...customPaperBlock, ...styles.toolsBlock }}
+        data-testid="tools-paper">
+        <Box sx={styles.tools} data-testid="tools-box">
+          <CanvasLineWidth
+            lineWidth={lineWidth}
+            onChange={setLineWidth}
+            data-testid="line-width-component"
+          />
+          <CanvasColor
+            color={color}
+            onColorChange={setColor}
+            data-testid="color-picker-component"
+          />
         </Box>
-        <Button variant="contained" onClick={generateImageFromCanvas}>
+        <Button
+          variant="contained"
+          onClick={generateImageFromCanvas}
+          data-testid="complete-button">
           Готово!
         </Button>
       </Paper>
