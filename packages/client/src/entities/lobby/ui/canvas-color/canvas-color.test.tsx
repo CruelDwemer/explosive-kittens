@@ -12,6 +12,7 @@ describe('CanvasColor Component', () => {
     onColorChange = jest.fn() // Мок функция
   })
 
+  // TODO: Доработать позже
   // test('отображает выбранный цвет корректно', () => {
   //   const { getByTestId } = render(
   //     <CanvasColor color={color} onColorChange={onColorChange} />
