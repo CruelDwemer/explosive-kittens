@@ -21,8 +21,8 @@ if ('serviceWorker' in navigator) {
   }
 }
 
-ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-  // withErrorBoundary((<App />) as unknown as ComponentType)
+ReactDOM.hydrateRoot(
+  document.getElementById('root') as HTMLElement,
   <Provider store={store}>
     <App />
   </Provider>
