@@ -1,14 +1,30 @@
 import { useLayoutEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { getUserInfoQuery } from '../../entities/user/api'
+import { useNavigate, useSearchParams } from 'react-router-dom'
+import { getUserInfoQuery, signUpWithYandex } from '../../entities/user/api'
 import { ROUTER_PATH } from '../models'
 
 function useCheckAuth() {
   const navigate = useNavigate()
   const [isLoading, setIsLoading] = useState(false)
+  const [searchParams] = useSearchParams()
+
+  const checkUserOauthLoggedIn = async (code: string) => {
+    const response = await signUpWithYandex(code, 'http://localhost:3000')
+    if (response.ok) {
+      const responseAuth = await getUserInfoQuery()
+      if (responseAuth.ok) {
+        navigate(ROUTER_PATH.PLAY)
+      } else {
+        navigate(ROUTER_PATH.LOGIN)
+      }
+    } else {
+      navigate(ROUTER_PATH.LOGIN)
+    }
+  }
 
   useLayoutEffect(() => {
     const checkUserLoggedIn = async () => {
+      const code = searchParams.get('code')
       const path = document.location.pathname as ROUTER_PATH
       const isNeedAuthRoute = ![
         ROUTER_PATH.LOGIN,
@@ -21,7 +37,11 @@ function useCheckAuth() {
       })
       if (!response.ok) {
         if (isNeedAuthRoute) {
-          navigate(ROUTER_PATH.LOGIN)
+          if (code) {
+            checkUserOauthLoggedIn(code)
+          } else {
+            navigate(ROUTER_PATH.LOGIN)
+          }
         }
       } else {
         if (!isNeedAuthRoute) {

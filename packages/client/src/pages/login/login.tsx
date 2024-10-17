@@ -1,5 +1,5 @@
 import AuthForm from '../../shared/ui/auth-form/auth-form'
-import { Container, CssBaseline, Box } from '@mui/material'
+import { Container, CssBaseline, Box, Button, gray } from '@mui/material'
 import styles from './styles'
 import {
   handleLoginQuery,
@@ -11,10 +11,10 @@ import Joi from 'joi'
 import { FC } from 'react'
 import { useCheckAuth } from '../../shared/hooks'
 import { ROUTER_PATH } from '../../shared/models'
+import { getYandexServiceId } from '../../entities/user/api/oauth-api'
 
 const Login: FC = () => {
   useCheckAuth()
-
   const link = {
     route: ROUTER_PATH.REGISTER,
     text: 'Регистрация',
@@ -24,6 +24,20 @@ const Login: FC = () => {
     login: loginSchema,
     password: passwordSchema,
   })
+
+  const handleOauth = async () => {
+    try {
+      const redirectUri = 'http://localhost:3000'
+      const { service_id } = await getYandexServiceId(redirectUri)
+      if (service_id && service_id !== undefined) {
+        window.location.href = `https://oauth.yandex.ru/authorize?response_type=code&client_id=${service_id}&redirect_uri=${redirectUri}`
+      } else {
+        console.error('Error')
+      }
+    } catch (error) {
+      console.error('Error')
+    }
+  }
 
   return (
     <Box sx={styles.page}>
@@ -38,15 +52,16 @@ const Login: FC = () => {
           schema={schema}
           onSubmitData={handleLoginQuery}
         />
+        <div>
+          <Button
+            variant="contained"
+            size="medium"
+            onClick={handleOauth}
+            sx={{ width: '100%' }}>
+            Войти через Яндекс
+          </Button>
+        </div>
       </Container>
-      {/* <Button
-        variant="contained"
-        color="primary"
-        size="medium"
-        onClick={handleLogout}
-        sx={{ maxWidth: '100px' }}>
-        Выйти
-      </Button> */}
     </Box>
   )
 }
