@@ -25,7 +25,6 @@ const Header: FC = () => {
     const fetchUserInfo = async () => {
       try {
         const userInfo = await getUserInfo()
-        console.log(userInfo)
         setUser(userInfo)
       } catch (error) {
         throw new Error(`Ошибка запроса! статус: ${error}`)

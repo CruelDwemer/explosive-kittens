@@ -8,20 +8,6 @@ function useCheckAuth() {
   const [isLoading, setIsLoading] = useState(false)
   const [searchParams] = useSearchParams()
 
-  const checkUserOauthLoggedIn = async (code: string) => {
-    const response = await signUpWithYandex(code, 'http://localhost:3000')
-    if (response.ok) {
-      const responseAuth = await getUserInfoQuery()
-      if (responseAuth.ok) {
-        navigate(ROUTER_PATH.PLAY)
-      } else {
-        navigate(ROUTER_PATH.LOGIN)
-      }
-    } else {
-      navigate(ROUTER_PATH.LOGIN)
-    }
-  }
-
   useLayoutEffect(() => {
     const checkUserLoggedIn = async () => {
       const code = searchParams.get('code')
@@ -38,7 +24,13 @@ function useCheckAuth() {
       if (!response.ok) {
         if (isNeedAuthRoute) {
           if (code) {
-            checkUserOauthLoggedIn(code)
+            const response = await signUpWithYandex(
+              code,
+              'http://localhost:3000'
+            )
+            if (response.ok) {
+              checkUserLoggedIn()
+            }
           } else {
             navigate(ROUTER_PATH.LOGIN)
           }
