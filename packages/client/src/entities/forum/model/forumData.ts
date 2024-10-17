@@ -4,6 +4,7 @@ export interface Topic {
   comments: Comment[]
   title?: string
   date?: string
+  reactions?: string
 }
 
 // TODO: тут еще скорее всего будет аватарка

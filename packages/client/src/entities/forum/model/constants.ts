@@ -11,6 +11,7 @@ const TOPICS = [
         date: '2021-01-01',
       },
     ],
+    reactions: '😃👍',
   },
   {
     title: 'Topic 2',
@@ -29,6 +30,7 @@ const TOPICS = [
         date: '2021-01-01',
       },
     ],
+    reactions: '😢❤️',
   },
   {
     title: 'Topic 3',
@@ -45,7 +47,7 @@ const TOPICS = [
   },
   {
     title: 'Topic 4',
-    id: 3,
+    id: 4,
     date: '2021-01-01',
     text: 'Some text',
     comments: [
@@ -70,10 +72,11 @@ const TOPICS = [
         date: '2021-01-01',
       },
     ],
+    reactions: '😌🥺😢😌🥺',
   },
   {
     title: 'Topic 1',
-    id: 1,
+    id: 5,
     date: '2021-01-01',
     text: 'Some textSome textSome textSome textSome textSome textSome textSome textSome textSome textSome textSome textSome textSome textSome textSome textSome textSome textSome textSome textSome textSome textSome textSome textSome textSome textSome textSome textSome textSome textSome textSome textSome textSome textSome textSome textSome text',
     comments: [
