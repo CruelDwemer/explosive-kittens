@@ -1,5 +1,5 @@
 import AuthForm from '../../shared/ui/auth-form/auth-form'
-import { Container, CssBaseline, Box, Button, gray } from '@mui/material'
+import { Container, CssBaseline, Box, Button } from '@mui/material'
 import styles from './styles'
 import {
   handleLoginQuery,
