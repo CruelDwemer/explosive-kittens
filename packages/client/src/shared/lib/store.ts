@@ -1,5 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { userReducer } from '../../entities/user/lib'
+// import { ratingReducer } from '../../entities/lobby/lib'
 
 export const store = configureStore({
   reducer: {

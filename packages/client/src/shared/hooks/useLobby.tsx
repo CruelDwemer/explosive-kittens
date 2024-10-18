@@ -108,6 +108,8 @@ const useLobby: UseLobbyHook = ({ lobbyId, currentUserId }) => {
   const deleteLobby = () => {
     const { rating } = lobbyData
 
+    saveToLeaderboard(rating)
+
     // TODO: Запрос на запись результата в лидерборд
     // TODO: Запрос на удаление всех пользователей из лобби
     // TODO: Запрос на удаление лобби
@@ -122,6 +124,10 @@ const useLobby: UseLobbyHook = ({ lobbyId, currentUserId }) => {
         score: winner[0][1].score.toString(),
       }).toString(),
     })
+  }
+
+  const saveToLeaderboard = rating => {
+    console.log('RESULTS: ', rating)
   }
 
   return {
