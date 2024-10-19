@@ -1,3 +1,27 @@
+### Игра "Крокодил"
+Весёлая онлайн-игра по правилам обычной настольной игры "крокодил" - один участник рисует загаданное слово, другие отгадывают.
+Подробнее с правилами можно ознакомиться [`по ссылке`](https://docs.google.com/document/d/1YSdG0OKAi3J1nCrOhV-MIftzrGGN910ITjYKxYBqC9g/edit)
+
+Проект был создан на основе [`предоставленного репозитория`](https://github.com/yandex-praktikum/client-server-template-with-vite).
+
+В работе используется [`API Yandex Practikum`](https://ya-praktikum.tech/api/v2/swagger/). Реализация взаимодействия между клиентами опирается на websocket API для чата.
+
+Презентацию проекта можно посмотреть [`здесь`](https://drive.google.com/file/d/1Xfno7yWYp5bsnEdMmNCoscRfXUE73e9Y/view)
+
+### Команда проекта
+
+[`Абазовская Анастасия`](https://github.com/ryabayeah)
+
+[`Бабенко Михаил`](https://github.com/CruelDwemer)
+
+[`Ворожцов Илья`](https://github.com/ilyavorozhtsov39)
+
+[`Дергунов Максим`](https://github.com/dergunovmxm)
+
+[`Показацкая Арина`](https://github.com/arishkaa05)
+
+под мудрым наставничеством Тарасова Никиты
+
 ### Как запускать?
 
 1. Убедитесь что у вас установлен `node` и `docker`
