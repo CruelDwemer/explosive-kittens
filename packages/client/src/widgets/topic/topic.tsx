@@ -40,11 +40,6 @@ const TopicItem = ({ data }: PropsType) => {
               {data.date}
             </Typography>
           </Grid2>
-          <Box
-            sx={{ display: 'flex', width: '100%', justifyContent: 'flex-end' }}>
-            {' '}
-            <EmojiPicker reactions={data.reactions} />{' '}
-          </Box>
         </Grid2>
       </AccordionSummary>
 
@@ -76,6 +71,15 @@ const TopicItem = ({ data }: PropsType) => {
                   {comment.date}
                 </Typography>
               </Grid2>
+              <Box
+                sx={{
+                  display: 'flex',
+                  width: '100%',
+                  justifyContent: 'flex-end',
+                }}>
+                {' '}
+                <EmojiPicker reactions={comment.reactions} />{' '}
+              </Box>
             </Grid2>
           ))}
         </List>
