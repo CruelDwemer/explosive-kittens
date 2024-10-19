@@ -12,6 +12,7 @@ import { FC } from 'react'
 import { useCheckAuth } from '../../shared/hooks'
 import { ROUTER_PATH } from '../../shared/models'
 import { getYandexServiceId } from '../../entities/user/api/oauth-api'
+import { DEV_HOST } from '../../shared/constants'
 
 const Login: FC = () => {
   useCheckAuth()
@@ -27,7 +28,7 @@ const Login: FC = () => {
 
   const handleOauth = async () => {
     try {
-      const redirectUri = 'http://localhost:3000'
+      const redirectUri = DEV_HOST
       const { service_id } = await getYandexServiceId(redirectUri)
       if (service_id && service_id !== undefined) {
         window.location.href = `https://oauth.yandex.ru/authorize?response_type=code&client_id=${service_id}&redirect_uri=${redirectUri}`
