@@ -1,21 +1,21 @@
 import { Paper, Typography } from '@mui/material'
-import { FC } from 'react'
+import { FC, useContext } from 'react'
 import { customPaperBlock } from '../../../../shared/styles'
 import FaceIcon from '@mui/icons-material/Face'
+import { ThemeContext } from '../../../../features/theme-provider/ThemeProvider'
+import useStyle from './styles'
 
 const SelectHostWaitingMessage: FC = () => {
+  const { theme } = useContext(ThemeContext)
+  const styles = useStyle(theme)
   return (
     <Paper
       sx={{
         ...customPaperBlock,
-        boxSizing: 'border-box',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
+        ...styles.container,
       }}>
-      <FaceIcon color="primary" fontSize="large" />
-      <Typography variant="h5" color="primary">
+      <FaceIcon color="primary" fontSize="large" sx={styles.icon} />
+      <Typography variant="h5" color="primary" sx={styles.text}>
         Идет выбор ведущего
       </Typography>
     </Paper>
