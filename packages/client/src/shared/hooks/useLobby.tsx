@@ -3,7 +3,10 @@ import { LobbyView } from '../../entities/lobby/models'
 import { useNavigate } from 'react-router'
 import { createSearchParams } from 'react-router-dom'
 import { ROUTER_PATH } from '../models'
-import { saveToLeaderboard, getLeaderboard } from '../../entities/leader-board/api'
+import {
+  saveToLeaderboard,
+  getLeaderboard,
+} from '../../entities/leader-board/api'
 
 type SendImageFunc = (guessingImage: string) => void
 type StartNewRoundFunc = (
@@ -21,7 +24,7 @@ type UseLobbyHook = (data: { lobbyId: number; currentUserId: number }) => {
   startNewRound: StartNewRoundFunc
   close: VoidFunction
 }
-type Entry = { name: string, login: string, score: number, avatar: string }
+type Entry = { name: string; login: string; score: number; avatar: string }
 type Rating = Record<number, Entry>
 type UseLobbyHookState = {
   id: number
@@ -88,7 +91,12 @@ const useLobby: UseLobbyHook = ({ lobbyId, currentUserId }) => {
     if (userRating) {
       copy[guessedUserId].score += 1
     } else {
-      copy[guessedUserId] = { name: guessedUserName, login: guessedUserLogin, score: 1, avatar: guessedUserAvatar }
+      copy[guessedUserId] = {
+        name: guessedUserName,
+        login: guessedUserLogin,
+        score: 1,
+        avatar: guessedUserAvatar,
+      }
     }
     console.log(guessedUserId)
 
@@ -133,51 +141,55 @@ const useLobby: UseLobbyHook = ({ lobbyId, currentUserId }) => {
   }
 
   const saveResultsToLeaderboard = async (rating: Rating) => {
-    const response = await getLeaderboard(JSON.stringify({
-      ratingFieldName: "catsRating",
-      cursor: 0,
-      limit: 10
-    }));
-    const result = await response.json();
-    const { data } = result[0];
-    const { ratings } = result[0].data;
+    const response = await getLeaderboard(
+      JSON.stringify({
+        ratingFieldName: 'catsRating',
+        cursor: 0,
+        limit: 10,
+      })
+    )
+    const result = await response.json()
+    const { data } = result[0]
+    const { ratings } = result[0].data
 
     // console.log("WINNER OF THE GAME: ", rating)
     // console.log("RECIEVED DATA: ", data, "RATINGS: ", ratings)
 
-    Object.values(rating).forEach((winner) => {
+    Object.values(rating).forEach(winner => {
       const match = ratings.find((entry: Entry) => winner.login === entry.login)
       // console.log("FOUND MATCH ", match)
 
       if (!match) {
         ratings.push(winner)
       } else {
-        const index = ratings.findIndex((entry: Entry) => entry.login === match.login)
+        const index = ratings.findIndex(
+          (entry: Entry) => entry.login === match.login
+        )
         // console.log("INDEX: ", index, "RATINGS: ", ratings, 'RAT IND: ', ratings[index])
         ratings[index].score += winner.score
       }
     })
     data.ratings.sort((a: Entry, b: Entry) => b.score - a.score)
-    ++data.catsRating;
+    ++data.catsRating
 
     const requestData = {
       data,
-      ratingFieldName: "catsRating"
+      ratingFieldName: 'catsRating',
     }
 
-    await saveToLeaderboard(JSON.stringify(requestData));
-    finalCheck()
+    await saveToLeaderboard(JSON.stringify(requestData))
+    // finalCheck()
   }
 
-  async function finalCheck() {
-    const response = await getLeaderboard(JSON.stringify({
-      ratingFieldName: "catsRating",
-      cursor: 0,
-      limit: 10
-    }));
-    const result = await response.json();
-    console.log("LEADERBOARD RESULT: ", result)
-  }
+  // async function finalCheck() {
+  //   const response = await getLeaderboard(JSON.stringify({
+  //     ratingFieldName: "catsRating",
+  //     cursor: 0,
+  //     limit: 10
+  //   }));
+  //   const result = await response.json();
+  //   console.log("LEADERBOARD RESULT: ", result)
+  // }
 
   return {
     id: lobbyId,

@@ -11,10 +11,7 @@ const LeaderBoardElement: FC<LeaderBoardUserData> = ({
 }) => (
   <TableRow>
     <TableCell align="center">
-      <Avatar
-        sx={styles.avatar}
-        src={avatar ? `${BASE_URL}/resources${avatar}` : undefined}
-      />
+      <Avatar sx={styles.avatar} src={avatar ? avatar : undefined} />
     </TableCell>
     <TableCell align="center">{name}</TableCell>
     <TableCell align="right">{score}</TableCell>
@@ -22,3 +19,5 @@ const LeaderBoardElement: FC<LeaderBoardUserData> = ({
 )
 
 export default LeaderBoardElement
+
+// src={avatar ? `${BASE_URL}/resources${avatar}` : undefined}
