@@ -152,12 +152,8 @@ const useLobby: UseLobbyHook = ({ lobbyId, currentUserId }) => {
     const { data } = result[0]
     const { ratings } = result[0].data
 
-    // console.log("WINNER OF THE GAME: ", rating)
-    // console.log("RECIEVED DATA: ", data, "RATINGS: ", ratings)
-
     Object.values(rating).forEach(winner => {
       const match = ratings.find((entry: Entry) => winner.login === entry.login)
-      // console.log("FOUND MATCH ", match)
 
       if (!match) {
         ratings.push(winner)
@@ -165,7 +161,6 @@ const useLobby: UseLobbyHook = ({ lobbyId, currentUserId }) => {
         const index = ratings.findIndex(
           (entry: Entry) => entry.login === match.login
         )
-        // console.log("INDEX: ", index, "RATINGS: ", ratings, 'RAT IND: ', ratings[index])
         ratings[index].score += winner.score
       }
     })
@@ -178,18 +173,7 @@ const useLobby: UseLobbyHook = ({ lobbyId, currentUserId }) => {
     }
 
     await saveToLeaderboard(JSON.stringify(requestData))
-    // finalCheck()
   }
-
-  // async function finalCheck() {
-  //   const response = await getLeaderboard(JSON.stringify({
-  //     ratingFieldName: "catsRating",
-  //     cursor: 0,
-  //     limit: 10
-  //   }));
-  //   const result = await response.json();
-  //   console.log("LEADERBOARD RESULT: ", result)
-  // }
 
   return {
     id: lobbyId,

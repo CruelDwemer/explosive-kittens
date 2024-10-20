@@ -1,4 +1,4 @@
-const BASE_URL = 'https://ya-praktikum.tech/api/v2'
+import { BASE_URL } from '../../../shared/constants/api'
 
 export const saveToLeaderboard = (data: string) => {
   return fetch(`${BASE_URL}/leaderboard`, {

@@ -19,5 +19,3 @@ const LeaderBoardElement: FC<LeaderBoardUserData> = ({
 )
 
 export default LeaderBoardElement
-
-// src={avatar ? `${BASE_URL}/resources${avatar}` : undefined}
