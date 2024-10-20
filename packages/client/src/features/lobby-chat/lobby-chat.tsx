@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react'
+import { FC, useContext, useEffect, useState } from 'react'
 import styles from './styles'
 import { Box, Paper, Typography } from '@mui/material'
 import {
@@ -14,6 +14,8 @@ import {
 } from '../../entities/chat/utils'
 import { customPaperBlock } from '../../shared/styles'
 import { testingNewMessages } from '../../entities/chat/utils/test-messages'
+import { ThemeContext } from '../theme-provider/ThemeProvider'
+import useStyle from './styles'
 
 export interface LobbyChatProps {
   lobbyId: number
@@ -29,7 +31,8 @@ const LobbyChat: FC<LobbyChatProps> = ({
   onRightGuessWord,
 }) => {
   const [messages, setMessages] = useState<LobbyChatMessage[]>([])
-
+  const { theme } = useContext(ThemeContext)
+  const styles = useStyle(theme)
   useEffect(() => {
     // TODO: Запрос на получение сообщений
     const getOldMessages = (lobbyId: number) => {
@@ -65,7 +68,11 @@ const LobbyChat: FC<LobbyChatProps> = ({
     <Box sx={styles.wrapper}>
       <Paper sx={{ ...customPaperBlock, ...styles.paper }}>
         <Box sx={styles.header}>
-          <Typography variant="h6" color="primary" fontWeight={'bold'}>
+          <Typography
+            variant="h6"
+            color="primary"
+            fontWeight={'bold'}
+            sx={styles.text}>
             Чат
           </Typography>
         </Box>
