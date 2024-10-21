@@ -124,7 +124,6 @@ const useLobby: UseLobbyHook = ({ lobbyId, currentUserId }) => {
 
     saveResultsToLeaderboard(rating)
 
-    // TODO: Запрос на запись результата в лидерборд
     // TODO: Запрос на удаление всех пользователей из лобби
     // TODO: Запрос на удаление лобби
     const winner = Object.entries(rating).sort(
