@@ -1,5 +1,5 @@
 import { CHAT_API_PATH } from '.'
-import { SOCKET_URL } from '../../../shared/constants/api'
+import { BASE_URL } from '../../../shared/constants/api'
 
 export type Message = {
   chat_id: number
@@ -13,7 +13,8 @@ export type Message = {
 }
 
 export const getChatToken = async (id: number) => {
-  return fetch(`${SOCKET_URL}${CHAT_API_PATH.TOKEN}${id}`, {
+  console.log(`${BASE_URL}${CHAT_API_PATH.TOKEN}${id}`, '--')
+  return fetch(`${BASE_URL}${CHAT_API_PATH.TOKEN}${id}`, {
     method: 'GET',
     credentials: 'include',
     mode: 'cors',

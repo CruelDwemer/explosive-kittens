@@ -5,7 +5,7 @@ import {
   GuessImage,
   LobbyChat,
 } from '../../features'
-import { Box } from '@mui/material'
+import { Box, CircularProgress } from '@mui/material'
 import styles from './styles'
 import {
   HostDrawingMessage,
@@ -15,20 +15,40 @@ import { useLobby } from '../../shared/hooks'
 import { LobbyView } from '../../entities/lobby/models'
 import { Navigate, useParams } from 'react-router-dom'
 import { ROUTER_PATH } from '../../shared/models'
-
-const CURRENT_USER_ID = 0
+import { getUserInfoQuery } from '../../entities/user/api'
+import { User } from '../../entities/user/models'
 
 const Lobby: FC = () => {
   const { id: lobbyId } = useParams()
-  if (!lobbyId) {
-    return <Navigate to={ROUTER_PATH.NOT_FOUND} />
-  }
+  const [isLoading, setIsLoading] = useState(true)
+  const [userId, setUserId] = useState<number | null>(null)
 
   const { id, view, guessImage, hiddenWord, sendImage, startNewRound, close } =
     useLobby({
       lobbyId: Number(lobbyId),
-      currentUserId: CURRENT_USER_ID,
+      currentUserId: Number(userId),
     })
+
+  // TODO: Не обновляется
+  // const { userData } = useTypedSelector(({user}) => user)
+
+  useEffect(() => {
+    setIsLoading(true)
+    getUserInfoQuery()
+      .then(async resp => {
+        const r = (await resp.json()) as User
+        setUserId(r.id)
+      })
+      .finally(() => setIsLoading(false))
+  }, [])
+
+  if (isLoading) {
+    return <CircularProgress />
+  }
+
+  if (!lobbyId && userId === null) {
+    return <Navigate to={ROUTER_PATH.NOT_FOUND} />
+  }
 
   const viewMap: Record<LobbyView, ReactNode> = {
     canvas: (
@@ -44,7 +64,7 @@ const Lobby: FC = () => {
       <Box sx={styles.chatCol}>
         <LobbyChat
           lobbyId={id}
-          userId={CURRENT_USER_ID}
+          userId={Number(userId)}
           hiddenWord={hiddenWord || ''}
           isGuessing={view === 'guessing'}
           onRightGuessWord={startNewRound}

@@ -20,7 +20,8 @@ const useLobbyMessages = (userId: number, lobbyId: number) => {
   // let isAllMessage: boolean = false;
   let ping: unknown | number | undefined
 
-  const [messages, setMessages] = useState<Message[]>()
+  const [messages, setMessages] = useState<Message[]>([])
+
   useEffect(() => {
     connect(lobbyId, userId)
     return () => {
@@ -68,8 +69,8 @@ const useLobbyMessages = (userId: number, lobbyId: number) => {
 
         socket.message(({ data }) => {
           // TODO: Save messages
-          const messages: Message[] = JSON.parse(data)
-          setMessages(messages)
+          const newMessage: Message = JSON.parse(data)
+          setMessages(prev => [...prev, newMessage])
         })
 
         socket.close(disconnect)
@@ -78,8 +79,8 @@ const useLobbyMessages = (userId: number, lobbyId: number) => {
           console.error('Connection error')
         })
       })
-      .catch(() => {
-        console.error('-error-')
+      .catch(e => {
+        console.error(e, '-error-')
       })
   }
 

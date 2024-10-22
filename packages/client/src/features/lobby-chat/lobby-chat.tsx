@@ -33,38 +33,38 @@ const LobbyChat: FC<LobbyChatProps> = ({
 }) => {
   const [messages, setMessages] = useState<LobbyChatMessage[]>([])
 
-  const { messages: m } = useLobbyMessages(userId, lobbyId)
-  console.log(m)
-  // useEffect(() => {
-  //   // TODO: Запрос на получение сообщений
-  //   const getOldMessages = (lobbyId: number) => {
-  //     setMessages([])
-  //   }
-  //   getOldMessages(lobbyId)
-  // }, [])
+  // const { messages } = useLobbyMessages(userId, lobbyId)
 
-  // // Для тестирования новых сообщений
-  // const [newMessage, setNewMessage] = useState<LobbyChatMessage>()
-  // isGuessing && testingNewMessages(setNewMessage)
-  // useEffect(() => {
-  //   if (newMessage && isGuessing) {
-  //     setMessages(prev => [...prev, newMessage])
-  //     if (
-  //       hiddenWord &&
-  //       hiddenWord.toLowerCase() === newMessage.content.toLowerCase()
-  //     ) {
-  //       const techMessage: LobbyChatMessage = {
-  //         id: newMessage.id,
-  //         date: new Date().toISOString(),
-  //         userId: newMessage.id,
-  //         userName: '',
-  //         content: `Игрок ${newMessage.userName} отгадал слово: ${hiddenWord}`,
-  //       }
-  //       setMessages(prev => [...prev, techMessage])
-  //       onRightGuessWord(newMessage.userId, newMessage.userName)
-  //     }
-  //   }
-  // }, [newMessage])
+  useEffect(() => {
+    // TODO: Запрос на получение сообщений
+    const getOldMessages = (lobbyId: number) => {
+      setMessages([])
+    }
+    getOldMessages(lobbyId)
+  }, [])
+
+  // Для тестирования новых сообщений
+  const [newMessage, setNewMessage] = useState<LobbyChatMessage>()
+  isGuessing && testingNewMessages(setNewMessage)
+  useEffect(() => {
+    if (newMessage && isGuessing) {
+      setMessages(prev => [...prev, newMessage])
+      if (
+        hiddenWord &&
+        hiddenWord.toLowerCase() === newMessage.content.toLowerCase()
+      ) {
+        const techMessage: LobbyChatMessage = {
+          id: newMessage.id,
+          date: new Date().toISOString(),
+          userId: newMessage.id,
+          userName: '',
+          content: `Игрок ${newMessage.userName} отгадал слово: ${hiddenWord}`,
+        }
+        setMessages(prev => [...prev, techMessage])
+        onRightGuessWord(newMessage.userId, newMessage.userName)
+      }
+    }
+  }, [newMessage])
 
   return (
     <Box sx={styles.wrapper}>
