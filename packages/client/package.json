@@ -10,7 +10,7 @@
     "preview": "vite preview",
     "lint": "eslint .",
     "format": "prettier --write .",
-    "test": "jest ./"
+    "test": "jest ./ --passWithNoTests"
   },
   "dependencies": {
     "@emotion/react": "^11.13.3",
@@ -55,9 +55,5 @@
     "vite": "^3.0.7",
     "whatwg-fetch": "^3.6.20"
   },
-  "license": "MIT",
-  "testPathIgnorePatterns": [
-    "/node_modules/",
-    "/dist/"
-  ]
+  "license": "MIT"
 }
