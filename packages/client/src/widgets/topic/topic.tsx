@@ -1,4 +1,3 @@
-import { Card } from '@material-ui/core'
 import { Create, ExpandMore } from '@mui/icons-material'
 import {
   Accordion,
@@ -14,6 +13,7 @@ import {
 } from '@mui/material'
 import { Comment, Topic } from '../../entities/forum/model/forumData'
 import styles from './styles'
+import { EmojiPicker } from '../emoji-picker/emoji-picker'
 interface PropsType {
   data: Topic
 }
@@ -45,8 +45,8 @@ const TopicItem = ({ data }: PropsType) => {
 
       <AccordionDetails>
         <List component="div">
-          {data.comments.map((comment: Comment) => (
-            <Grid2 container padding={2}>
+          {data.comments.map((comment: Comment, index) => (
+            <Grid2 container padding={2} key={index}>
               <Grid2 size={1} sx={styles.flex_center}>
                 <Avatar />
               </Grid2>
@@ -71,6 +71,15 @@ const TopicItem = ({ data }: PropsType) => {
                   {comment.date}
                 </Typography>
               </Grid2>
+              <Box
+                sx={{
+                  display: 'flex',
+                  width: '100%',
+                  justifyContent: 'flex-end',
+                }}>
+                {' '}
+                <EmojiPicker reactions={comment.reactions} />{' '}
+              </Box>
             </Grid2>
           ))}
         </List>
