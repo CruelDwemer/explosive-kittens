@@ -6,15 +6,30 @@ import * as path from 'path'
 export default defineConfig({
   plugins: [react()],
   build: {
+    ssr: true,
     lib: {
       entry: path.resolve(__dirname, 'ssr.tsx'),
-      name: 'Client',
+      name: 'ssr',
       formats: ['cjs'],
     },
     rollupOptions: {
       output: {
-        dir: 'ssr-dist',
+        dir: 'dist-ssr',
+      },
+      onwarn(warning, warn) {
+        if (warning.code === 'MODULE_LEVEL_DIRECTIVE') {
+          return
+        }
+        warn(warning)
       },
     },
+  },
+  resolve: {
+    alias: {
+      src: path.resolve(__dirname, 'src'),
+    },
+  },
+  ssr: {
+    format: 'cjs',
   },
 })

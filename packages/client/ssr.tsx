@@ -8,7 +8,7 @@ import {
   createStaticRouter,
   createStaticHandler,
 } from 'react-router-dom/server'
-import { routes } from './src/app/App'
+import { routes } from './src/router'
 
 const handler = createStaticHandler(routes)
 

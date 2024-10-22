@@ -1,8 +1,13 @@
 import ReactDOM from 'react-dom/client'
 import App from './app/App'
 import './index.css'
-import { store } from './shared/lib'
+import { createSsrStore } from './shared/lib'
 import { Provider } from 'react-redux'
+import { createBrowserRouter } from 'react-router-dom'
+import { routes } from './router'
+
+const store = createSsrStore()
+const router = createBrowserRouter(routes)
 
 // if ('serviceWorker' in navigator) {
 //   try {
@@ -21,9 +26,16 @@ import { Provider } from 'react-redux'
 //   }
 // }
 
-ReactDOM.hydrateRoot(
-  document.getElementById('root') as HTMLElement,
+const root = document.getElementById('root') as HTMLElement
+
+const app = (
   <Provider store={store}>
-    <App router={undefined!} />
+    <App router={router} />
   </Provider>
 )
+
+if (root.innerHTML === '<!--ssr-outlet-->') {
+  ReactDOM.createRoot(root).render(app)
+} else {
+  ReactDOM.hydrateRoot(root, app)
+}
