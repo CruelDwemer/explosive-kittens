@@ -2,17 +2,7 @@ import { useState, useEffect } from 'react'
 import { getChatToken } from '../../entities/chat/api/chat-api'
 import { SOCKET_URL } from '../constants'
 import { Socket } from '../lib'
-
-export type Message = {
-  chat_id: number
-  content: string
-  file: string
-  id: number
-  is_read: boolean
-  time: string
-  type: 'message'
-  user_id: number
-}
+import { Message } from '../../entities/lobby/models'
 
 const useLobbyMessages = (userId: number, lobbyId: number) => {
   let socket: Socket | null = null
