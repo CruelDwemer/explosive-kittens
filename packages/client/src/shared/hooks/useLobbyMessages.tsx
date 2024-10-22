@@ -14,7 +14,7 @@ export type Message = {
   user_id: number
 }
 
-export const useLobbyMessages = (userId: number, lobbyId: number) => {
+const useLobbyMessages = (userId: number, lobbyId: number) => {
   let socket: Socket | null = null
   // let offset: number = 0;
   // let isAllMessage: boolean = false;
@@ -85,3 +85,5 @@ export const useLobbyMessages = (userId: number, lobbyId: number) => {
 
   return { messages }
 }
+
+export default useLobbyMessages

@@ -14,9 +14,11 @@ import {
 } from '../../entities/chat/utils'
 import { customPaperBlock } from '../../shared/styles'
 import { testingNewMessages } from '../../entities/chat/utils/test-messages'
+import { useLobbyMessages } from '../../shared/hooks'
 
 export interface LobbyChatProps {
   lobbyId: number
+  userId: number
   hiddenWord?: string
   isGuessing?: boolean
   onRightGuessWord: (guessedUserId: number, guessedUserName: string) => void
@@ -24,42 +26,45 @@ export interface LobbyChatProps {
 
 const LobbyChat: FC<LobbyChatProps> = ({
   lobbyId,
+  userId,
   hiddenWord,
   isGuessing = false,
   onRightGuessWord,
 }) => {
   const [messages, setMessages] = useState<LobbyChatMessage[]>([])
 
-  useEffect(() => {
-    // TODO: Запрос на получение сообщений
-    const getOldMessages = (lobbyId: number) => {
-      setMessages([])
-    }
-    getOldMessages(lobbyId)
-  }, [])
+  const { messages: m } = useLobbyMessages(userId, lobbyId)
+  console.log(m)
+  // useEffect(() => {
+  //   // TODO: Запрос на получение сообщений
+  //   const getOldMessages = (lobbyId: number) => {
+  //     setMessages([])
+  //   }
+  //   getOldMessages(lobbyId)
+  // }, [])
 
-  // Для тестирования новых сообщений
-  const [newMessage, setNewMessage] = useState<LobbyChatMessage>()
-  isGuessing && testingNewMessages(setNewMessage)
-  useEffect(() => {
-    if (newMessage && isGuessing) {
-      setMessages(prev => [...prev, newMessage])
-      if (
-        hiddenWord &&
-        hiddenWord.toLowerCase() === newMessage.content.toLowerCase()
-      ) {
-        const techMessage: LobbyChatMessage = {
-          id: newMessage.id,
-          date: new Date().toISOString(),
-          userId: newMessage.id,
-          userName: '',
-          content: `Игрок ${newMessage.userName} отгадал слово: ${hiddenWord}`,
-        }
-        setMessages(prev => [...prev, techMessage])
-        onRightGuessWord(newMessage.userId, newMessage.userName)
-      }
-    }
-  }, [newMessage])
+  // // Для тестирования новых сообщений
+  // const [newMessage, setNewMessage] = useState<LobbyChatMessage>()
+  // isGuessing && testingNewMessages(setNewMessage)
+  // useEffect(() => {
+  //   if (newMessage && isGuessing) {
+  //     setMessages(prev => [...prev, newMessage])
+  //     if (
+  //       hiddenWord &&
+  //       hiddenWord.toLowerCase() === newMessage.content.toLowerCase()
+  //     ) {
+  //       const techMessage: LobbyChatMessage = {
+  //         id: newMessage.id,
+  //         date: new Date().toISOString(),
+  //         userId: newMessage.id,
+  //         userName: '',
+  //         content: `Игрок ${newMessage.userName} отгадал слово: ${hiddenWord}`,
+  //       }
+  //       setMessages(prev => [...prev, techMessage])
+  //       onRightGuessWord(newMessage.userId, newMessage.userName)
+  //     }
+  //   }
+  // }, [newMessage])
 
   return (
     <Box sx={styles.wrapper}>

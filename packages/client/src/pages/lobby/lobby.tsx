@@ -44,6 +44,7 @@ const Lobby: FC = () => {
       <Box sx={styles.chatCol}>
         <LobbyChat
           lobbyId={id}
+          userId={CURRENT_USER_ID}
           hiddenWord={hiddenWord || ''}
           isGuessing={view === 'guessing'}
           onRightGuessWord={startNewRound}
