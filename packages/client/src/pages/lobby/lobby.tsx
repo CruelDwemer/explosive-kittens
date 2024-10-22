@@ -1,4 +1,4 @@
-import { FC, ReactNode } from 'react'
+import { FC, ReactNode, useEffect, useState } from 'react'
 import {
   DrawCanvas,
   FinishLobbyGame,
@@ -15,9 +15,75 @@ import { useLobby } from '../../shared/hooks'
 import { LobbyView } from '../../entities/lobby/models'
 import { Navigate, useParams } from 'react-router-dom'
 import { ROUTER_PATH } from '../../shared/models'
+import { getChatToken } from '../../entities/chat/api/chat-api'
+import { Socket } from '../../shared/lib'
+import { SOCKET_URL } from '../../shared/constants'
 
 const CURRENT_USER_ID = 0
 
+const useMessages = (userId: number, lobbyId: number) => {
+  let socket: Socket | null = null
+  // let offset: number = 0;
+  // let isAllMessage: boolean = false;
+  let ping: unknown | number | undefined
+
+  useEffect(() => {
+    connect(lobbyId, userId)
+  }, [lobbyId, userId])
+
+  const connect = async (lobbyId: number, userId: number) => {
+    await getChatToken(lobbyId)
+      .then(async resp => {
+        const { token } = (await resp.json()) as { token: string }
+        socket = new Socket({
+          url: `${SOCKET_URL}/${userId}/${lobbyId}/${token}`,
+        })
+        ping = setInterval(() => {
+          socket?.send(
+            JSON.stringify({
+              content: 'ping',
+              type: '',
+            })
+          )
+        }, 20000)
+        socket.open(() => {
+          console.log('Connection open')
+
+          setInterval(() => {
+            socket?.send(
+              JSON.stringify({
+                content: 'ping',
+                type: '',
+              })
+            )
+          }, 20000)
+        })
+
+        socket.message(({ data }) => {
+          // TODO: Save messages
+          // const messages: Message[] = JSON.parse(data);
+          // setMessages(messages);
+        })
+
+        socket.close(() => {
+          console.log('Connection closed')
+          if (!socket) return
+          clearInterval(ping as number)
+          // isAllMessage = false;
+          ping = undefined
+          // offset = 0;
+          socket = null
+        })
+
+        socket.error(() => {
+          console.error('Connection error')
+        })
+      })
+      .catch(() => {
+        console.error('-error-')
+      })
+  }
+}
 const Lobby: FC = () => {
   const { id: lobbyId } = useParams()
   if (!lobbyId) {
