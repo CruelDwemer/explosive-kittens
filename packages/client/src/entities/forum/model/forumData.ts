@@ -11,4 +11,5 @@ export interface Comment {
   text: string
   user_name: string
   date: string
+  reactions?: string
 }
