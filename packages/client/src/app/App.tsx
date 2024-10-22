@@ -18,10 +18,13 @@ import {
 import { Fullscreen } from '../widgets'
 import { ErrorBoundary } from '../features'
 import { ROUTER_PATH } from '../shared/models'
+import type { RouteObject } from 'react-router-dom'
 
-// TODO: Возможно добавить lazy загрузку
-// TODO: Стоит квынести в однельный файл
-const router = createBrowserRouter([
+interface AppProps {
+  router: ReturnType<typeof createBrowserRouter>
+}
+
+export const routes: RouteObject[] = [
   {
     path: '/',
     element: <Layout />,
@@ -84,9 +87,14 @@ const router = createBrowserRouter([
     path: ROUTER_PATH.ANOTHER,
     element: <Error400 />,
   },
-])
+]
 
-function App() {
+// TODO: Возможно добавить lazy загрузку
+// TODO: Стоит квынести в однельный файл
+
+// const router = createBrowserRouter(routes)
+
+function App({ router }: AppProps) {
   // useEffect(() => {
   //   const fetchServerData = async () => {
   //     const url = `http://localhost:${__SERVER_PORT__}`
