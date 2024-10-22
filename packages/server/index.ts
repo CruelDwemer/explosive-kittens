@@ -6,8 +6,8 @@ import type { ViteDevServer } from 'vite'
 dotenv.config()
 
 import express from 'express'
-import * as fs from 'fs'
 import * as path from 'path'
+import { ssrRoute } from './routes/ssr'
 
 const isDev = () => process.env.NODE_ENV === 'development'
 
@@ -18,8 +18,7 @@ async function startServer() {
 
   let vite: ViteDevServer | undefined
   const distPath = path.dirname(require.resolve('client/dist/index.html'))
-  const srcPath = path.dirname(require.resolve('client'))
-  const ssrClientPath = require.resolve('client/ssr-dist/client.cjs')
+  const srcPath = path.dirname(require.resolve('client/index.html'))
 
   if (isDev()) {
     vite = await createViteServer({
@@ -29,6 +28,8 @@ async function startServer() {
     })
 
     app.use(vite.middlewares)
+  } else {
+    app.use('/assets', express.static(path.resolve(distPath, 'assets')))
   }
 
   app.get('/api', (_, res) => {
@@ -39,44 +40,46 @@ async function startServer() {
     app.use('/assets', express.static(path.resolve(distPath, 'assets')))
   }
 
-  app.use('*', async (req, res, next) => {
-    const url = req.originalUrl
+  // app.use('*', async (req, res, next) => {
+  //   const url = req.originalUrl
 
-    try {
-      let template: string
+  //   try {
+  //     let template: string
 
-      if (!isDev()) {
-        template = fs.readFileSync(
-          path.resolve(distPath, 'index.html'),
-          'utf-8'
-        )
-      } else {
-        template = fs.readFileSync(path.resolve(srcPath, 'index.html'), 'utf-8')
+  //     if (!isDev()) {
+  //       template = fs.readFileSync(
+  //         path.resolve(distPath, 'index.html'),
+  //         'utf-8'
+  //       )
+  //     } else {
+  //       template = fs.readFileSync(path.resolve(srcPath, 'index.html'), 'utf-8')
 
-        template = await vite!.transformIndexHtml(url, template)
-      }
+  //       template = await vite!.transformIndexHtml(url, template)
+  //     }
 
-      let render: () => Promise<string>
+  //     let render: () => Promise<string>
 
-      if (!isDev()) {
-        render = (await import(ssrClientPath)).render
-      } else {
-        render = (await vite!.ssrLoadModule(path.resolve(srcPath, 'ssr.tsx')))
-          .render
-      }
+  //     if (!isDev()) {
+  //       render = (await import(ssrClientPath)).render
+  //     } else {
+  //       render = (await vite!.ssrLoadModule(path.resolve(srcPath, 'ssr.tsx')))
+  //         .render
+  //     }
 
-      const appHtml = await render()
+  //     const appHtml = await render()
 
-      const html = template.replace(`<!--ssr-outlet-->`, appHtml)
+  //     const html = template.replace(`<!--ssr-outlet-->`, appHtml)
 
-      res.status(200).set({ 'Content-Type': 'text/html' }).end(html)
-    } catch (e) {
-      if (isDev()) {
-        vite!.ssrFixStacktrace(e as Error)
-      }
-      next(e)
-    }
-  })
+  //     res.status(200).set({ 'Content-Type': 'text/html' }).end(html)
+  //   } catch (e) {
+  //     if (isDev()) {
+  //       vite!.ssrFixStacktrace(e as Error)
+  //     }
+  //     next(e)
+  //   }
+  // })
+
+  app.use('*', ssrRoute({ vite, distPath, srcPath }))
 
   app.listen(port, () => {
     console.log(`  ➜ 🎸 Server is listening on port: ${port}`)

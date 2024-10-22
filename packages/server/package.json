@@ -3,12 +3,13 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "build": "rm -rf dist && tsc --p ./tsconfig.prod.json",
-    "preview": "node ./dist/index.js",
+    "build": "rimraf dist && tsc --p ./tsconfig.prod.json",
+    "watch": "nodemon --watch index.ts --exec 'yarn build && yarn preview'",
     "dev": "cross-env NODE_ENV=development nodemon index.ts",
     "lint": "eslint .",
     "format": "prettier --write .",
-    "test": "jest ."
+    "test": "jest .",
+    "prod": "node dist/index.js"
   },
   "dependencies": {
     "cors": "^2.8.5",
@@ -16,6 +17,7 @@
     "dotenv": "^16.0.2",
     "eslint-config-prettier": "^8.5.0",
     "express": "^4.18.1",
+    "jsesc": "^3.0.2",
     "pg": "^8.8.0",
     "prettier": "^2.7.1"
   },
@@ -30,9 +32,11 @@
     "babel-jest": "^29.0.1",
     "eslint": "^8.23.0",
     "jest": "^28",
+    "rimraf": "^4.4.1",
     "nodemon": "^2.0.19",
     "prettier": "^2.7.1",
     "ts-jest": "^28.0.8",
+    "@types/jsesc": "^3.0.3",
     "ts-node": "^10.9.1",
     "typescript": "^4.8.2"
   },
