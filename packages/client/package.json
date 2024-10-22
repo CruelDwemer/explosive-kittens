@@ -55,5 +55,9 @@
     "vite": "^3.0.7",
     "whatwg-fetch": "^3.6.20"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "testPathIgnorePatterns": [
+    "/node_modules/",
+    "/dist/"
+  ]
 }
