@@ -5,9 +5,8 @@ import { Provider } from 'react-redux'
 
 const appContent = 'Вот тут будет жить ваше приложение :)'
 
-// @ts-ignore
 global.fetch = jest.fn(() =>
-  Promise.resolve({ json: () => Promise.resolve('hey') })
+  Promise.resolve({ json: () => Promise.resolve('hey') } as Response)
 )
 
 test('Example test', async () => {

@@ -3,6 +3,7 @@ import { Box, IconButton } from '@mui/material'
 import InsertEmoticonIcon from '@mui/icons-material/InsertEmoticon'
 import Picker from 'emoji-picker-react'
 import styles from './styles'
+import { MouseDownEvent } from 'emoji-picker-react/dist/config/config'
 
 interface PropsType {
   reactions?: string
@@ -11,7 +12,7 @@ export const EmojiPicker = ({ reactions }: PropsType) => {
   const [showPicker, setShowPicker] = useState(false)
   const [userReactions, setUserReactions] = useState(reactions)
 
-  const onEmojiClick = (event: any) => {
+  const onEmojiClick: MouseDownEvent = event => {
     setUserReactions(userReactions + event.emoji)
     //TODO: saving
     setShowPicker(false)
