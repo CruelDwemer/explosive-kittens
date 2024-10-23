@@ -30,8 +30,9 @@
 3. Выполните команду `yarn dev --scope=client` чтобы запустить только клиент
 4. Выполните команду `yarn dev --scope=server` чтобы запустить только server
 
-### SSR?
-dev -
+### SSR
+
+dev:
 ```cd packages/client && yarn build && cd ../server/ && yarn dev```
 
 prod:
