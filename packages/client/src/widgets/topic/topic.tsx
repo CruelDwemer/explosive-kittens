@@ -1,4 +1,3 @@
-import { Card } from '@material-ui/core'
 import { Create, ExpandMore } from '@mui/icons-material'
 import {
   Accordion,
@@ -13,7 +12,6 @@ import {
   Typography,
 } from '@mui/material'
 import { Comment, Topic } from '../../entities/forum/model/forumData'
-import styles from './styles'
 import { useContext } from 'react'
 import useStyle from './styles'
 import { ThemeContext } from '../../features/theme-provider/ThemeProvider'
