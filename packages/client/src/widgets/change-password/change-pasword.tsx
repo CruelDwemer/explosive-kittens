@@ -6,6 +6,9 @@ import Joi from 'joi'
 import { joiResolver } from '@hookform/resolvers/joi'
 import { NewPasswordData } from '../../entities/user/models'
 import { useForm } from 'react-hook-form'
+import { useContext } from 'react'
+import useStyle from './styles'
+import { ThemeContext } from '../../features/theme-provider/ThemeProvider'
 
 const schema = Joi?.object({
   oldPassword: passwordSchema,
@@ -23,6 +26,9 @@ const ChangePassword = () => {
     mode: 'onBlur',
   })
 
+  const { theme } = useContext(ThemeContext)
+  const styles = useStyle(theme)
+
   const handleSubmitPasswordChange = (data: NewPasswordData) => {
     event?.preventDefault()
     changePassword(data)
@@ -37,8 +43,8 @@ const ChangePassword = () => {
       <Box sx={styles.container}>
         <TextField
           id="oldPassword"
-          label="Старый пароль"
           type="password"
+          placeholder="Старый пароль"
           {...register('oldPassword')}
           error={errors.oldPassword ? true : false}
           helperText={errors.oldPassword?.message}
@@ -48,8 +54,8 @@ const ChangePassword = () => {
 
         <TextField
           id="newPassword"
-          label="Новый пароль"
           type="password"
+          placeholder="Новый пароль"
           {...register('newPassword')}
           error={errors.newPassword ? true : false}
           helperText={errors.newPassword?.message}
@@ -58,10 +64,10 @@ const ChangePassword = () => {
         />
       </Box>
 
-      <Divider orientation="horizontal" flexItem />
+      <Divider orientation="horizontal" flexItem sx={styles.divider} />
 
       <Box sx={styles.button_container}>
-        <Button type="submit" variant="contained">
+        <Button type="submit" variant="contained" sx={styles.button}>
           Сохранить
         </Button>
       </Box>
