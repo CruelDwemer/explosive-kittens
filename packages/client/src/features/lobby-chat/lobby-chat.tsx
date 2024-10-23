@@ -14,9 +14,11 @@ import {
 } from '../../entities/chat/utils'
 import { customPaperBlock } from '../../shared/styles'
 import { testingNewMessages } from '../../entities/chat/utils/test-messages'
+// import { useLobbyMessages } from '../../shared/hooks'
 
 export interface LobbyChatProps {
   lobbyId: number
+  userId: number
   hiddenWord?: string
   isGuessing?: boolean
   onRightGuessWord: (guessedUserId: number, guessedUserName: string) => void
@@ -24,12 +26,16 @@ export interface LobbyChatProps {
 
 const LobbyChat: FC<LobbyChatProps> = ({
   lobbyId,
+  userId,
   hiddenWord,
   isGuessing = false,
   onRightGuessWord,
 }) => {
   const [messages, setMessages] = useState<LobbyChatMessage[]>([])
 
+  // const { messages } = useLobbyMessages(userId, lobbyId)
+
+  // TODO: Убрать после подключения хука с сообщениями
   useEffect(() => {
     // TODO: Запрос на получение сообщений
     const getOldMessages = (lobbyId: number) => {
@@ -38,6 +44,7 @@ const LobbyChat: FC<LobbyChatProps> = ({
     getOldMessages(lobbyId)
   }, [])
 
+  // TODO: Убрать после подключения хука с сообщениями
   // Для тестирования новых сообщений
   const [newMessage, setNewMessage] = useState<LobbyChatMessage>()
   isGuessing && testingNewMessages(setNewMessage)

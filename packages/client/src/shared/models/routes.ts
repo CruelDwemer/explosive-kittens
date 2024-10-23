@@ -11,6 +11,7 @@ export enum ROUTER_PATH {
   LOBBY = '/lobby/:id',
   USER = '/user',
   FORUM = '/forum',
+  LANDING = '/landing',
 
   MAIN = '/',
 }
