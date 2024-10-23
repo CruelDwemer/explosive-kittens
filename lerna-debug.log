@@ -2,43 +2,17 @@
 0 silly argv   _: [ 'run' ],
 0 silly argv   lernaVersion: '5.4.3',
 0 silly argv   '$0': 'node_modules/.bin/lerna',
-0 silly argv   script: 'dev'
+0 silly argv   script: 'lint'
 0 silly argv }
 1 notice cli v5.4.3
 2 verbose rootPath /home/user/Documents/study/Crocodile/explosive-kittens
-3 error Error: Could not deserialize project graph.
-3 error Message: Unexpected end of JSON input
-3 error
-3 error
-3 error Received:
-3 error
-3 error
-3 error
-3 error Messages from the log:
-3 error [NX Daemon Server] - 2024-09-15T17:20:53.678Z - [WATCHER]: packages/client/vite.config.ts.timestamp-1726420853192.mjs was deleted
-3 error [NX Daemon Server] - 2024-09-15T17:20:53.889Z - [REQUEST]: Updated file-hasher based on watched changes, recomputing project graph...
-3 error [NX Daemon Server] - 2024-09-15T17:20:53.901Z - Time taken for 'hash changed files from watcher' 0.07560000000012224ms
-3 error [NX Daemon Server] - 2024-09-15T18:13:42.518Z - [WATCHER]: Unsubscribed from changes within: /home/user/Documents/study/Crocodile/explosive-kittens
-3 error [NX Daemon Server] - 2024-09-15T18:13:42.519Z - Server stopped because: "Stopping the daemon the set of ignored files changed."
-3 error [NX Daemon Server] - 2024-09-17T13:25:16.645Z - Started listening on: /home/user/Documents/study/Crocodile/explosive-kittens/node_modules/.cache/nx/d/d.sock
-3 error [NX Daemon Server] - 2024-09-17T13:25:16.658Z - [REQUEST]: Client Request for Project Graph Received
-3 error [NX Daemon Server] - 2024-09-17T13:25:16.687Z - [REQUEST]: Updated file-hasher based on watched changes, recomputing project graph...
-3 error [NX Daemon Server] - 2024-09-17T13:25:16.726Z - Time taken for 'hash changed files from watcher' 0.0721460000000036ms
-3 error
-3 error  >  NX   inotify_add_watch on '/home/user/Documents/study/Crocodile/explosive-kittens/packages/client/node_modules/dotenv' failed: No space left on device
-3 error
-3 error [NX Daemon Server] - 2024-09-17T13:26:26.112Z - Started listening on: /home/user/Documents/study/Crocodile/explosive-kittens/node_modules/.cache/nx/d/d.sock
-3 error [NX Daemon Server] - 2024-09-17T13:26:26.123Z - [REQUEST]: Client Request for Project Graph Received
-3 error [NX Daemon Server] - 2024-09-17T13:26:26.142Z - [REQUEST]: Updated file-hasher based on watched changes, recomputing project graph...
-3 error [NX Daemon Server] - 2024-09-17T13:26:26.178Z - Time taken for 'hash changed files from watcher' 0.06937999999999533ms
-3 error
-3 error  >  NX   inotify_add_watch on '/home/user/Documents/study/Crocodile/explosive-kittens/packages/client/node_modules/jest-matcher-utils' failed: No space left on device
-3 error
-3 error
-3 error
-3 error
-3 error More information: /home/user/Documents/study/Crocodile/explosive-kittens/node_modules/.cache/nx/d/daemon.log
-3 error     at daemonProcessException (/home/user/Documents/study/Crocodile/explosive-kittens/node_modules/nx/src/daemon/client/client.js:66:16)
-3 error     at Socket.<anonymous> (/home/user/Documents/study/Crocodile/explosive-kittens/node_modules/nx/src/daemon/client/client.js:188:32)
-3 error     at Socket.emit (node:events:530:35)
-3 error     at endReadableNT (node:internal/streams/readable:1696:12)
+3 error Error: EACCES: permission denied, scandir '/home/user/Documents/study/Crocodile/explosive-kittens/tmp/pgdata'
+3 error     at Object.readdirSync (node:fs:1515:26)
+3 error     at readdirWithFileTypes (/home/user/Documents/study/Crocodile/explosive-kittens/node_modules/@nodelib/fs.scandir/out/providers/sync.js:16:33)
+3 error     at Object.read (/home/user/Documents/study/Crocodile/explosive-kittens/node_modules/@nodelib/fs.scandir/out/providers/sync.js:10:16)
+3 error     at SyncReader.scandirSync [as _scandir] (/home/user/Documents/study/Crocodile/explosive-kittens/node_modules/@nodelib/fs.scandir/out/index.js:18:17)
+3 error     at SyncReader._handleDirectory (/home/user/Documents/study/Crocodile/explosive-kittens/node_modules/@nodelib/fs.walk/out/readers/sync.js:28:34)
+3 error     at SyncReader._handleQueue (/home/user/Documents/study/Crocodile/explosive-kittens/node_modules/@nodelib/fs.walk/out/readers/sync.js:23:18)
+3 error     at SyncReader.read (/home/user/Documents/study/Crocodile/explosive-kittens/node_modules/@nodelib/fs.walk/out/readers/sync.js:15:14)
+3 error     at SyncProvider.read (/home/user/Documents/study/Crocodile/explosive-kittens/node_modules/@nodelib/fs.walk/out/providers/sync.js:11:29)
+3 error     at ReaderSync.walkSync [as _walkSync] (/home/user/Documents/study/Crocodile/explosive-kittens/node_modules/@nodelib/fs.walk/out/index.js:20:21)
