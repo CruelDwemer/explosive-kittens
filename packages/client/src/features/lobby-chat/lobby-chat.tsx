@@ -32,7 +32,7 @@ const LobbyChat: FC<LobbyChatProps> = ({
   useEffect(() => {
     // TODO: Запрос на получение сообщений
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore/no-unused-vars
+    // @ts-ignore no-unused-vars
     const getOldMessages = (lobbyId: number) => {
       setMessages([])
     }
