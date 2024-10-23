@@ -1,11 +1,4 @@
-import {
-  Button,
-  Card,
-  CardActions,
-  CardContent,
-  CardMedia,
-  Typography,
-} from '@mui/material'
+import { Card, CardContent, CardMedia, Typography } from '@mui/material'
 import { FC } from 'react'
 import { Info } from '../../pages/landing/model/data'
 import styles from './styles'

@@ -9,7 +9,7 @@ import {
   ListItemIcon,
   ListItemText,
 } from '@mui/material'
-import { FC, Fragment, useState } from 'react'
+import { FC, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import MenuIcon from '@mui/icons-material/Menu'
 import { ROUTES } from './model/constants'

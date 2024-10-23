@@ -6,14 +6,13 @@ import {
   MessageBubble,
   SendChatMessage,
 } from '../../entities/chat/ui'
-// import { testData } from '../../entities/chat/constants'
 import { LobbyChatMessage } from '../../entities/chat/models'
 import {
   isFirstUserMessage,
   isLastUserMessage,
 } from '../../entities/chat/utils'
 import { customPaperBlock } from '../../shared/styles'
-import { testingNewMessages } from '../../entities/chat/utils/test-messages'
+import { testingNewMessages } from '../../entities/chat/utils'
 
 export interface LobbyChatProps {
   lobbyId: number
@@ -32,6 +31,8 @@ const LobbyChat: FC<LobbyChatProps> = ({
 
   useEffect(() => {
     // TODO: Запрос на получение сообщений
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore/no-unused-vars
     const getOldMessages = (lobbyId: number) => {
       setMessages([])
     }
