@@ -85,12 +85,7 @@ const TopicItem = ({ data }: PropsType) => {
                   {comment.date}
                 </Typography>
               </Grid2>
-              <Box
-                sx={{
-                  display: 'flex',
-                  width: '100%',
-                  justifyContent: 'flex-end',
-                }}>
+              <Box sx={styles.reactions}>
                 {' '}
                 <EmojiPicker reactions={comment.reactions} />{' '}
               </Box>

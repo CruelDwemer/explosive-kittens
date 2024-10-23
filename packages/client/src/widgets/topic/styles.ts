@@ -52,6 +52,17 @@ const useStyle = (theme: string) => {
     button: {
       color: currentTheme.palette.text.primary,
     },
+    reactions: {
+      display: 'flex',
+      width: '100%',
+      justifyContent: 'flex-end',
+
+      '& button': {
+        '& svg': {
+          color: currentTheme.palette.text.primary,
+        },
+      },
+    },
   }
 }
 
