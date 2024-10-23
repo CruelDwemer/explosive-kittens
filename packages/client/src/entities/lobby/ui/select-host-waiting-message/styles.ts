@@ -3,17 +3,19 @@ import { light, dark } from '../../../../../theme'
 const useStyle = (theme: string) => {
   const currentTheme = theme === 'light' ? light : dark
   return {
-    wrapper: {
+    container: {
+      boxSizing: 'border-box',
       display: 'flex',
       flexDirection: 'column',
+      justifyContent: 'center',
       alignItems: 'center',
-      gap: '8px',
-      width: '30%',
-    },
-    slider: {
-      color: currentTheme.palette.button.main,
+      backgroundColor: currentTheme.palette.forms.main,
+      boxShadow: `${currentTheme.palette.shadow.main} 0px 0px 0px 1px`,
     },
     text: {
+      color: currentTheme.palette.text.primary,
+    },
+    icon: {
       color: currentTheme.palette.text.primary,
     },
   }

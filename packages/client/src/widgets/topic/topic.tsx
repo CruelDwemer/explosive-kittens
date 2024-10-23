@@ -12,31 +12,44 @@ import {
   Typography,
 } from '@mui/material'
 import { Comment, Topic } from '../../entities/forum/model/forumData'
+import { useContext } from 'react'
+import useStyle from './styles'
+import { ThemeContext } from '../../features/theme-provider/ThemeProvider'
 import styles from './styles'
 import { EmojiPicker } from '../emoji-picker/emoji-picker'
 interface PropsType {
   data: Topic
 }
 const TopicItem = ({ data }: PropsType) => {
+  const { theme } = useContext(ThemeContext)
+  const styles = useStyle(theme)
   return (
-    <Accordion key={data.id} sx={{ padding: 2 }}>
-      <AccordionSummary expandIcon={<ExpandMore />}>
+    <Accordion key={data.id} sx={styles.accordion}>
+      <AccordionSummary expandIcon={<ExpandMore sx={styles.icon} />}>
         <Grid2 container sx={styles.accordion_container}>
           <Grid2 size={1} sx={styles.flex_center}>
             <Avatar sx={styles.main_avatar} />
           </Grid2>
 
           <Grid2 size={10}>
-            <Typography component="h6" variant="h6" color={'primary'}>
+            <Typography
+              component="h6"
+              variant="h6"
+              color={'primary'}
+              sx={styles.text}>
               {data.title}
             </Typography>
-            <Typography component="p" variant="caption">
+            <Typography component="p" variant="caption" sx={styles.text}>
               {data.text}
             </Typography>
           </Grid2>
 
           <Grid2 size={1} sx={styles.flex_center}>
-            <Typography component="span" variant="caption" color={'primary'}>
+            <Typography
+              component="span"
+              variant="caption"
+              color={'primary'}
+              sx={styles.text}>
               {data.date}
             </Typography>
           </Grid2>
@@ -48,17 +61,18 @@ const TopicItem = ({ data }: PropsType) => {
           {data.comments.map((comment: Comment, index) => (
             <Grid2 container padding={2} key={index}>
               <Grid2 size={1} sx={styles.flex_center}>
-                <Avatar />
+                <Avatar sx={styles.avatar} />
               </Grid2>
               <Grid2 size={9}>
                 <>
                   <Typography
                     component="span"
                     variant="subtitle2"
-                    color={'primary'}>
+                    color={'primary'}
+                    sx={styles.text}>
                     {comment.user_name}
                   </Typography>
-                  <Typography component="p" variant="caption">
+                  <Typography component="p" variant="caption" sx={styles.text}>
                     {comment.text}
                   </Typography>
                 </>
@@ -67,7 +81,8 @@ const TopicItem = ({ data }: PropsType) => {
                 <Typography
                   component="span"
                   variant="caption"
-                  color={'primary'}>
+                  color={'primary'}
+                  sx={styles.text}>
                   {comment.date}
                 </Typography>
               </Grid2>
@@ -90,7 +105,7 @@ const TopicItem = ({ data }: PropsType) => {
             size="small"
             sx={styles.input}
           />
-          <IconButton>
+          <IconButton sx={styles.button}>
             <Create />
           </IconButton>
         </Box>
