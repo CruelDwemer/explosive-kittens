@@ -2,7 +2,6 @@ import { CHAT_API_PATH } from '.'
 import { BASE_URL } from '../../../shared/constants/api'
 
 export const getChatToken = async (id: number) => {
-  console.log(`${BASE_URL}${CHAT_API_PATH.TOKEN}${id}`, '--')
   return fetch(`${BASE_URL}${CHAT_API_PATH.TOKEN}${id}`, {
     method: 'GET',
     credentials: 'include',
