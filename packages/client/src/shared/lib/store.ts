@@ -2,6 +2,7 @@ import { configureStore } from '@reduxjs/toolkit'
 import { userReducer } from '../../entities/user/lib'
 import { combineReducers } from '@reduxjs/toolkit'
 import { useDispatch } from 'react-redux'
+// import { ratingReducer } from '../../entities/lobby/lib'
 
 export const store = configureStore({
   reducer: {

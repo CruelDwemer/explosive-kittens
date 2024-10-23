@@ -1,6 +1,5 @@
-import React, { FC, useContext, useState } from 'react'
+import { FC, useState, useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
-import styles from './styles'
 
 import {
   Box,
@@ -15,6 +14,12 @@ import { AddPlayer } from '../../widgets'
 import { CountdownTimer } from '../../features'
 import { ThemeContext } from '../../features/theme-provider/ThemeProvider'
 import useStyle from './styles'
+
+// temp
+import {
+  saveToLeaderboard,
+  getLeaderboard,
+} from '../../entities/leader-board/api'
 
 // TODO: Заменить на ID чата
 const Play: FC = () => {
