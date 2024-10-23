@@ -1,3 +1,4 @@
+export {}
 // import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 // type Rating = Record<number, { name: string; score: number }>
