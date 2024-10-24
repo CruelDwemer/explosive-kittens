@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react'
+import { FC, useContext, useEffect, useState } from 'react'
 import styles from './styles'
 import { Box, Paper, Typography } from '@mui/material'
 import {
@@ -14,14 +14,20 @@ import {
 } from '../../entities/chat/utils'
 import { customPaperBlock } from '../../shared/styles'
 import { testingNewMessages } from '../../entities/chat/utils/test-messages'
-// import { useLobbyMessages } from '../../shared/hooks'
+import { ThemeContext } from '../theme-provider/ThemeProvider'
+import useStyle from './styles'
 
 export interface LobbyChatProps {
   lobbyId: number
   userId: number
   hiddenWord?: string
   isGuessing?: boolean
-  onRightGuessWord: (guessedUserId: number, guessedUserName: string) => void
+  onRightGuessWord: (
+    guessedUserId: number,
+    guessedUserName: string,
+    guessedUserLogin: string,
+    guessedUserAvatar: string
+  ) => void
 }
 
 const LobbyChat: FC<LobbyChatProps> = ({
@@ -32,10 +38,8 @@ const LobbyChat: FC<LobbyChatProps> = ({
   onRightGuessWord,
 }) => {
   const [messages, setMessages] = useState<LobbyChatMessage[]>([])
-
-  // const { messages } = useLobbyMessages(userId, lobbyId)
-
-  // TODO: Убрать после подключения хука с сообщениями
+  const { theme } = useContext(ThemeContext)
+  const styles = useStyle(theme)
   useEffect(() => {
     // TODO: Запрос на получение сообщений
     const getOldMessages = (lobbyId: number) => {
@@ -60,10 +64,17 @@ const LobbyChat: FC<LobbyChatProps> = ({
           date: new Date().toISOString(),
           userId: newMessage.id,
           userName: '',
+          userLogin: '',
+          userAvatar: '',
           content: `Игрок ${newMessage.userName} отгадал слово: ${hiddenWord}`,
         }
         setMessages(prev => [...prev, techMessage])
-        onRightGuessWord(newMessage.userId, newMessage.userName)
+        onRightGuessWord(
+          newMessage.userId,
+          newMessage.userName,
+          newMessage.userLogin,
+          newMessage.userAvatar
+        )
       }
     }
   }, [newMessage])
@@ -72,7 +83,11 @@ const LobbyChat: FC<LobbyChatProps> = ({
     <Box sx={styles.wrapper}>
       <Paper sx={{ ...customPaperBlock, ...styles.paper }}>
         <Box sx={styles.header}>
-          <Typography variant="h6" color="primary" fontWeight={'bold'}>
+          <Typography
+            variant="h6"
+            color="primary"
+            fontWeight={'bold'}
+            sx={styles.text}>
             Чат
           </Typography>
         </Box>

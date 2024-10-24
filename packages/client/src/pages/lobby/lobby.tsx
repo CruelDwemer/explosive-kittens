@@ -1,4 +1,4 @@
-import { FC, ReactNode, useEffect, useState } from 'react'
+import { FC, ReactNode, useContext } from 'react'
 import {
   DrawCanvas,
   FinishLobbyGame,
@@ -15,13 +15,18 @@ import { useLobby } from '../../shared/hooks'
 import { LobbyView } from '../../entities/lobby/models'
 import { Navigate, useParams } from 'react-router-dom'
 import { ROUTER_PATH } from '../../shared/models'
-import { getUserInfoQuery } from '../../entities/user/api'
-import { User } from '../../entities/user/models'
+import { ThemeContext } from '../../features/theme-provider/ThemeProvider'
+import useStyle from './styles'
+
+const CURRENT_USER_ID = 0
 
 const Lobby: FC = () => {
   const { id: lobbyId } = useParams()
-  const [isLoading, setIsLoading] = useState(true)
-  const [userId, setUserId] = useState<number | null>(null)
+  const { theme } = useContext(ThemeContext)
+  const styles = useStyle(theme)
+  if (!lobbyId) {
+    return <Navigate to={ROUTER_PATH.NOT_FOUND} />
+  }
 
   const { id, view, guessImage, hiddenWord, sendImage, startNewRound, close } =
     useLobby({
