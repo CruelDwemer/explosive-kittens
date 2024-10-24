@@ -13,7 +13,7 @@ import {
   isLastUserMessage,
 } from '../../entities/chat/utils'
 import { customPaperBlock } from '../../shared/styles'
-import { testingNewMessages } from '../../entities/chat/utils/test-messages'
+import { testingNewMessages } from '../../entities/chat/utils'
 import { ThemeContext } from '../theme-provider/ThemeProvider'
 import useStyle from './styles'
 
@@ -40,6 +40,7 @@ const LobbyChat: FC<LobbyChatProps> = ({
   const styles = useStyle(theme)
   useEffect(() => {
     // TODO: Запрос на получение сообщений
+    /* eslint-disable @typescript-eslint/no-unused-vars */
     const getOldMessages = (lobbyId: number) => {
       setMessages([])
     }

@@ -1,4 +1,4 @@
-import { Box, Container, Grid2, Paper, Typography } from '@mui/material'
+import { Container, Grid2, Paper, Typography } from '@mui/material'
 import { FC, useContext } from 'react'
 import LandingCard from '../../widgets/landing-card'
 import { Info } from './model/data'

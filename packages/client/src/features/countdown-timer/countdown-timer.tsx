@@ -9,7 +9,7 @@ interface CountdownTimerProps {
 
 const CountdownTimer: FC<CountdownTimerProps> = ({ onEnd, duration = 3 }) => {
   const [count, setCount] = useState(duration)
-  const [startTime, setStartTime] = useState(Date.now())
+  const [startTime] = useState(Date.now())
 
   useEffect(() => {
     const animationFrame = requestAnimationFrame(animate)

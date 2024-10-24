@@ -3135,6 +3135,19 @@ babel-jest@^29.0.1:
     graceful-fs "^4.2.9"
     slash "^3.0.0"
 
+babel-jest@^29.0.1:
+  version "29.0.1"
+  resolved "https://registry.npmjs.org/babel-jest/-/babel-jest-29.0.1.tgz"
+  integrity sha512-wyI9r8tqwsZEMWiIaYjdUJ6ztZIO4DMWpGq7laW34wR71WtRS+D/iBEtXOP5W2aSYCVUQMsypRl/xiJYZznnTg==
+  dependencies:
+    "@jest/transform" "^29.0.1"
+    "@types/babel__core" "^7.1.14"
+    babel-plugin-istanbul "^6.1.1"
+    babel-preset-jest "^29.0.0"
+    chalk "^4.0.0"
+    graceful-fs "^4.2.9"
+    slash "^3.0.0"
+
 babel-jest@^29.7.0:
   version "29.7.0"
   resolved "https://registry.npmjs.org/babel-jest/-/babel-jest-29.7.0.tgz"
@@ -8346,7 +8359,7 @@ rxjs@^7.5.5:
   dependencies:
     tslib "^2.1.0"
 
-safe-buffer@5.2.1, safe-buffer@^5.1.0, safe-buffer@~5.2.0:
+safe-buffer@5.2.1, safe-buffer@~5.2.0:
   version "5.2.1"
   resolved "https://registry.npmjs.org/safe-buffer/-/safe-buffer-5.2.1.tgz"
   integrity sha512-rp3So07KcdmmKbGvgaNxQSJr7bGVSVk5S9Eq1F+ppbRo70+YeaDxkw5Dd8NPN+GD6bjnYm2VuPuCXmpuYvmCXQ==
