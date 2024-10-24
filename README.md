@@ -8,6 +8,8 @@
 
 Презентацию проекта можно посмотреть [`здесь`](https://drive.google.com/file/d/1Xfno7yWYp5bsnEdMmNCoscRfXUE73e9Y/view)
 
+Демо по 7-8 спринтам [`здесь`](https://disk.yandex.ru/i/2ZIUvgxkgtKWaw)
+
 ### Команда проекта
 
 [`Абазовская Анастасия`](https://github.com/ryabayeah)
