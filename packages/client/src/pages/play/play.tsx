@@ -1,6 +1,5 @@
-import React, { FC, useState } from 'react'
+import { FC, useState, useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
-import styles from './styles'
 
 import {
   Box,
@@ -13,6 +12,14 @@ import {
 } from '@mui/material'
 import { AddPlayer } from '../../widgets'
 import { CountdownTimer } from '../../features'
+import { ThemeContext } from '../../features/theme-provider/ThemeProvider'
+import useStyle from './styles'
+
+// temp
+import {
+  saveToLeaderboard,
+  getLeaderboard,
+} from '../../entities/leader-board/api'
 
 // TODO: Заменить на ID чата
 const Play: FC = () => {
@@ -20,6 +27,8 @@ const Play: FC = () => {
   const [showCountdown, setShowCountdown] = useState(false)
   const [open, setOpen] = useState(false)
   const navigate = useNavigate()
+  const { theme } = useContext(ThemeContext)
+  const styles = useStyle(theme)
 
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
@@ -57,20 +66,25 @@ const Play: FC = () => {
           </Box>
           <Typography
             variant="h5"
-            sx={{ mb: 2 }}
             component="div"
-            align="center">
+            align="center"
+            mb={2}
+            sx={styles.text}>
             Правила игры
           </Typography>
           <Typography
-            sx={{ mb: 1, fontSize: 14 }}
+            sx={styles.text}
+            mb={1}
+            fontSize={14}
             color="text.secondary"
             align="center">
             Один игрок <b>рисует</b> загаданное слово, а остальные пытаются его{' '}
             <b>угадать</b>.
           </Typography>
           <Typography
-            sx={{ mb: 4, fontSize: 14 }}
+            sx={styles.text}
+            mb={4}
+            fontSize={14}
             color="text.secondary"
             align="center">
             Балл получает тот, кто отгадает первым.
@@ -82,7 +96,11 @@ const Play: FC = () => {
             justifyContent: 'center',
             alignItems: 'center',
           }}>
-          <Button onClick={handleOpen} variant="contained" size="large">
+          <Button
+            onClick={handleOpen}
+            variant="contained"
+            size="large"
+            sx={styles.button}>
             Создать игру
           </Button>
         </CardActions>

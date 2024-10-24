@@ -8,6 +8,8 @@
 
 Презентацию проекта можно посмотреть [`здесь`](https://drive.google.com/file/d/1Xfno7yWYp5bsnEdMmNCoscRfXUE73e9Y/view)
 
+Демо по 7-8 спринтам [`здесь`](https://disk.yandex.ru/i/2ZIUvgxkgtKWaw)
+
 ### Команда проекта
 
 [`Абазовская Анастасия`](https://github.com/ryabayeah)
@@ -30,6 +32,13 @@
 3. Выполните команду `yarn dev --scope=client` чтобы запустить только клиент
 4. Выполните команду `yarn dev --scope=server` чтобы запустить только server
 
+### SSR
+
+dev:
+```cd packages/client && yarn build && cd ../server/ && yarn dev```
+
+prod:
+```cd packages/client && yarn build && cd ../server/ && yarn build && yarn prod```
 
 ### Как добавить зависимости?
 В этом проекте используется `monorepo` на основе [`lerna`](https://github.com/lerna/lerna)

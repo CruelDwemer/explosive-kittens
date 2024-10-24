@@ -1,6 +1,18 @@
-const styles = {
-  container: { width: '100%' },
-  image: { objectFit: 'contain' },
-} as const
+import { light, dark } from '../../../theme'
 
-export default styles
+const useStyle = (theme: string) => {
+  const currentTheme = theme === 'light' ? light : dark
+  return {
+    container: {
+      width: '100%',
+      backgroundColor: currentTheme.palette.forms.main,
+      boxShadow: `${currentTheme.palette.shadow.main} 0px 0px 0px 1px`,
+    },
+    image: { objectFit: 'contain' },
+    text: {
+      color: currentTheme.palette.text.primary,
+    },
+  }
+}
+
+export default useStyle

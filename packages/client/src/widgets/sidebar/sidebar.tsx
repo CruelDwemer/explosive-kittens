@@ -9,7 +9,7 @@ import {
   ListItemIcon,
   ListItemText,
 } from '@mui/material'
-import { FC, useState } from 'react'
+import { FC, Fragment, useContext, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import MenuIcon from '@mui/icons-material/Menu'
 import { ROUTES } from './model/constants'
@@ -18,6 +18,8 @@ import PersonIcon from '@mui/icons-material/Person'
 import SmartDisplayIcon from '@mui/icons-material/SmartDisplay'
 import EmojiEventsIcon from '@mui/icons-material/EmojiEvents'
 import CoPresentIcon from '@mui/icons-material/CoPresent'
+import { ThemeContext } from '../../features/theme-provider/ThemeProvider'
+import useStyle from './styles'
 
 // TODO: Можно в разные стороны прикрутить, оставил слева
 type Anchor = 'left'
@@ -25,7 +27,8 @@ type Anchor = 'left'
 const Sidebar: FC = () => {
   const [state, setState] = useState(false)
   const navigate = useNavigate()
-
+  const { theme } = useContext(ThemeContext)
+  const styles = useStyle(theme)
   // TODO: подумать, как сделать универсально для всех ссылок
   const setIcon = {
     Игра: <SmartDisplayIcon />,
@@ -59,7 +62,7 @@ const Sidebar: FC = () => {
 
   const renderNavElements = (anchor: Anchor) => (
     <Box
-      sx={{ width: 250 }}
+      sx={styles.menu_container}
       role="presentation"
       onClick={toggleDrawer(anchor, false)}
       onKeyDown={toggleDrawer(anchor, false)}>
@@ -67,10 +70,10 @@ const Sidebar: FC = () => {
         {ROUTES.map(({ name, path }) => (
           <ListItem key={name} disablePadding>
             <ListItemButton onClick={() => handleNavItemClick(path)}>
-              <ListItemIcon>
+              <ListItemIcon sx={styles.icon}>
                 {setIcon[name as keyof typeof setIcon]}
               </ListItemIcon>
-              <ListItemText primary={name} />
+              <ListItemText primary={name} sx={styles.text} />
             </ListItemButton>
           </ListItem>
         ))}
@@ -80,14 +83,18 @@ const Sidebar: FC = () => {
   )
 
   return (
-    <>
+    <Box sx={styles.container}>
       <IconButton onClick={() => handleToggleDrawer()}>
-        <MenuIcon />
+        <MenuIcon sx={styles.icon} />
       </IconButton>
-      <Drawer anchor={'left'} open={state} onClose={() => handleToggleDrawer()}>
+      <Drawer
+        anchor={'left'}
+        open={state}
+        onClose={() => handleToggleDrawer()}
+        sx={styles.drawer}>
         {renderNavElements('left')}
       </Drawer>
-    </>
+    </Box>
   )
 }
 

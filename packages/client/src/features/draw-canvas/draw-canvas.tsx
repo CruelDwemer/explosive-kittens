@@ -1,5 +1,5 @@
 import { Box, Button, Paper } from '@mui/material'
-import { FC, useState } from 'react'
+import { FC, useContext, useState } from 'react'
 import {
   Canvas,
   CanvasLineWidth,
@@ -8,6 +8,8 @@ import {
 } from '../../entities/lobby/ui'
 import styles from './styles'
 import { customPaperBlock } from '../../shared/styles'
+import { ThemeContext } from '../theme-provider/ThemeProvider'
+import useStyle from './styles'
 
 export interface DrawCanvasProps {
   hiddenWord: string
@@ -20,7 +22,8 @@ const CANVAS_ID = 'lobby-canvas'
 const DrawCanvas: FC<DrawCanvasProps> = ({ hiddenWord, onCompleteClick }) => {
   const [color, setColor] = useState<string>(DEFAULT_COLOR)
   const [lineWidth, setLineWidth] = useState<number>(5)
-
+  const { theme } = useContext(ThemeContext)
+  const styles = useStyle(theme)
   const generateImageFromCanvas = () => {
     const canvas = document.getElementById(CANVAS_ID) as HTMLCanvasElement
     if (canvas) {
@@ -44,7 +47,10 @@ const DrawCanvas: FC<DrawCanvasProps> = ({ hiddenWord, onCompleteClick }) => {
           <CanvasLineWidth lineWidth={lineWidth} onChange={setLineWidth} />
           <CanvasColor color={color} onColorChange={setColor} />
         </Box>
-        <Button variant="contained" onClick={generateImageFromCanvas}>
+        <Button
+          variant="contained"
+          onClick={generateImageFromCanvas}
+          sx={styles.button}>
           Готово!
         </Button>
       </Paper>

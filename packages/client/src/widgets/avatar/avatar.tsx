@@ -1,11 +1,12 @@
 import { Avatar, Button, Card, CardMedia, Typography } from '@mui/material'
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import { BASE_URL } from '../../shared/constants'
 import { IUserAvatar } from '../../pages/user/model/userData'
 import { Create } from '@mui/icons-material'
 import styled from '@emotion/styled'
 import { updateAvatar } from '../../entities/user/api'
-import styles from './styles'
+import useStyle from './styles'
+import { ThemeContext } from '../../features/theme-provider/ThemeProvider'
 
 const VisuallyHiddenInput = styled('input')({
   clip: 'rect(0 0 0 0)',
@@ -22,6 +23,8 @@ const VisuallyHiddenInput = styled('input')({
 const UserAvatar = ({ user, setUser, header = false }: IUserAvatar) => {
   const [isAvatarChanging, setIsAvatarChanging] = useState(false)
   const [avatarFormData, setAvatarFormData] = useState<FormData | null>(null)
+  const { theme } = useContext(ThemeContext)
+  const styles = useStyle(theme)
 
   const handleAvatarChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0]
@@ -67,7 +70,11 @@ const UserAvatar = ({ user, setUser, header = false }: IUserAvatar) => {
             />
           </Card>
 
-          <Typography gutterBottom variant="caption" component="span">
+          <Typography
+            gutterBottom
+            variant="caption"
+            component="span"
+            sx={styles.text}>
             Вы можете сменить свой аватар
           </Typography>
           <Button
@@ -76,7 +83,8 @@ const UserAvatar = ({ user, setUser, header = false }: IUserAvatar) => {
             variant="contained"
             tabIndex={-1}
             endIcon={<Create />}
-            size="small">
+            size="small"
+            sx={styles.button}>
             Сменить аватар
             <VisuallyHiddenInput type="file" onChange={handleAvatarChange} />
           </Button>
@@ -92,7 +100,10 @@ const UserAvatar = ({ user, setUser, header = false }: IUserAvatar) => {
           )}
         </CardMedia>
       ) : (
-        <Avatar src={`${BASE_URL}/resources${user.avatar}`} />
+        <Avatar
+          src={`${BASE_URL}/resources${user.avatar}`}
+          sx={styles.user_image}
+        />
       )}
     </>
   )

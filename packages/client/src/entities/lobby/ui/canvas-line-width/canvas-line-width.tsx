@@ -1,6 +1,7 @@
 import { Box, Typography, Slider } from '@mui/material'
-import { FC } from 'react'
-import styles from './styles'
+import { FC, useContext } from 'react'
+import { ThemeContext } from '../../../../features/theme-provider/ThemeProvider'
+import useStyle from './styles'
 
 interface CanvasLineWidthProps {
   lineWidth: number
@@ -8,6 +9,8 @@ interface CanvasLineWidthProps {
 }
 
 const CanvasLineWidth: FC<CanvasLineWidthProps> = ({ lineWidth, onChange }) => {
+  const { theme } = useContext(ThemeContext)
+  const styles = useStyle(theme)
   const handleWidthChange = (e: Event) => {
     const elem = e.target as HTMLInputElement
     onChange(+elem.value)
@@ -22,8 +25,11 @@ const CanvasLineWidth: FC<CanvasLineWidthProps> = ({ lineWidth, onChange }) => {
         aria-label="Default"
         valueLabelDisplay="auto"
         onChange={handleWidthChange}
+        sx={styles.slider}
       />
-      <Typography noWrap>Толщина линии </Typography>
+      <Typography noWrap sx={styles.text}>
+        Толщина линии{' '}
+      </Typography>
     </Box>
   )
 }

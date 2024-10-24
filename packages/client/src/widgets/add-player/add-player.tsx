@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState } from 'react'
+import React, { ChangeEvent, useContext, useState } from 'react'
 
 import {
   Box,
@@ -23,6 +23,8 @@ import { userSearch } from '../../entities/user/api'
 import styles from './styles'
 import { mapUsersToOptions } from './helpers'
 import { Player } from '../../entities/lobby/models'
+import { ThemeContext } from '../../features/theme-provider/ThemeProvider'
+import useStyle from './styles'
 
 interface AddPlayerProps {
   open: boolean
@@ -40,6 +42,8 @@ const AddPlayer: React.FC<AddPlayerProps> = ({
     lobbyId: null as number | null,
     playersList: [],
   })
+  const { theme } = useContext(ThemeContext)
+  const styles = useStyle(theme)
   const [searchResults, setSearchResults] = useState<
     { label: string; value: number }[]
   >([])
@@ -178,22 +182,27 @@ const AddPlayer: React.FC<AddPlayerProps> = ({
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description">
       <Box sx={styles.modal}>
-        <Typography id="modal-modal-title" variant="h6" component="h2">
+        <Typography
+          id="modal-modal-title"
+          variant="h6"
+          component="h2"
+          sx={styles.text}>
           Создай игру!
         </Typography>
         <Box id="modal-modal-description" sx={{ mt: 2 }}>
           <TextField
             fullWidth
-            label="Название игры"
+            placeholder="Название игры"
             id="playName"
             value={lobbyData.playName}
             onChange={handlePlayNameChange}
             onBlur={handlePlayNameBlur}
+            sx={styles.input}
           />
 
           {lobbyData.playersList && lobbyData.playersList.length > 0 && (
             <Box>
-              <Typography sx={{ mt: 4 }} component="h4">
+              <Typography sx={styles.text} mt={4} component="h4">
                 Список участников!
               </Typography>
               <List dense>
@@ -205,18 +214,18 @@ const AddPlayer: React.FC<AddPlayerProps> = ({
                         onClick={() => handleDeleteUser(player.id)}
                         edge="end"
                         aria-label="delete">
-                        <DeleteIcon />
+                        <DeleteIcon sx={styles.icon} />
                       </IconButton>
                     }>
-                    <ListItemText primary={player.login} />
+                    <ListItemText primary={player.login} sx={styles.text} />
                   </ListItem>
                 ))}
               </List>
             </Box>
           )}
 
-          <Box>
-            <Typography sx={{ mt: 4, mb: 2 }} component="h4">
+          <Box sx={styles.selector_container}>
+            <Typography sx={styles.text} mt={4} mb={2} component="h4">
               Добавь участников!
             </Typography>
             <Autocomplete
@@ -224,6 +233,7 @@ const AddPlayer: React.FC<AddPlayerProps> = ({
               options={searchResults}
               fullWidth
               onChange={handleSelectUser}
+              sx={styles.selector}
               renderInput={params => (
                 <TextField
                   value={searchValue}
@@ -236,14 +246,16 @@ const AddPlayer: React.FC<AddPlayerProps> = ({
           </Box>
 
           {lobbyData.playersList && lobbyData.playersList.length > 1 && (
-            <Button
-              sx={{ my: 4 }}
-              onClick={handlePlayClick}
-              variant="contained"
-              size="large"
-              color="success">
-              Играть
-            </Button>
+            <Box sx={{ my: 4 }}>
+              <Button
+                sx={styles.button}
+                onClick={handlePlayClick}
+                variant="contained"
+                size="large"
+                color="success">
+                Играть
+              </Button>
+            </Box>
           )}
         </Box>
       </Box>

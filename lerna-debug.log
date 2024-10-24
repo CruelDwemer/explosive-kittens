@@ -1,18 +1,17 @@
 0 silly argv {
-0 silly argv   _: [ 'run' ],
+0 silly argv   _: [ 'add' ],
+0 silly argv   scope: 'server',
+0 silly argv   globs: [],
 0 silly argv   lernaVersion: '5.4.3',
-0 silly argv   '$0': 'node_modules/.bin/lerna',
-0 silly argv   script: 'lint'
+0 silly argv   '$0': 'node_modules\\lerna\\cli.js',
+0 silly argv   pkg: 'zod'
 0 silly argv }
 1 notice cli v5.4.3
-2 verbose rootPath /home/user/Documents/study/Crocodile/explosive-kittens
-3 error Error: EACCES: permission denied, scandir '/home/user/Documents/study/Crocodile/explosive-kittens/tmp/pgdata'
-3 error     at Object.readdirSync (node:fs:1515:26)
-3 error     at readdirWithFileTypes (/home/user/Documents/study/Crocodile/explosive-kittens/node_modules/@nodelib/fs.scandir/out/providers/sync.js:16:33)
-3 error     at Object.read (/home/user/Documents/study/Crocodile/explosive-kittens/node_modules/@nodelib/fs.scandir/out/providers/sync.js:10:16)
-3 error     at SyncReader.scandirSync [as _scandir] (/home/user/Documents/study/Crocodile/explosive-kittens/node_modules/@nodelib/fs.scandir/out/index.js:18:17)
-3 error     at SyncReader._handleDirectory (/home/user/Documents/study/Crocodile/explosive-kittens/node_modules/@nodelib/fs.walk/out/readers/sync.js:28:34)
-3 error     at SyncReader._handleQueue (/home/user/Documents/study/Crocodile/explosive-kittens/node_modules/@nodelib/fs.walk/out/readers/sync.js:23:18)
-3 error     at SyncReader.read (/home/user/Documents/study/Crocodile/explosive-kittens/node_modules/@nodelib/fs.walk/out/readers/sync.js:15:14)
-3 error     at SyncProvider.read (/home/user/Documents/study/Crocodile/explosive-kittens/node_modules/@nodelib/fs.walk/out/providers/sync.js:11:29)
-3 error     at ReaderSync.walkSync [as _walkSync] (/home/user/Documents/study/Crocodile/explosive-kittens/node_modules/@nodelib/fs.walk/out/index.js:20:21)
+2 verbose rootPath C:\Users\ryaba\OneDrive\Рабочий стол\git\explosive-kittens
+3 error FetchError: request to https://registry.yarnpkg.com/zod failed, reason:
+3 error     at ClientRequest.<anonymous> (C:\Users\ryaba\OneDrive\Рабочий стол\git\explosive-kittens\node_modules\minipass-fetch\lib\index.js:130:14)
+3 error     at ClientRequest.emit (node:events:518:28)
+3 error     at TLSSocket.socketErrorListener (node:_http_client:495:9)
+3 error     at TLSSocket.emit (node:events:530:35)
+3 error     at emitErrorNT (node:internal/streams/destroy:169:8)
+3 error     at emitErrorCloseNT (node:internal/streams/destroy:128:3)
