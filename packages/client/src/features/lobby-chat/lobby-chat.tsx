@@ -54,6 +54,23 @@ const LobbyChat: FC<LobbyChatProps> = ({
     getOldMessages(lobbyId)
   }, [])
 
+  const setNotification = async (
+    userName: string,
+    hiddenWord: string
+  ): Promise<void> => {
+    if (!('Notification' in window)) {
+      alert('This browser does not support desktop notification')
+    } else if (Notification.permission === 'granted') {
+      new Notification(`Игрок ${userName} отгадал слово: ${hiddenWord}`)
+    } else if (Notification.permission !== 'denied') {
+      Notification.requestPermission().then(permission => {
+        if (permission === 'granted') {
+          new Notification(`Игрок ${userName} отгадал слово: ${hiddenWord}`)
+        }
+      })
+    }
+  }
+
   // TODO: Убрать после подключения хука с сообщениями
   // Для тестирования новых сообщений
   const [newMessage, setNewMessage] = useState<LobbyChatMessage>()
@@ -74,6 +91,8 @@ const LobbyChat: FC<LobbyChatProps> = ({
           userAvatar: '',
           content: `Игрок ${newMessage.userName} отгадал слово: ${hiddenWord}`,
         }
+        setNotification(newMessage.userName, hiddenWord)
+
         setMessages(prev => [...prev, techMessage])
         onRightGuessWord(
           newMessage.userId,
@@ -84,7 +103,6 @@ const LobbyChat: FC<LobbyChatProps> = ({
       }
     }
   }, [newMessage])
-
   return (
     <Box sx={styles.wrapper}>
       <Paper sx={{ ...customPaperBlock, ...styles.paper }}>
