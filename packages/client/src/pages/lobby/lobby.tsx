@@ -1,4 +1,4 @@
-import { FC, ReactNode, useEffect, useState } from 'react'
+import { FC, ReactNode, useContext, useEffect, useState } from 'react'
 import {
   DrawCanvas,
   FinishLobbyGame,
@@ -6,7 +6,6 @@ import {
   LobbyChat,
 } from '../../features'
 import { Box, CircularProgress } from '@mui/material'
-import styles from './styles'
 import {
   HostDrawingMessage,
   SelectHostWaitingMessage,
