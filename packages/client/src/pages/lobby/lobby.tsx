@@ -17,9 +17,13 @@ import { Navigate, useParams } from 'react-router-dom'
 import { ROUTER_PATH } from '../../shared/models'
 import { getUserInfoQuery } from '../../entities/user/api'
 import { User } from '../../entities/user/models'
+import { ThemeContext } from '../../features/theme-provider/ThemeProvider'
+import useStyle from './styles'
 
 const Lobby: FC = () => {
   const { id: lobbyId } = useParams()
+  const { theme } = useContext(ThemeContext)
+  const styles = useStyle(theme)
   const [isLoading, setIsLoading] = useState(true)
   const [userId, setUserId] = useState<number | null>(null)
 

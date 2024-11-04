@@ -1,15 +1,19 @@
-import { Box, Container, Grid2, Paper, Typography } from '@mui/material'
-import { FC } from 'react'
+import { Container, Grid2, Paper, Typography } from '@mui/material'
+import { FC, useContext } from 'react'
 import LandingCard from '../../widgets/landing-card'
 import { Info } from './model/data'
 import INFO from './model/constants'
 import styles from './styles'
+import { ThemeContext } from '../../features/theme-provider/ThemeProvider'
+import useStyle from './styles'
 
 const Landing: FC = () => {
+  const { theme } = useContext(ThemeContext)
+  const styles = useStyle(theme)
   return (
-    <Container>
+    <Container sx={styles.container}>
       <Paper sx={styles.header}>
-        <Typography component="h4" variant="h4">
+        <Typography component="h4" variant="h4" sx={styles.text}>
           Инструкция
         </Typography>
       </Paper>

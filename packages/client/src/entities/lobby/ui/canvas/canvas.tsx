@@ -1,6 +1,7 @@
-import { FC, useEffect, useRef, useState } from 'react'
+import { FC, useContext, useEffect, useRef, useState } from 'react'
 import './styles.css'
 import { Box } from '@mui/material'
+import { ThemeContext } from '../../../../features/theme-provider/ThemeProvider'
 
 interface LobbyCanvasProps {
   id: string
@@ -9,6 +10,7 @@ interface LobbyCanvasProps {
 }
 
 const Canvas: FC<LobbyCanvasProps> = ({ id, color, lineWidth }) => {
+  const { theme } = useContext(ThemeContext)
   const canvasRef = useRef<HTMLCanvasElement | null>(null)
   const contextRef = useRef<CanvasRenderingContext2D | null>(null)
 
@@ -113,6 +115,9 @@ const Canvas: FC<LobbyCanvasProps> = ({ id, color, lineWidth }) => {
           console.log('===')
         }}
         className="custom-canvas"
+        style={{
+          backgroundColor: 'red',
+        }}
       />
       {/* Элемент для отображения текущего размера кисти */}
       <div

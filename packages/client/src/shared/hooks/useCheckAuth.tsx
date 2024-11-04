@@ -37,8 +37,9 @@ function useCheckAuth() {
         }
       } else {
         if (!isNeedAuthRoute) {
-          navigate(ROUTER_PATH.PLAY)
+          navigate(ROUTER_PATH.USER)
         }
+        // navigate(ROUTER_PATH.PLAY)
       }
     }
 

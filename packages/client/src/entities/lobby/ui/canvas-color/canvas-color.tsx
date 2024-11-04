@@ -1,6 +1,8 @@
 import { Box, Input, Typography } from '@mui/material'
-import { FC } from 'react'
+import { FC, useContext } from 'react'
 import styles from './styles'
+import { ThemeContext } from '../../../../features/theme-provider/ThemeProvider'
+import useStyle from './styles'
 
 interface CanvasToolsProps {
   color: string
@@ -8,6 +10,8 @@ interface CanvasToolsProps {
 }
 
 const CanvasColor: FC<CanvasToolsProps> = ({ color, onColorChange }) => {
+  const { theme } = useContext(ThemeContext)
+  const styles = useStyle(theme)
   const handleColorChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     onColorChange(e.target.value)
   }
@@ -20,7 +24,9 @@ const CanvasColor: FC<CanvasToolsProps> = ({ color, onColorChange }) => {
         value={color}
         onChange={handleColorChange}
       />
-      <Typography noWrap>Цвет кисти</Typography>
+      <Typography noWrap sx={styles.text}>
+        Цвет кисти
+      </Typography>
     </Box>
   )
 }
