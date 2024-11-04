@@ -16,9 +16,11 @@ import { customPaperBlock } from '../../shared/styles'
 import { testingNewMessages } from '../../entities/chat/utils'
 import { ThemeContext } from '../theme-provider/ThemeProvider'
 import useStyle from './styles'
+// import { useLobbyMessages } from '../../shared/hooks'
 
 export interface LobbyChatProps {
   lobbyId: number
+  userId: number
   hiddenWord?: string
   isGuessing?: boolean
   onRightGuessWord: (
@@ -31,6 +33,7 @@ export interface LobbyChatProps {
 
 const LobbyChat: FC<LobbyChatProps> = ({
   lobbyId,
+  userId,
   hiddenWord,
   isGuessing = false,
   onRightGuessWord,
@@ -38,6 +41,10 @@ const LobbyChat: FC<LobbyChatProps> = ({
   const [messages, setMessages] = useState<LobbyChatMessage[]>([])
   const { theme } = useContext(ThemeContext)
   const styles = useStyle(theme)
+
+  // const { messages } = useLobbyMessages(userId, lobbyId)
+
+  // TODO: Убрать после подключения хука с сообщениями
   useEffect(() => {
     // TODO: Запрос на получение сообщений
     /* eslint-disable @typescript-eslint/no-unused-vars */
@@ -47,6 +54,7 @@ const LobbyChat: FC<LobbyChatProps> = ({
     getOldMessages(lobbyId)
   }, [])
 
+  // TODO: Убрать после подключения хука с сообщениями
   // Для тестирования новых сообщений
   const [newMessage, setNewMessage] = useState<LobbyChatMessage>()
   isGuessing && testingNewMessages(setNewMessage)
