@@ -1,5 +1,6 @@
 import { Sequelize, SequelizeOptions } from 'sequelize-typescript';
 import { TopicModel } from './api/topic/topic.model'
+import { UserModel } from './api/user/user.model'
 
 const { POSTGRES_USER, POSTGRES_PASSWORD, POSTGRES_DB, POSTGRES_PORT } =
   process.env
@@ -13,7 +14,7 @@ export const initPostgress = async (): Promise<Sequelize | null> => {
     password: POSTGRES_PASSWORD,
     database: POSTGRES_DB,
     dialect: 'postgres',
-    models: [ TopicModel ]
+    models: [ TopicModel, UserModel ]
   }
 
   const sequelize = new Sequelize(sequelizeOptions)

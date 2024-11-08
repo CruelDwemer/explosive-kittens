@@ -2,15 +2,15 @@ import type { RequestHandler } from 'express'
 
 import { createTopicDto } from './topic.dto'
 import { TopicService } from './topic.service'
+import { UserService } from '../user/user.service'
 
 export class TopicController {
   static createTopic: RequestHandler = async (req, res, next) => {
 
-    // TODO: сделать сущность юзера
-    const userIdMock = 12345;
+    const { userId } = await UserService.getCurrentUser()
 
     const validation = createTopicDto.safeParse({
-      userId: userIdMock,
+      userId: userId,
       ...req.body,
     })
 
@@ -71,14 +71,13 @@ export class TopicController {
       return res.status(400).json({ reason: validation.error.errors })
     }
 
-    // TODO: user entity
-    const userIdMock = 12345
+    const { userId } = await UserService.getCurrentUser()
 
     try {
       const updatedTopic = await TopicService.updateTopic(
         topicId,
         validation.data,
-        userIdMock
+        userId
       )
       // const updatedTopic = await TopicService.updateTopic(
       //   topicId,
@@ -95,14 +94,13 @@ export class TopicController {
     const topicId = Number(req.params.id)
     // const user = res.locals.user
 
-    // TODO: user entity
-    const userIdMock = 12345
+    const { userId } = await UserService.getCurrentUser()
 
     if (isNaN(topicId)) {
       return res.status(400).json({ reason: 'Invalid topic ID' })
     }
     try {
-      const deletedTopic = await TopicService.deleteTopic(topicId, userIdMock)
+      const deletedTopic = await TopicService.deleteTopic(topicId, userId)
       return res.status(200).json(deletedTopic)
     } catch (e) {
       return next(e)

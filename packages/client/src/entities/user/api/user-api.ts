@@ -110,3 +110,24 @@ export const updateAvatar = async (data: FormData) => {
 
   return response
 }
+
+type UserInfo = {
+  userId: number,
+  first_name: string,
+  second_name: string,
+  display_name: string,
+  avatar?: string
+}
+
+export const saveUserToDb = async (data: UserInfo) => {
+
+  const url = `http://localhost:3001/api/user`
+  
+  await fetch(url, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data)
+  })
+}
