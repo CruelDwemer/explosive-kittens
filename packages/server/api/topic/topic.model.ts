@@ -5,9 +5,11 @@ import {
     AllowNull, 
     Table, 
     PrimaryKey, 
-    AutoIncrement 
+    AutoIncrement, 
+    ForeignKey,
+    BelongsTo
 } from 'sequelize-typescript'
-// import { createTopicDto } from './topic.dto'
+import { UserModel } from '../user/user.model'
 
 
 @Table({ tableName: 'topics' })
@@ -22,9 +24,13 @@ export class TopicModel extends Model<TopicModel> {
     @Column(DataType.STRING)
     name: string;
 
+    @ForeignKey(() => UserModel)
     @AllowNull(false)
     @Column(DataType.INTEGER)
     userId: number;
+
+    @BelongsTo(() => UserModel)
+    user: UserModel;
 }
 
 // @Table({ tableName: 'users' })

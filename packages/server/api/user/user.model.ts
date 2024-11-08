@@ -4,8 +4,11 @@ import {
     DataType, 
     AllowNull, 
     Table, 
-    PrimaryKey, 
+    PrimaryKey,
+    HasMany
 } from 'sequelize-typescript'
+
+import { TopicModel } from '../topic/topic.model'
 
 @Table({ tableName: 'users' })
 export class UserModel extends Model<UserModel> {
@@ -29,4 +32,7 @@ export class UserModel extends Model<UserModel> {
 
     @Column(DataType.STRING)
     avatar: string;
+
+    @HasMany(() => TopicModel)
+    topics: TopicModel[]
 }

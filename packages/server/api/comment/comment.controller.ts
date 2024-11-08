@@ -1,14 +1,16 @@
 import type { RequestHandler } from 'express'
 import { createCommentDto } from './comment.dto'
 import { CommentService } from './comment.service'
+import { UserService } from '../user/user.service'
 
 export class CommentController {
   static createComment: RequestHandler = async (req, res, next) => {
-    const user = res.locals.user
+    const { userId } = await UserService.getCurrentUser()
+    // const user = res.locals.user
     const topicId = Number(req.params.topicId)
     const validation = createCommentDto.safeParse({
       topicId,
-      userId: user.id,
+      userId: userId,
       ...req.body,
     })
 

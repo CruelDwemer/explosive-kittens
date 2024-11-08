@@ -1,6 +1,7 @@
 import { NotFoundError, ForbiddenError } from '../../utils'
 import type { CreateTopicDto } from './topic.dto'
 import { TopicModel } from './topic.model'
+import { UserModel } from '../user/user.model'
 
 
 export class TopicService {
@@ -16,9 +17,24 @@ export class TopicService {
   static async getTopics() {
 
     return await TopicModel.findAll({
-      attributes: [ 'topicId', 'userId', 'name', 'createdAt' ]
+      include: [
+        {
+          model: UserModel,
+          as: 'user',
+          attributes: [
+            'userId',
+            'first_name',
+            'second_name',
+            'display_name',
+            'avatar',
+          ],
+        }
+      ]
+
     })
   }
+
+  // attributes: [ 'topicId', 'userId', 'name', 'createdAt' ]
 
   static async getTopic(id: number) {
 
