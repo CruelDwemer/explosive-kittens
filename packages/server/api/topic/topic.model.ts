@@ -9,28 +9,6 @@ import {
 } from 'sequelize-typescript'
 // import { createTopicDto } from './topic.dto'
 
-@Table({ tableName: 'users' })
-export class UserModel extends Model<UserModel> {
-
-    @Column(DataType.INTEGER)
-    userId: number;
-
-    @AllowNull(false)
-    @Column(DataType.STRING)
-    first_name: string;
-
-    @AllowNull(false)
-    @Column(DataType.STRING)
-    second_name: string;
-
-    @AllowNull(false)
-    @Column(DataType.STRING)
-    display_name: string;
-
-    @Column(DataType.STRING)
-    avatar: string;
-}
-
 
 @Table({ tableName: 'topics' })
 export class TopicModel extends Model<TopicModel> {
@@ -48,6 +26,28 @@ export class TopicModel extends Model<TopicModel> {
     @Column(DataType.INTEGER)
     userId: number;
 }
+
+// @Table({ tableName: 'users' })
+// export class UserModel extends Model<UserModel> {
+
+//     @Column(DataType.INTEGER)
+//     userId: number;
+
+//     @AllowNull(false)
+//     @Column(DataType.STRING)
+//     first_name: string;
+
+//     @AllowNull(false)
+//     @Column(DataType.STRING)
+//     second_name: string;
+
+//     @AllowNull(false)
+//     @Column(DataType.STRING)
+//     display_name: string;
+
+//     @Column(DataType.STRING)
+//     avatar: string;
+// }
 
 // @AllowNull(false)
 //     @Column(DataType.STRING)

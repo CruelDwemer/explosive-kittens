@@ -5,10 +5,12 @@ import { TopicService } from './topic.service'
 
 export class TopicController {
   static createTopic: RequestHandler = async (req, res, next) => {
-    console.log("REQUEST DATA: ", req.body)
-    // const user = res.locals.user
+
+    // TODO: сделать сущность юзера
+    const userIdMock = 12345;
+
     const validation = createTopicDto.safeParse({
-      userId: 12345,
+      userId: userIdMock,
       ...req.body,
     })
 
@@ -59,7 +61,7 @@ export class TopicController {
   static updateTopic: RequestHandler = async (req, res, next) => {
     const topicId = Number(req.params.id)
     const validation = createTopicDto.omit({ userId: true }).safeParse(req.body)
-    const user = res.locals.user
+    // const user = res.locals.user
 
     if (isNaN(topicId)) {
       return res.status(400).json({ reason: 'Invalid topic ID' })
@@ -69,12 +71,20 @@ export class TopicController {
       return res.status(400).json({ reason: validation.error.errors })
     }
 
+    // TODO: user entity
+    const userIdMock = 12345
+
     try {
       const updatedTopic = await TopicService.updateTopic(
         topicId,
         validation.data,
-        user.id
+        userIdMock
       )
+      // const updatedTopic = await TopicService.updateTopic(
+      //   topicId,
+      //   validation.data,
+      //   user.id
+      // )
       return res.status(200).json(updatedTopic)
     } catch (e) {
       return next(e)
@@ -83,13 +93,16 @@ export class TopicController {
 
   static deleteTopic: RequestHandler = async (req, res, next) => {
     const topicId = Number(req.params.id)
-    const user = res.locals.user
+    // const user = res.locals.user
+
+    // TODO: user entity
+    const userIdMock = 12345
 
     if (isNaN(topicId)) {
       return res.status(400).json({ reason: 'Invalid topic ID' })
     }
     try {
-      const deletedTopic = await TopicService.deleteTopic(topicId, user.id)
+      const deletedTopic = await TopicService.deleteTopic(topicId, userIdMock)
       return res.status(200).json(deletedTopic)
     } catch (e) {
       return next(e)

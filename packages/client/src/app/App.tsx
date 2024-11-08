@@ -13,28 +13,23 @@ function App({ router }: AppProps) {
 
   useEffect(() => {
     const fetchServerData = async () => {
-      const url = `http://localhost:3001/api/topics/`
+      const url = `http://localhost:3001/api/topics/2`
+      // const response = await fetch(url, {
+      //   method: 'POST',
+      //   headers: {
+      //     'Content-Type': 'application/json;charset=utf-8'
+      //   },
+      //   body: JSON.stringify({
+      //     name: "Second topic"
+      //   })
+      // })
       const response = await fetch(url, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json;charset=utf-8'
-        },
-        body: JSON.stringify({
-          name: "My new topic"
-        })
+        method: 'DELETE'
       })
       console.log('RESPONSE: ', response)
-      // const data = await response.json()
-      // console.log('RESULT: ', data)
+      const result = await response.json()
+      console.log('RESULT: ', result)
     }
-
-    // const response = await fetch(url, {
-    //   method: 'POST',
-    //   body: {
-    //     //@ts-expect-error error error
-    //     name: "My new topic"
-    //   }
-    // })
 
     fetchServerData()
   }, [])
