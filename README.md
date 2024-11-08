@@ -47,7 +47,7 @@ prod:
 ```yarn lerna add {your_dep} --scope client```
 
 Для сервера
-```yarn lerna add {your_dep} --scope server```
+```yarn lerna add {your_dep}```
 
 И для клиента и для сервера
 ```yarn lerna add {your_dep}```

@@ -21,7 +21,9 @@
     "jsesc": "^3.0.2",
     "pg": "^8.8.0",
     "prettier": "^2.7.1",
+    "reflect-metadata": "^0.2.2",
     "sequelize": "^6.37.5",
+    "sequelize-typescript": "^2.1.6",
     "sqlite3": "^5.1.7",
     "vite": "^3.0.7",
     "zod": "^3.23.8"
@@ -32,6 +34,7 @@
     "@types/jest": "^28.1.8",
     "@types/node": "^22.7.4",
     "@types/pg": "^8.6.5",
+    "@types/validator": "^13.12.2",
     "@typescript-eslint/eslint-plugin": "^5.35.1",
     "@typescript-eslint/parser": "^5.35.1",
     "babel-jest": "^29.0.1",

@@ -1,11 +1,15 @@
 import { NotFoundError, ForbiddenError } from '../../utils'
 import type { CreateTopicDto } from './topic.dto'
+import { TopicModel } from './topic.model'
 
 export class TopicService {
   // @ts-ignore
   static async createTopic(topic: CreateTopicDto) {
-    // TODO: DB create
-    return { id: 0 }
+    
+    await TopicModel.create({
+      title: "new topic",
+      creation_date: "some date"
+    })
   }
 
   static async getTopics() {

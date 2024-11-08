@@ -8,8 +8,11 @@ dotenv.config()
 import express from 'express'
 import * as path from 'path'
 import { ssrRoute } from './routes/ssr'
+import { initPostgress } from './db'
 
 const isDev = () => process.env.NODE_ENV === 'development'
+
+initPostgress()
 
 async function startServer() {
   const app = express()
