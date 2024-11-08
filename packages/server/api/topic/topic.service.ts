@@ -6,10 +6,10 @@ export class TopicService {
   // @ts-ignore
   static async createTopic(topic: CreateTopicDto) {
     
-    await TopicModel.create({
-      title: "new topic",
-      creation_date: "some date"
-    })
+    //@ts-expect-error some error
+    return await TopicModel.create(topic)
+
+    // return { id: 0 }
   }
 
   static async getTopics() {

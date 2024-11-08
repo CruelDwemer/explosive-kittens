@@ -5,11 +5,17 @@ import { TopicService } from './topic.service'
 
 export class TopicController {
   static createTopic: RequestHandler = async (req, res, next) => {
-    const user = res.locals.user
+    console.log("REQUEST DATA: ", req.body)
+    // const user = res.locals.user
     const validation = createTopicDto.safeParse({
-      userId: user.id,
+      userId: 12345,
       ...req.body,
     })
+
+    // const validation = createTopicDto.safeParse({
+    //   userId: user.id,
+    //   ...req.body,
+    // })
 
     if (!validation.success) {
       return res.status(400).json({ reason: validation.error.errors })

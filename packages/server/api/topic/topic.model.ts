@@ -42,12 +42,16 @@ export class TopicModel extends Model<TopicModel> {
 
     @AllowNull(false)
     @Column(DataType.STRING)
-    title: string;
+    name: string;
 
     @AllowNull(false)
-    @Column(DataType.STRING)
-    creation_date: string
+    @Column(DataType.INTEGER)
+    userId: number;
 }
+
+// @AllowNull(false)
+//     @Column(DataType.STRING)
+//     creation_date: string
 
 // @ForeignKey(() => UserModel)
 //     @AllowNull(false)
