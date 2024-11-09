@@ -2,20 +2,23 @@ import { NotFoundError, ForbiddenError } from '../../utils'
 import type { CreateTopicDto } from './topic.dto'
 import { TopicModel } from './topic.model'
 import { UserModel } from '../user/user.model'
-
+import { CommentModel } from '../comment/comment.model'
 
 export class TopicService {
   // @ts-ignore
   static async createTopic(topic: CreateTopicDto) {
-    
     //@ts-expect-error some error
     return await TopicModel.create(topic)
   }
 
   static async getTopics() {
-
     return await TopicModel.findAll({
       include: [
+        {
+          model: CommentModel,
+          as: 'comments',
+          attributes: ['commentId', 'content', 'userId', 'topicId'],
+        },
         {
           model: UserModel,
           as: 'user',
@@ -26,20 +29,16 @@ export class TopicService {
             'display_name',
             'avatar',
           ],
-        }
-      ]
-
+        },
+      ],
     })
   }
 
-  // attributes: [ 'topicId', 'userId', 'name', 'createdAt' ]
-
   static async getTopic(id: number) {
-
     return await TopicModel.findOne({
       where: {
-        topicId: id
-      }
+        topicId: id,
+      },
     })
   }
 
@@ -49,11 +48,10 @@ export class TopicService {
     updateData: Omit<CreateTopicDto, 'userId'>,
     userId: number
   ) {
-    
     const topic = await TopicModel.findOne({
       where: {
-        topicId: id
-      }
+        topicId: id,
+      },
     })
 
     if (!topic) {
@@ -66,20 +64,19 @@ export class TopicService {
 
     return await TopicModel.update(
       {
-        name: updateData.name
+        name: updateData.name,
       },
       {
-        where: { topicId: id }
+        where: { topicId: id },
       }
     )
   }
 
   static async deleteTopic(id: number, userId: number) {
-    
     const topic = await TopicModel.findOne({
       where: {
-        topicId: id
-      }
+        topicId: id,
+      },
     })
 
     if (!topic) {

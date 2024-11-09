@@ -6,7 +6,6 @@ import { UserService } from '../user/user.service'
 
 export class TopicController {
   static createTopic: RequestHandler = async (req, res, next) => {
-
     const { userId } = await UserService.getCurrentUser()
 
     const validation = createTopicDto.safeParse({
@@ -56,7 +55,6 @@ export class TopicController {
   static updateTopic: RequestHandler = async (req, res, next) => {
     const topicId = Number(req.params.id)
     const validation = createTopicDto.omit({ userId: true }).safeParse(req.body)
-    // const user = res.locals.user
 
     if (isNaN(topicId)) {
       return res.status(400).json({ reason: 'Invalid topic ID' })
@@ -74,11 +72,6 @@ export class TopicController {
         validation.data,
         userId
       )
-      // const updatedTopic = await TopicService.updateTopic(
-      //   topicId,
-      //   validation.data,
-      //   user.id
-      // )
       return res.status(200).json(updatedTopic)
     } catch (e) {
       return next(e)
@@ -87,7 +80,6 @@ export class TopicController {
 
   static deleteTopic: RequestHandler = async (req, res, next) => {
     const topicId = Number(req.params.id)
-    // const user = res.locals.user
 
     const { userId } = await UserService.getCurrentUser()
 

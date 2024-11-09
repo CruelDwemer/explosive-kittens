@@ -11,7 +11,6 @@ export class CommentService {
   }
 
   static async getCommentsByTopicId(topicId: CreateCommentDto['topicId']) {
-    // TODO: DB search
     return await CommentModel.findAll({
       where: {
         topicId: topicId,
@@ -33,7 +32,6 @@ export class CommentService {
   }
 
   static async getComment(id: number) {
-    // TODO: DB search by ID
     return await CommentModel.findOne({
       where: {
         commentId: id,
@@ -60,7 +58,6 @@ export class CommentService {
     updateData: Partial<CreateCommentDto>,
     userId: number
   ) {
-    // TODO:  DB search by ID
     const comment = await this.getComment(id)
 
     if (!comment) {
@@ -79,7 +76,6 @@ export class CommentService {
   }
 
   static async deleteComment(id: number, userId: number) {
-    // TODO:  DB search by ID
     const comment = await this.getComment(id)
 
     if (!comment) {
@@ -95,21 +91,3 @@ export class CommentService {
     await comment.destroy()
   }
 }
-
-// {
-//   id: 2,
-//   topicId: topicId,
-//   text: 'Some text',
-//   date: '2024-04-20 17:30:12.66',
-//   user: {
-//     id: 333,
-//     first_name: 'Коля',
-//     second_name: 'Пупкин',
-//     display_name: 'Пупкович',
-//     avatar: undefined,
-//   },
-//   reactions: [
-//     [1, '👍'],
-//     [10, '😃'],
-//   ],
-// }
