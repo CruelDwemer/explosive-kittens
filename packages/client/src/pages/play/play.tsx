@@ -10,7 +10,7 @@ import {
   CardActions,
   Avatar,
 } from '@mui/material'
-import { AddPlayer } from '../../widgets'
+import { AddPlayer, JoinPlay } from '../../widgets'
 import { CountdownTimer } from '../../features'
 import { ThemeContext } from '../../features/theme-provider/ThemeProvider'
 import useStyle from './styles'
@@ -25,13 +25,17 @@ import {
 const Play: FC = () => {
   const [lobbyId, setLobbyId] = useState<number | null>(null)
   const [showCountdown, setShowCountdown] = useState(false)
-  const [open, setOpen] = useState(false)
+  const [openCreation, setOpenCreation] = useState(false)
+  const [openJoin, setOpenJoin] = useState(false)
   const navigate = useNavigate()
   const { theme } = useContext(ThemeContext)
   const styles = useStyle(theme)
 
-  const handleOpen = () => setOpen(true)
-  const handleClose = () => setOpen(false)
+  const handleOpenCreation = () => setOpenCreation(true)
+  const handleCloseCreation = () => setOpenCreation(false)
+
+  const handleOpenJoin = () => setOpenJoin(true)
+  const handleCloseJoin = () => setOpenJoin(false)
 
   const handleTimer = () => {
     if (lobbyId) {
@@ -42,7 +46,7 @@ const Play: FC = () => {
   }
 
   const handlePlayStart = (lobbyId: number) => {
-    handleClose()
+    handleCloseCreation()
     setLobbyId(lobbyId)
     setShowCountdown(true)
   }
@@ -93,24 +97,39 @@ const Play: FC = () => {
         <CardActions
           sx={{
             display: 'flex',
-            justifyContent: 'center',
+            justifyContent: 'space-between',
             alignItems: 'center',
           }}>
           <Button
-            onClick={handleOpen}
+            onClick={handleOpenCreation}
             variant="contained"
             size="large"
             sx={styles.button}>
             Создать игру
           </Button>
+
+          <Button
+            onClick={handleOpenJoin}
+            variant="contained"
+            size="large"
+            sx={styles.button}>
+            Присоединиться
+          </Button>
         </CardActions>
       </Card>
       {showCountdown && <CountdownTimer onEnd={handleTimer} />}
       <AddPlayer
-        open={open}
-        onClose={handleClose}
+        open={openCreation}
+        onClose={handleCloseCreation}
         onPlayStart={handlePlayStart}
       />
+      {openJoin && (
+        <JoinPlay
+          open={openJoin}
+          onClose={handleCloseJoin}
+          onPlayStart={handlePlayStart}
+        />
+      )}
     </Box>
   )
 }

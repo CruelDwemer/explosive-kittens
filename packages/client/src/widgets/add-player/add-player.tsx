@@ -26,7 +26,7 @@ import { Player } from '../../entities/lobby/models'
 import { ThemeContext } from '../../features/theme-provider/ThemeProvider'
 import useStyle from './styles'
 
-interface AddPlayerProps {
+export interface AddPlayerProps {
   open: boolean
   onClose: () => void
   onPlayStart: (lobbyId: number) => void
@@ -170,8 +170,8 @@ const AddPlayer: React.FC<AddPlayerProps> = ({
   const handlePlayClick = () => {
     const { lobbyId } = lobbyData
     if (lobbyId) {
+      localStorage.setItem('playersList', JSON.stringify(lobbyData.playersList))
       onPlayStart(lobbyId)
-      // onClose()
     }
   }
 

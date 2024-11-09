@@ -8,7 +8,8 @@ import { default as LeaderBoardTable } from './leader-board-table'
 import UserAvatar from './avatar/avatar'
 import ChangePassword from './change-password/change-pasword'
 import RecordsTable from './records-table/records-table'
+import JoinPlay from './join-play/join-play'
 
-export { AddPlayer, LeaderBoardTable }
+export { AddPlayer, LeaderBoardTable, JoinPlay }
 export default { UserAvatar, ChangePassword, RecordsTable }
 export { Fullscreen } from './fullscreen'

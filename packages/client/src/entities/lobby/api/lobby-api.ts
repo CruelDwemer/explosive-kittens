@@ -14,6 +14,17 @@ export const createPlay = (title: string) => {
   })
 }
 
+export const getUserLobby = () => {
+  return fetch(`${BASE_URL}/chats`, {
+    method: 'GET',
+    mode: 'cors',
+    credentials: 'include',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+}
+
 export const playerList = (chatId: number) => {
   return fetch(`${BASE_URL}/chats/${chatId}/users`, {
     method: 'GET',
@@ -53,12 +64,15 @@ export const deleteUserFromChat = (chatId: number, userId: number) => {
 }
 
 export const randomWord = () => {
-  return fetch(`http://free-generator.ru/generator.php?action=word&type=1`, {
-    method: 'GET',
-    // credentials: 'include',
-    // // mode: 'no-cors',
-    // headers: {
-    //   'Access-Control-Allow-Origin': '*'
-    // }
-  })
+  return window.fetch(
+    `http://free-generator.ru/generator.php?action=word&type=1`,
+    {
+      method: 'GET',
+      // credentials: 'include',
+      // mode: 'no-cors',
+      // headers: {
+      //   'Access-Control-Allow-Origin': '*'
+      // }
+    }
+  )
 }

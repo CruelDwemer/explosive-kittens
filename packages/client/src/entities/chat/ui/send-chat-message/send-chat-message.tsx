@@ -3,13 +3,21 @@ import { ChangeEvent, FC, useContext, useState } from 'react'
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
 import { ThemeContext } from '../../../../features/theme-provider/ThemeProvider'
 import useStyle from './styles'
+import { useLobbyMessages } from '../../../../shared/hooks'
 
 interface SendChatMessageProps {
   disabled?: boolean
+  lobbyId: number
+  userId: number
 }
 
-const SendChatMessage: FC<SendChatMessageProps> = ({ disabled }) => {
+const SendChatMessage: FC<SendChatMessageProps> = ({
+  disabled,
+  userId,
+  lobbyId,
+}) => {
   const [message, setMessage] = useState('')
+  const { handleSendClick } = useLobbyMessages(userId, lobbyId)
   const { theme } = useContext(ThemeContext)
   const styles = useStyle(theme)
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -17,12 +25,12 @@ const SendChatMessage: FC<SendChatMessageProps> = ({ disabled }) => {
     setMessage(value)
   }
 
-  const handleSendClick = () => {
+  const onBtnClick = () => {
     if (!message) {
       return
     }
-
-    // TODO: Апи отправки запроса
+    handleSendClick(message)
+    setMessage('')
   }
 
   return (
@@ -39,7 +47,7 @@ const SendChatMessage: FC<SendChatMessageProps> = ({ disabled }) => {
         disabled={disabled}
         size="small"
         variant="contained"
-        onClick={handleSendClick}
+        onClick={onBtnClick}
         sx={styles.button}>
         <ArrowForwardIosIcon />
       </Button>

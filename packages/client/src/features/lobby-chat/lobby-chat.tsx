@@ -16,7 +16,8 @@ import { customPaperBlock } from '../../shared/styles'
 import { testingNewMessages } from '../../entities/chat/utils'
 import { ThemeContext } from '../theme-provider/ThemeProvider'
 import useStyle from './styles'
-// import { useLobbyMessages } from '../../shared/hooks'
+import { useLobbyMessages } from '../../shared/hooks'
+import { Player } from '../../entities/lobby/models'
 
 export interface LobbyChatProps {
   lobbyId: number
@@ -38,52 +39,19 @@ const LobbyChat: FC<LobbyChatProps> = ({
   isGuessing = false,
   onRightGuessWord,
 }) => {
-  const [messages, setMessages] = useState<LobbyChatMessage[]>([])
+  const [playersList, setPlayersList] = useState<Player[]>([])
   const { theme } = useContext(ThemeContext)
   const styles = useStyle(theme)
 
-  // const { messages } = useLobbyMessages(userId, lobbyId)
-
-  // TODO: Убрать после подключения хука с сообщениями
+  const { messages } = useLobbyMessages(userId, lobbyId)
   useEffect(() => {
-    // TODO: Запрос на получение сообщений
-    /* eslint-disable @typescript-eslint/no-unused-vars */
-    const getOldMessages = (lobbyId: number) => {
-      setMessages([])
-    }
-    getOldMessages(lobbyId)
+    const storeData = localStorage.getItem('playersList')
+    setPlayersList(storeData ? JSON.parse(storeData) : [])
   }, [])
 
-  // TODO: Убрать после подключения хука с сообщениями
-  // Для тестирования новых сообщений
-  const [newMessage, setNewMessage] = useState<LobbyChatMessage>()
-  isGuessing && testingNewMessages(setNewMessage)
-  useEffect(() => {
-    if (newMessage && isGuessing) {
-      setMessages(prev => [...prev, newMessage])
-      if (
-        hiddenWord &&
-        hiddenWord.toLowerCase() === newMessage.content.toLowerCase()
-      ) {
-        const techMessage: LobbyChatMessage = {
-          id: newMessage.id,
-          date: new Date().toISOString(),
-          userId: newMessage.id,
-          userName: '',
-          userLogin: '',
-          userAvatar: '',
-          content: `Игрок ${newMessage.userName} отгадал слово: ${hiddenWord}`,
-        }
-        setMessages(prev => [...prev, techMessage])
-        onRightGuessWord(
-          newMessage.userId,
-          newMessage.userName,
-          newMessage.userLogin,
-          newMessage.userAvatar
-        )
-      }
-    }
-  }, [newMessage])
+  const setUserNameBuId = (id: number): string => {
+    return playersList.find(player => player.id === id)?.first_name || ''
+  }
 
   return (
     <Box sx={styles.wrapper}>
@@ -100,22 +68,25 @@ const LobbyChat: FC<LobbyChatProps> = ({
         <MessagesContainer>
           {messages
             .sort((a, b) => {
-              return new Date(b.date).getTime() - new Date(a.date).getTime()
+              return new Date(b.time).getTime() - new Date(a.time).getTime()
             })
-            .map(({ id, userId, userName, content }, i, arr) => {
+            .map(({ id, user_id: userId, content }, i, arr) => {
               return (
                 <MessageBubble
                   key={id + userId}
                   messageId={id}
-                  userName={isFirstUserMessage(userId, i, arr) ? userName : ''}
+                  userName={setUserNameBuId(userId)}
                   messageContent={content}
-                  isLast={isLastUserMessage(userId, i, arr)}
                 />
               )
             })}
         </MessagesContainer>
         <Box sx={styles.inputBox}>
-          <SendChatMessage disabled={!isGuessing} />
+          <SendChatMessage
+            disabled={!isGuessing}
+            userId={userId}
+            lobbyId={lobbyId}
+          />
         </Box>
       </Paper>
     </Box>

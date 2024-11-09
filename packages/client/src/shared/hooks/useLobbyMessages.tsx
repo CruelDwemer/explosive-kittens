@@ -8,6 +8,7 @@ const useLobbyMessages = (userId: number, lobbyId: number) => {
   let socket: Socket | null = null
   // let offset: number = 0;
   // let isAllMessage: boolean = false;
+  const [socketState, setSocketState] = useState<Socket | null>(null)
   let ping: unknown | number | undefined
 
   const [messages, setMessages] = useState<Message[]>([])
@@ -27,15 +28,16 @@ const useLobbyMessages = (userId: number, lobbyId: number) => {
     ping = undefined
     // offset = 0;
     socket = null
+    setSocketState(null)
   }
-
   const connect = async (lobbyId: number, userId: number) => {
     await getChatToken(lobbyId)
       .then(async resp => {
         const { token } = (await resp.json()) as { token: string }
         socket = new Socket({
-          url: `${SOCKET_URL}/${userId}/${lobbyId}/${token}`,
+          url: `${SOCKET_URL}/chats/${userId}/${lobbyId}/${token}`,
         })
+        setSocketState(socket)
         ping = setInterval(() => {
           socket?.send(
             JSON.stringify({
@@ -45,7 +47,7 @@ const useLobbyMessages = (userId: number, lobbyId: number) => {
           )
         }, 20000)
         socket.open(() => {
-          console.log('Connection open')
+          console.log('Connection open', socket)
 
           setInterval(() => {
             socket?.send(
@@ -58,9 +60,11 @@ const useLobbyMessages = (userId: number, lobbyId: number) => {
         })
 
         socket.message(({ data }) => {
-          // TODO: Save messages
           const newMessage: Message = JSON.parse(data)
-          setMessages(prev => [...prev, newMessage])
+
+          if (newMessage.type === 'message') {
+            setMessages(prev => [...prev, newMessage])
+          }
         })
 
         socket.close(disconnect)
@@ -74,7 +78,21 @@ const useLobbyMessages = (userId: number, lobbyId: number) => {
       })
   }
 
-  return { messages }
+  const handleSendClick = (message: string) => {
+    if (!message) {
+      return
+    }
+    if (socketState) {
+      socketState.send(
+        JSON.stringify({
+          content: message,
+          type: 'message',
+        })
+      )
+    }
+  }
+
+  return { messages, handleSendClick }
 }
 
 export default useLobbyMessages
