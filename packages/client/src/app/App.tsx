@@ -10,7 +10,6 @@ interface AppProps {
 }
 
 function App({ router }: AppProps) {
-
   useEffect(() => {
     const fetchServerData = async () => {
       // get: // const url = `http://localhost:3001/api/comments/1`
@@ -19,11 +18,11 @@ function App({ router }: AppProps) {
       const response = await fetch(url, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json;charset=utf-8'
+          'Content-Type': 'application/json;charset=utf-8',
         },
         body: JSON.stringify({
-          content: 'Text text text text'
-        })
+          content: 'Third comment text text text text',
+        }),
       })
       // const response = await fetch(url)
       console.log('RESPONSE: ', response)
@@ -31,7 +30,7 @@ function App({ router }: AppProps) {
       console.log('RESULT: ', result)
     }
 
-    fetchServerData()
+    // fetchServerData()
   }, [])
 
   return (
