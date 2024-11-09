@@ -10,8 +10,6 @@ export class TopicService {
     
     //@ts-expect-error some error
     return await TopicModel.create(topic)
-
-    // return { id: 0 }
   }
 
   static async getTopics() {

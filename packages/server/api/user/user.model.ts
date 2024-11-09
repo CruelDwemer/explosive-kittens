@@ -9,6 +9,8 @@ import {
 } from 'sequelize-typescript'
 
 import { TopicModel } from '../topic/topic.model'
+import { CommentModel } from '../comment/comment.model'
+
 
 @Table({ tableName: 'users' })
 export class UserModel extends Model<UserModel> {
@@ -35,4 +37,7 @@ export class UserModel extends Model<UserModel> {
 
     @HasMany(() => TopicModel)
     topics: TopicModel[]
+
+    @HasMany(() => CommentModel)
+    comments: CommentModel[]
 }

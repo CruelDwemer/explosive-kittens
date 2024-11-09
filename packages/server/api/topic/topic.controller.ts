@@ -14,11 +14,6 @@ export class TopicController {
       ...req.body,
     })
 
-    // const validation = createTopicDto.safeParse({
-    //   userId: user.id,
-    //   ...req.body,
-    // })
-
     if (!validation.success) {
       return res.status(400).json({ reason: validation.error.errors })
     }

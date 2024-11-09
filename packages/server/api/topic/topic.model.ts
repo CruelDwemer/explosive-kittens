@@ -7,9 +7,11 @@ import {
     PrimaryKey, 
     AutoIncrement, 
     ForeignKey,
-    BelongsTo
+    BelongsTo,
+    HasMany
 } from 'sequelize-typescript'
 import { UserModel } from '../user/user.model'
+import { CommentModel } from '../comment/comment.model'
 
 
 @Table({ tableName: 'topics' })
@@ -31,39 +33,9 @@ export class TopicModel extends Model<TopicModel> {
 
     @BelongsTo(() => UserModel)
     user: UserModel;
+
+    @HasMany(() => CommentModel)
+    comments: CommentModel[];
 }
 
-// @Table({ tableName: 'users' })
-// export class UserModel extends Model<UserModel> {
-
-//     @Column(DataType.INTEGER)
-//     userId: number;
-
-//     @AllowNull(false)
-//     @Column(DataType.STRING)
-//     first_name: string;
-
-//     @AllowNull(false)
-//     @Column(DataType.STRING)
-//     second_name: string;
-
-//     @AllowNull(false)
-//     @Column(DataType.STRING)
-//     display_name: string;
-
-//     @Column(DataType.STRING)
-//     avatar: string;
-// }
-
-// @AllowNull(false)
-//     @Column(DataType.STRING)
-//     creation_date: string
-
-// @ForeignKey(() => UserModel)
-//     @AllowNull(false)
-//     @Column(DataType.INTEGER)
-//     userId: number;
-
-//     @BelongsTo(() => UserModel)
-//     user: UserModel;
 

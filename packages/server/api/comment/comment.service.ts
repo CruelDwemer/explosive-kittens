@@ -1,48 +1,35 @@
 import type { CreateCommentDto } from './comment.dto'
 import { ForbiddenError, NotFoundError } from '../../utils'
+import { CommentModel } from './comment.model'
+import { UserModel } from '../user/user.model'
 
 export class CommentService {
   // @ts-ignore
   static async createComment(createData: CreateCommentDto) {
-    // TODO: DB create
-    return { id: 30 }
+    //@ts-expect-error some error
+    return await CommentModel.create(createData)
   }
 
   static async getCommentsByTopicId(topicId: CreateCommentDto['topicId']) {
     // TODO: DB search
-    return [
-      {
-        id: 1,
-        topicId: topicId,
-        text: 'Some text',
-        date: '2024-04-20 17:35:12.66',
-        user: {
-          id: 333,
-          first_name: 'Василий',
-          second_name: 'Пупкин',
-          display_name: 'Пупкович',
-          avatar: undefined,
-        },
-        reactions: [[3, '😃👍']],
+    return CommentModel.findAll({
+      where: {
+        topicId: topicId
       },
-      {
-        id: 2,
-        topicId: topicId,
-        text: 'Some text',
-        date: '2024-04-20 17:30:12.66',
-        user: {
-          id: 333,
-          first_name: 'Коля',
-          second_name: 'Пупкин',
-          display_name: 'Пупкович',
-          avatar: undefined,
-        },
-        reactions: [
-          [1, '👍'],
-          [10, '😃'],
-        ],
-      },
-    ]
+      include: [
+        {
+          model: UserModel,
+          as: 'user',
+          attributes: [
+            'userId',
+            'first_name',
+            'second_name',
+            'display_name',
+            'avatar',
+          ],
+        }
+      ]
+    })
   }
 
   static async getComment(id: number) {
@@ -104,3 +91,21 @@ export class CommentService {
     return { id }
   }
 }
+
+// {
+//   id: 2,
+//   topicId: topicId,
+//   text: 'Some text',
+//   date: '2024-04-20 17:30:12.66',
+//   user: {
+//     id: 333,
+//     first_name: 'Коля',
+//     second_name: 'Пупкин',
+//     display_name: 'Пупкович',
+//     avatar: undefined,
+//   },
+//   reactions: [
+//     [1, '👍'],
+//     [10, '😃'],
+//   ],
+// }

@@ -6,7 +6,7 @@ import { UserService } from '../user/user.service'
 export class CommentController {
   static createComment: RequestHandler = async (req, res, next) => {
     const { userId } = await UserService.getCurrentUser()
-    // const user = res.locals.user
+    
     const topicId = Number(req.params.topicId)
     const validation = createCommentDto.safeParse({
       topicId,
