@@ -2,12 +2,14 @@ import type { RequestHandler } from 'express'
 
 import { createTopicDto } from './topic.dto'
 import { TopicService } from './topic.service'
+import { UserService } from '../user/user.service'
 
 export class TopicController {
   static createTopic: RequestHandler = async (req, res, next) => {
-    const user = res.locals.user
+    const { userId } = await UserService.getCurrentUser()
+
     const validation = createTopicDto.safeParse({
-      userId: user.id,
+      userId: userId,
       ...req.body,
     })
 
@@ -53,7 +55,6 @@ export class TopicController {
   static updateTopic: RequestHandler = async (req, res, next) => {
     const topicId = Number(req.params.id)
     const validation = createTopicDto.omit({ userId: true }).safeParse(req.body)
-    const user = res.locals.user
 
     if (isNaN(topicId)) {
       return res.status(400).json({ reason: 'Invalid topic ID' })
@@ -63,11 +64,13 @@ export class TopicController {
       return res.status(400).json({ reason: validation.error.errors })
     }
 
+    const { userId } = await UserService.getCurrentUser()
+
     try {
       const updatedTopic = await TopicService.updateTopic(
         topicId,
         validation.data,
-        user.id
+        userId
       )
       return res.status(200).json(updatedTopic)
     } catch (e) {
@@ -77,13 +80,14 @@ export class TopicController {
 
   static deleteTopic: RequestHandler = async (req, res, next) => {
     const topicId = Number(req.params.id)
-    const user = res.locals.user
+
+    const { userId } = await UserService.getCurrentUser()
 
     if (isNaN(topicId)) {
       return res.status(400).json({ reason: 'Invalid topic ID' })
     }
     try {
-      const deletedTopic = await TopicService.deleteTopic(topicId, user.id)
+      const deletedTopic = await TopicService.deleteTopic(topicId, userId)
       return res.status(200).json(deletedTopic)
     } catch (e) {
       return next(e)

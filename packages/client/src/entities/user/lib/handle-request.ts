@@ -3,11 +3,14 @@ import {
   logout,
   registerUser,
   getUserInfoQuery,
+  getUserInfo,
+  saveUserToDb
 } from '../api/user-api'
 import { AuthData } from '../models/validator-models'
 import { AppDispatch } from '../../../shared/lib'
 import { saveUserData } from './'
 import { ROUTER_PATH } from '../../../shared/models'
+import { idText } from 'typescript'
 
 const handleLoginQuery = async (data: AuthData, dispatch: AppDispatch) => {
   try {
@@ -66,4 +69,17 @@ const saveToStore = async (dispatch: AppDispatch) => {
   dispatch(saveUserData(result))
 }
 
-export { handleLoginQuery, handleLogout, handleRegisterQuery }
+const handleUserInDb = async () => {
+  const data = await getUserInfo()
+  const requestData = {
+    userId: data.id,
+    first_name: data.first_name,
+    second_name: data.second_name,
+    display_name: data.first_name,
+    avatar: data.avatar
+  }
+  saveUserToDb(requestData)
+  // console.log("INFO: ", data)
+}
+
+export { handleLoginQuery, handleLogout, handleRegisterQuery, handleUserInDb }

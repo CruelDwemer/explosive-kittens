@@ -1,66 +1,55 @@
 import type { CreateCommentDto } from './comment.dto'
 import { ForbiddenError, NotFoundError } from '../../utils'
+import { CommentModel } from './comment.model'
+import { UserModel } from '../user/user.model'
 
 export class CommentService {
   // @ts-ignore
   static async createComment(createData: CreateCommentDto) {
-    // TODO: DB create
-    return { id: 30 }
+    //@ts-expect-error some error
+    return await CommentModel.create(createData)
   }
 
   static async getCommentsByTopicId(topicId: CreateCommentDto['topicId']) {
-    // TODO: DB search
-    return [
-      {
-        id: 1,
+    return await CommentModel.findAll({
+      where: {
         topicId: topicId,
-        text: 'Some text',
-        date: '2024-04-20 17:35:12.66',
-        user: {
-          id: 333,
-          first_name: 'Василий',
-          second_name: 'Пупкин',
-          display_name: 'Пупкович',
-          avatar: undefined,
-        },
-        reactions: [[3, '😃👍']],
       },
-      {
-        id: 2,
-        topicId: topicId,
-        text: 'Some text',
-        date: '2024-04-20 17:30:12.66',
-        user: {
-          id: 333,
-          first_name: 'Коля',
-          second_name: 'Пупкин',
-          display_name: 'Пупкович',
-          avatar: undefined,
+      include: [
+        {
+          model: UserModel,
+          as: 'user',
+          attributes: [
+            'userId',
+            'first_name',
+            'second_name',
+            'display_name',
+            'avatar',
+          ],
         },
-        reactions: [
-          [1, '👍'],
-          [10, '😃'],
-        ],
-      },
-    ]
+      ],
+    })
   }
 
   static async getComment(id: number) {
-    // TODO: DB search by ID
-    return {
-      id: id,
-      topicId: 33,
-      text: 'Some text',
-      date: '2024-04-20 17:35:12.66',
-      user: {
-        id: 333,
-        first_name: 'Василий',
-        second_name: 'Пупкин',
-        display_name: 'Пупкович',
-        avatar: undefined,
+    return await CommentModel.findOne({
+      where: {
+        commentId: id,
       },
-      reactions: [[3, '😃👍']],
-    }
+      include: [
+        {
+          model: UserModel,
+          as: 'user',
+          attributes: [
+            'userId',
+            'first_name',
+            'second_name',
+            'display_name',
+            'avatar',
+          ],
+        },
+      ],
+    })
   }
 
   static async updateComment(
@@ -69,8 +58,7 @@ export class CommentService {
     updateData: Partial<CreateCommentDto>,
     userId: number
   ) {
-    // TODO:  DB search by ID
-    const comment = { userId: 333 }
+    const comment = await this.getComment(id)
 
     if (!comment) {
       throw new NotFoundError('Comment not found')
@@ -81,14 +69,14 @@ export class CommentService {
         `You don't have permission to update this comment`
       )
     }
-
-    // TODO:  DB Update
-    return { id }
+    // @ts-ignore
+    comment.content = updateData.content
+    await comment.save()
+    return comment
   }
 
   static async deleteComment(id: number, userId: number) {
-    // TODO:  DB search by ID
-    const comment = { userId: 333 }
+    const comment = await this.getComment(id)
 
     if (!comment) {
       throw new NotFoundError('Comment not found')
@@ -100,7 +88,6 @@ export class CommentService {
       )
     }
 
-    // TODO: DB Delete
-    return { id }
+    await comment.destroy()
   }
 }

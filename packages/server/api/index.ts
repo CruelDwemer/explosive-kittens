@@ -1,6 +1,7 @@
 import express, { Router } from 'express'
 import { topicRouter } from './topic/topic.router'
 import { commentRouter } from './comment/comment.router'
+import { userRouter } from './user/user.router'
 
 export const apiRouter = Router()
 
@@ -10,3 +11,4 @@ apiRouter.use(express.json())
 
 apiRouter.use('/topics', topicRouter)
 apiRouter.use('/comments', commentRouter)
+apiRouter.use('/user', userRouter)

@@ -1,4 +1,4 @@
-import { FC, useState, useContext } from 'react'
+import { FC, useState, useContext, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import {
@@ -14,6 +14,7 @@ import { AddPlayer } from '../../widgets'
 import { CountdownTimer } from '../../features'
 import { ThemeContext } from '../../features/theme-provider/ThemeProvider'
 import useStyle from './styles'
+import { handleUserInDb } from '../../entities/user/lib'
 
 // temp
 import {
@@ -46,6 +47,10 @@ const Play: FC = () => {
     setLobbyId(lobbyId)
     setShowCountdown(true)
   }
+
+  useEffect(() => {
+    handleUserInDb()
+  }, [])
 
   return (
     <Box sx={styles.container}>

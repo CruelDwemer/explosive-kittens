@@ -1,14 +1,16 @@
 import type { RequestHandler } from 'express'
 import { createCommentDto } from './comment.dto'
 import { CommentService } from './comment.service'
+import { UserService } from '../user/user.service'
 
 export class CommentController {
   static createComment: RequestHandler = async (req, res, next) => {
-    const user = res.locals.user
+    const { userId } = await UserService.getCurrentUser()
+
     const topicId = Number(req.params.topicId)
     const validation = createCommentDto.safeParse({
       topicId,
-      userId: user.id,
+      userId: userId,
       ...req.body,
     })
 
@@ -62,7 +64,7 @@ export class CommentController {
   }
 
   static updateComment: RequestHandler = async (req, res, next) => {
-    const user = res.locals.user
+    const { userId } = await UserService.getCurrentUser()
     const commentId = Number(req.params.id)
     const validation = createCommentDto.partial().safeParse(req.body)
 
@@ -78,7 +80,7 @@ export class CommentController {
       const updatedComment = await CommentService.updateComment(
         commentId,
         validation.data,
-        user.id
+        userId
       )
       return res.status(200).json(updatedComment)
     } catch (e) {
@@ -88,7 +90,7 @@ export class CommentController {
 
   static deleteComment: RequestHandler = async (req, res, next) => {
     const commentId = Number(req.params.id)
-    const user = res.locals.user
+    const { userId } = await UserService.getCurrentUser()
 
     if (isNaN(commentId)) {
       return res.status(400).json({ reason: 'Invalid comment ID' })
@@ -97,7 +99,7 @@ export class CommentController {
     try {
       const deletedComment = await CommentService.deleteComment(
         commentId,
-        user.id
+        userId
       )
       return res.status(200).json(deletedComment)
     } catch (e) {

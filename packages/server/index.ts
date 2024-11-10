@@ -8,8 +8,12 @@ dotenv.config()
 import express from 'express'
 import * as path from 'path'
 import { ssrRoute } from './routes/ssr'
+import { initPostgress } from './db'
+import { apiRouter } from './api'
 
 const isDev = () => process.env.NODE_ENV === 'development'
+
+initPostgress()
 
 async function startServer() {
   const app = express()
@@ -32,9 +36,8 @@ async function startServer() {
     app.use('/assets', express.static(path.resolve(distPath, 'assets')))
   }
 
-  app.get('/api', (_, res) => {
-    res.json('👋 Howdy from the server :)')
-  })
+  app.use(express.json())
+  app.use('/api', apiRouter)
 
   if (!isDev()) {
     app.use('/assets', express.static(path.resolve(distPath, 'assets')))
