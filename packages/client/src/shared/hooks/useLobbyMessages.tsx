@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { getChatToken } from '../../entities/chat/api/chat-api'
+import { getChatToken, getFile } from '../../entities/chat/api/chat-api'
 import { SOCKET_URL } from '../constants'
 import { Socket } from '../lib'
 import { Message } from '../../entities/lobby/models'
@@ -37,7 +37,6 @@ const useLobbyMessages = (userId: number, lobbyId: number) => {
         socket = new Socket({
           url: `${SOCKET_URL}/chats/${userId}/${lobbyId}/${token}`,
         })
-        setSocketState(socket)
         ping = setInterval(() => {
           socket?.send(
             JSON.stringify({
@@ -47,8 +46,8 @@ const useLobbyMessages = (userId: number, lobbyId: number) => {
           )
         }, 20000)
         socket.open(() => {
+          setSocketState(socket)
           console.log('Connection open', socket)
-
           setInterval(() => {
             socket?.send(
               JSON.stringify({
@@ -59,11 +58,18 @@ const useLobbyMessages = (userId: number, lobbyId: number) => {
           }, 20000)
         })
 
-        socket.message(({ data }) => {
-          const newMessage: Message = JSON.parse(data)
+        socket.message(async ({ data }) => {
+          if (data.includes('content')) {
+            const newMessage: Message = JSON.parse(data)
 
-          if (newMessage.type === 'message') {
-            setMessages(prev => [...prev, newMessage])
+            if (newMessage.type === 'message') {
+              setMessages(prev => [...prev, newMessage])
+            } else if (newMessage.type === 'file') {
+              if (newMessage.file?.path) {
+                const response = await getFile(newMessage.file?.path)
+                console.log(response)
+              }
+            }
           }
         })
 
@@ -92,7 +98,20 @@ const useLobbyMessages = (userId: number, lobbyId: number) => {
     }
   }
 
-  return { messages, handleSendClick }
+  const handleFileSend = (message: string) => {
+    if (!message) {
+      return
+    }
+    if (socketState) {
+      socketState.send(
+        JSON.stringify({
+          content: message,
+          type: 'file',
+        })
+      )
+    }
+  }
+  return { messages, handleSendClick, handleFileSend }
 }
 
 export default useLobbyMessages

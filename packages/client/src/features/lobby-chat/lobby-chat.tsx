@@ -18,6 +18,7 @@ import { ThemeContext } from '../theme-provider/ThemeProvider'
 import useStyle from './styles'
 import { useLobbyMessages } from '../../shared/hooks'
 import { Player } from '../../entities/lobby/models'
+import { playerList } from '../../entities/lobby/api'
 
 export interface LobbyChatProps {
   lobbyId: number
@@ -45,9 +46,26 @@ const LobbyChat: FC<LobbyChatProps> = ({
 
   const { messages } = useLobbyMessages(userId, lobbyId)
   useEffect(() => {
-    const storeData = localStorage.getItem('playersList')
-    setPlayersList(storeData ? JSON.parse(storeData) : [])
+    getPlayerList(lobbyId)
   }, [])
+
+  const getPlayerList = async (lobbyId: number) => {
+    if (lobbyId) {
+      try {
+        const response = await playerList(lobbyId)
+        if (response.ok) {
+          const data = await response.json()
+          setPlayersList(data)
+          return data
+        } else {
+          throw new Error(`Error fetching players: ${response.status}`)
+        }
+      } catch (error) {
+        console.error('Error fetching players:', error)
+        throw error
+      }
+    }
+  }
 
   const setUserNameBuId = (id: number): string => {
     return playersList.find(player => player.id === id)?.first_name || ''

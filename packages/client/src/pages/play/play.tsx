@@ -47,6 +47,7 @@ const Play: FC = () => {
 
   const handlePlayStart = (lobbyId: number) => {
     handleCloseCreation()
+    handleCloseJoin()
     setLobbyId(lobbyId)
     setShowCountdown(true)
   }

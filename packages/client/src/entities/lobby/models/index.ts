@@ -11,7 +11,9 @@ export interface Player {
 export type Message = {
   chat_id: number
   content: string
-  file: string
+  file?: {
+    path: string
+  }
   id: number
   is_read: boolean
   time: string

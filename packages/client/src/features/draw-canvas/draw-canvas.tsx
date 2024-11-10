@@ -13,7 +13,7 @@ import useStyle from './styles'
 
 export interface DrawCanvasProps {
   hiddenWord: string
-  onCompleteClick: (imgBase64: string) => void
+  onCompleteClick: (imgBase64: File) => void
 }
 
 const DEFAULT_COLOR = '#000000'
@@ -28,10 +28,26 @@ const DrawCanvas: FC<DrawCanvasProps> = ({ hiddenWord, onCompleteClick }) => {
     const canvas = document.getElementById(CANVAS_ID) as HTMLCanvasElement
     if (canvas) {
       const image = canvas.toDataURL('image/jpeg', 1.0)
-      onCompleteClick(image)
+
+      const blob = dataURLToBlob(image)
+      const file = new File([blob], 'canvas-image.jpg', { type: 'image/jpeg' })
+
+      onCompleteClick(file)
       // Для теста и проверки картинки
       // downloadImage(image,CANVAS_ID)
     }
+  }
+
+  function dataURLToBlob(dataURL: string) {
+    const arr = dataURL.split(',')
+    const mime = arr[0].match(/:(.?);/)?.[1]
+    const bstr = atob(arr[1])
+    let n = bstr.length
+    const u8arr = new Uint8Array(n)
+    while (n--) {
+      u8arr[n] = bstr.charCodeAt(n)
+    }
+    return new Blob([u8arr], { type: mime })
   }
 
   return (

@@ -32,9 +32,6 @@ const Lobby: FC = () => {
       currentUserId: Number(userId),
     })
 
-  // TODO: Не обновляется
-  // const { userData } = useTypedSelector(({user}) => user)
-
   useEffect(() => {
     setIsLoading(true)
     getUserInfoQuery()

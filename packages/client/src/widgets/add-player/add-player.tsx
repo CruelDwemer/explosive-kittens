@@ -137,13 +137,14 @@ const AddPlayer: React.FC<AddPlayerProps> = ({
     }
   }
 
-  const handleSelectUser = (
+  const handleSelectUser = async (
     event: React.SyntheticEvent,
     newValue: { label: string; value: number } | null
   ) => {
     if (newValue) {
       const userId = newValue.value
-      addNewUserToChat(userId)
+      await addNewUserToChat(userId)
+      setSearchValue('')
     }
   }
 
@@ -170,7 +171,6 @@ const AddPlayer: React.FC<AddPlayerProps> = ({
   const handlePlayClick = () => {
     const { lobbyId } = lobbyData
     if (lobbyId) {
-      localStorage.setItem('playersList', JSON.stringify(lobbyData.playersList))
       onPlayStart(lobbyId)
     }
   }

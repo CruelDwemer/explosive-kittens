@@ -7,8 +7,10 @@ import {
   saveToLeaderboard,
   getLeaderboard,
 } from '../../entities/leader-board/api'
+import { sendFile } from '../../entities/chat/api/chat-api'
+import useLobbyMessages from './useLobbyMessages'
 
-type SendImageFunc = (guessingImage: string) => void
+type SendImageFunc = (guessingImage: File) => void
 type StartNewRoundFunc = (
   guessedUserId: number,
   guessedUserName: string,
@@ -39,6 +41,7 @@ type UseLobbyHookState = {
 
 const useLobby: UseLobbyHook = ({ lobbyId, currentUserId }) => {
   const navigate = useNavigate()
+  const { handleFileSend } = useLobbyMessages(currentUserId, lobbyId)
 
   const [lobbyData, setLobbyData] = useState<UseLobbyHookState>({
     id: lobbyId,
@@ -71,11 +74,16 @@ const useLobby: UseLobbyHook = ({ lobbyId, currentUserId }) => {
     return mockArray[Math.floor(Math.random() * mockArray.length)]
   }
 
-  const changeCanvasToGuessing: SendImageFunc = guessingImage => {
-    // TODO: API запрос отправки картинки в чат
-    // и отлавливания сообщения из чата
-    // и записи его в стейт
-    setLobbyData(prev => ({ ...prev, image: guessingImage, view: 'guessing' }))
+  const changeCanvasToGuessing: SendImageFunc = async guessingImage => {
+    const response = await sendFile(guessingImage)
+    if (response.id) {
+      handleFileSend(response.id)
+      setLobbyData(prev => ({
+        ...prev,
+        image: response.path,
+        view: 'guessing',
+      }))
+    }
   }
 
   const changeGuessingToWaiting: StartNewRoundFunc = (
@@ -121,7 +129,6 @@ const useLobby: UseLobbyHook = ({ lobbyId, currentUserId }) => {
 
   const deleteLobby = () => {
     const { rating } = lobbyData
-
     saveResultsToLeaderboard(rating)
 
     // TODO: Запрос на удаление всех пользователей из лобби
