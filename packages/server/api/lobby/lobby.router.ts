@@ -2,6 +2,6 @@ import { Router } from 'express'
 
 import { Lobbyontroller } from './lobby.controller'
 
-export const commentRouter = Router()
+export const lobbyRouter = Router()
 
-commentRouter.post('/lobby', Lobbyontroller.createLobby)
+lobbyRouter.post('/', Lobbyontroller.createLobby)

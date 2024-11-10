@@ -35,10 +35,11 @@ export class LobbyModel extends Model<LobbyModel> {
   @Column(DataType.STRING)
   state: 'guessing' | 'drawing' | 'not_started'
 
-  @Column(DataType.STRING)
   @AllowNull(true)
+  @Column(DataType.STRING)
   currentWord: string
 
+  @AllowNull(true)
   @Column(DataType.JSON)
   history: { userId: number; word: string; date: string }[]
 }
