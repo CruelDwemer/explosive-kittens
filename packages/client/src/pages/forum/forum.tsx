@@ -16,14 +16,24 @@ import useStyle from './styles'
 import { getTopics, createTopic, createComment } from '../../entities/forum/lib'
 
 const Forum: FC = () => {
-  // const [ topics, setTopics ] => useState({})
+  const [ topics, setTopics ] = useState()
   const { theme } = useContext(ThemeContext)
   const styles = useStyle(theme)
   // TODO: разобраться со ширино, когда добавляется скроллбар
 
   useEffect(() => {
-    getTopics()
+    async function setTopicsToState() {
+      const data = await getTopics()
+      // console.log('DATA: ', data)
+      setTopics(data)
+    }
+
+    setTopicsToState()
   }, [])
+
+  useEffect(() => {
+    console.log(topics)
+  }, [topics])
 
   return (
     <Container sx={styles.container}>
