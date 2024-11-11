@@ -17,7 +17,7 @@ export class TopicService {
         {
           model: CommentModel,
           as: 'comments',
-          attributes: ['commentId', 'content', 'userId', 'topicId'],
+          attributes: ['commentId', 'content', 'userId', 'topicId', 'createdAt'],
         },
         {
           model: UserModel,

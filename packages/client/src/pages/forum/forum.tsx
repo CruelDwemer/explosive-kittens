@@ -10,14 +10,20 @@ import { TOPICS } from '../../entities/forum/model/constants'
 import ForumActions from '../../widgets/forum-actions'
 import TopicItem from '../../widgets/topic'
 import { Topic } from '../../entities/forum/model/forumData'
-import { FC, useContext } from 'react'
+import { FC, useContext, useEffect, useState } from 'react'
 import { ThemeContext } from '../../features/theme-provider/ThemeProvider'
 import useStyle from './styles'
+import { getTopics, createTopic, createComment } from '../../entities/forum/lib'
 
 const Forum: FC = () => {
   const { theme } = useContext(ThemeContext)
   const styles = useStyle(theme)
   // TODO: разобраться со ширино, когда добавляется скроллбар
+
+  // useEffect(() => {
+  //   createComment(1, { text: "Second comment", reactions: "😃👍" })
+  // }, [])
+
   return (
     <Container sx={styles.container}>
       <Paper sx={styles.header}>

@@ -31,7 +31,11 @@ export class CommentModel extends Model<CommentModel> {
 
     @AllowNull(false)
     @Column(DataType.STRING)
-    content: string;
+    text: string;
+
+    @AllowNull(false)
+    @Column(DataType.STRING)
+    reactions: string;
 
     @ForeignKey(() => UserModel)
     @AllowNull(false)
