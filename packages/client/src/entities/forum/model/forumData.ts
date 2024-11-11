@@ -13,3 +13,22 @@ export interface Comment {
   date: string
   reactions?: string
 }
+
+// export type Topic = {
+//   topicId: number,
+//   name: string,
+//   createdAt: string,
+//   user: {
+//     avatar: string,
+//     userId: string
+//   },
+//   comments: Comment[]
+// }
+
+// export type Comment = {
+//   commentId: number,
+//   text: string,
+//   reactions: string,
+//   topicId: number,
+//   userId: number
+// }

@@ -33,7 +33,6 @@ export class CommentModel extends Model<CommentModel> {
     @Column(DataType.STRING)
     text: string;
 
-    @AllowNull(false)
     @Column(DataType.STRING)
     reactions: string;
 
