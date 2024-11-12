@@ -26,10 +26,10 @@ const SendChatMessage: FC<SendChatMessageProps> = ({ disabled }) => {
   }
 
   return (
-    <Box display={'flex'} gap={'18px'}>
+    <Box display={'flex'} gap={'18px'} width={'100%'}>
       <TextField
         variant="standard"
-        placeholder="Напишите свой ответ"
+        placeholder="Сейчас отгадываете не вы:)"
         sx={styles.input}
         disabled={disabled}
         value={message}

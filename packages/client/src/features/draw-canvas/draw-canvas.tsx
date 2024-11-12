@@ -10,6 +10,7 @@ import styles from './styles'
 import { customPaperBlock } from '../../shared/styles'
 import { ThemeContext } from '../theme-provider/ThemeProvider'
 import useStyle from './styles'
+import { words } from '../../entities/chat/constants'
 
 export interface DrawCanvasProps {
   hiddenWord: string
@@ -37,7 +38,7 @@ const DrawCanvas: FC<DrawCanvasProps> = ({ hiddenWord, onCompleteClick }) => {
   return (
     <Box sx={styles.wrapper}>
       <Paper sx={{ ...customPaperBlock, ...styles.wordBlock }}>
-        <HiddenWord hiddenWord={hiddenWord} />
+        <HiddenWord hiddenWord={words[hiddenWord as keyof typeof words]} />
       </Paper>
       <Paper sx={customPaperBlock}>
         <Canvas id={CANVAS_ID} lineWidth={lineWidth} color={color} />

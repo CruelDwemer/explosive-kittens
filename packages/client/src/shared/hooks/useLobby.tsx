@@ -7,6 +7,7 @@ import {
   saveToLeaderboard,
   getLeaderboard,
 } from '../../entities/leader-board/api'
+import { words } from '../../entities/chat/constants'
 
 type SendImageFunc = (guessingImage: string) => void
 type StartNewRoundFunc = (
@@ -67,8 +68,8 @@ const useLobby: UseLobbyHook = ({ lobbyId, currentUserId }) => {
     // throw new Error(`Error fetching word: ${error}`)
     // }
 
-    const mockArray = ['котик', 'ежик', 'зайчик']
-    return mockArray[Math.floor(Math.random() * mockArray.length)]
+    const keys = Object.keys(words)
+    return keys[Math.floor(Math.random() * keys.length)]
   }
 
   const changeCanvasToGuessing: SendImageFunc = guessingImage => {
@@ -98,13 +99,12 @@ const useLobby: UseLobbyHook = ({ lobbyId, currentUserId }) => {
         avatar: guessedUserAvatar,
       }
     }
-    console.log(guessedUserId)
 
     setLobbyData(prev => ({ ...prev, view: 'waiting', rating: copy }))
 
     // TODO: API запрос отправки id следующего ведущего в общий чат
     setTimeout(() => {
-      getDataForNewRound(1)
+      getDataForNewRound(currentUserId)
     }, 3000)
   }
 

@@ -5,7 +5,6 @@ const useStyle = (theme: string) => {
   return {
     bubble: {
       borderRadius: '8px',
-      backgroundColor: currentTheme.palette.shadow.main,
       width: 'fit-content',
       padding: '8px',
       minWidth: '56px',
@@ -15,6 +14,12 @@ const useStyle = (theme: string) => {
     },
     text: {
       color: currentTheme.palette.text.primary,
+    },
+    tech: {
+      backgroundColor: currentTheme.palette.background.secondary,
+    },
+    simple: {
+      backgroundColor: currentTheme.palette.shadow.main,
     },
   }
 }

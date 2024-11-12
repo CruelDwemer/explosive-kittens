@@ -1,6 +1,5 @@
 import { Box, Typography } from '@mui/material'
 import { FC, useContext } from 'react'
-import styles from './styles'
 import { ThemeContext } from '../../../../features/theme-provider/ThemeProvider'
 import useStyle from './styles'
 
@@ -8,6 +7,7 @@ interface MessageBubbleProps {
   messageId: number
   userName: string
   messageContent: string
+  isTech?: boolean
   isLast?: boolean
 }
 
@@ -15,6 +15,7 @@ const MessageBubble: FC<MessageBubbleProps> = ({
   messageId,
   userName,
   messageContent,
+  isTech = false,
   isLast = false,
 }) => {
   const { theme } = useContext(ThemeContext)
@@ -24,6 +25,7 @@ const MessageBubble: FC<MessageBubbleProps> = ({
       id={messageId.toString()}
       sx={{
         ...styles.bubble,
+        ...styles[isTech ? 'tech' : 'simple'],
         marginBottom: isLast ? '16px !important' : '0.125rem',
       }}>
       <Typography color="primary" fontWeight="bold">

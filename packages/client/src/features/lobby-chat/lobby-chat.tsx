@@ -1,12 +1,10 @@
 import { FC, useContext, useEffect, useState } from 'react'
-import styles from './styles'
 import { Box, Paper, Typography } from '@mui/material'
 import {
   MessagesContainer,
   MessageBubble,
   SendChatMessage,
 } from '../../entities/chat/ui'
-// import { testData } from '../../entities/chat/constants'
 import { LobbyChatMessage } from '../../entities/chat/models'
 import {
   isFirstUserMessage,
@@ -16,6 +14,8 @@ import { customPaperBlock } from '../../shared/styles'
 import { testingNewMessages } from '../../entities/chat/utils'
 import { ThemeContext } from '../theme-provider/ThemeProvider'
 import useStyle from './styles'
+import e from 'cors'
+import { words } from '../../entities/chat/constants'
 // import { useLobbyMessages } from '../../shared/hooks'
 
 export interface LobbyChatProps {
@@ -45,45 +45,54 @@ const LobbyChat: FC<LobbyChatProps> = ({
   // const { messages } = useLobbyMessages(userId, lobbyId)
 
   // TODO: Убрать после подключения хука с сообщениями
-  useEffect(() => {
-    // TODO: Запрос на получение сообщений
-    /* eslint-disable @typescript-eslint/no-unused-vars */
-    const getOldMessages = (lobbyId: number) => {
-      setMessages([])
-    }
-    getOldMessages(lobbyId)
-  }, [])
+  // useEffect(() => {
+  //   // TODO: Запрос на получение сообщений
+  //   /* eslint-disable @typescript-eslint/no-unused-vars */
+  //   const getOldMessages = (lobbyId: number) => {
+  //     setMessages([])
+  //   }
+  //   getOldMessages(lobbyId)
+  // }, [])
 
   // TODO: Убрать после подключения хука с сообщениями
   // Для тестирования новых сообщений
-  const [newMessage, setNewMessage] = useState<LobbyChatMessage>()
-  isGuessing && testingNewMessages(setNewMessage)
-  useEffect(() => {
-    if (newMessage && isGuessing) {
-      setMessages(prev => [...prev, newMessage])
-      if (
-        hiddenWord &&
-        hiddenWord.toLowerCase() === newMessage.content.toLowerCase()
-      ) {
-        const techMessage: LobbyChatMessage = {
-          id: newMessage.id,
-          date: new Date().toISOString(),
-          userId: newMessage.id,
-          userName: '',
-          userLogin: '',
-          userAvatar: '',
-          content: `Игрок ${newMessage.userName} отгадал слово: ${hiddenWord}`,
-        }
-        setMessages(prev => [...prev, techMessage])
-        onRightGuessWord(
-          newMessage.userId,
-          newMessage.userName,
-          newMessage.userLogin,
-          newMessage.userAvatar
-        )
+  // const [newMessage, setNewMessage] = useState<LobbyChatMessage>()
+
+  const handleNewMessages = (message: LobbyChatMessage) => {
+    const { userId, id, content, userName, userLogin, userAvatar } = message
+    let techMessage: LobbyChatMessage | undefined = undefined
+    if (
+      hiddenWord &&
+      content
+        .toLowerCase()
+        .includes(words[hiddenWord as keyof typeof words].toLowerCase())
+    ) {
+      techMessage = {
+        id: id + userId,
+        date: new Date().toISOString(),
+        userId: userId,
+        userName: '',
+        userLogin: 'tech',
+        userAvatar: '',
+        content: `Игрок ${userName} отгадал слово: ${
+          words[hiddenWord as keyof typeof words]
+        }`,
       }
     }
-  }, [newMessage])
+    if (techMessage) {
+      setMessages(prev => [...prev, techMessage, message])
+      onRightGuessWord(userId, userName, userLogin, userAvatar)
+      return true
+    } else {
+      setMessages(prev => [...prev, message])
+      return false
+    }
+  }
+  useEffect(() => {
+    isGuessing &&
+      hiddenWord &&
+      testingNewMessages(hiddenWord, handleNewMessages)
+  }, [isGuessing, hiddenWord])
 
   return (
     <Box sx={styles.wrapper}>
@@ -102,20 +111,31 @@ const LobbyChat: FC<LobbyChatProps> = ({
             .sort((a, b) => {
               return new Date(b.date).getTime() - new Date(a.date).getTime()
             })
-            .map(({ id, userId, userName, content }, i, arr) => {
+            .map(({ id, userId, userLogin, userName, content }, i, arr) => {
               return (
                 <MessageBubble
                   key={id + userId}
                   messageId={id}
-                  userName={isFirstUserMessage(userId, i, arr) ? userName : ''}
+                  userName={
+                    userLogin === 'tech'
+                      ? ''
+                      : isFirstUserMessage(userId, i, arr)
+                      ? userName
+                      : ''
+                  }
                   messageContent={content}
-                  isLast={isLastUserMessage(userId, i, arr)}
+                  isLast={isLastUserMessage(
+                    userId,
+                    i,
+                    arr || userLogin === 'tech'
+                  )}
+                  isTech={userLogin === 'tech'}
                 />
               )
             })}
         </MessagesContainer>
         <Box sx={styles.inputBox}>
-          <SendChatMessage disabled={!isGuessing} />
+          <SendChatMessage disabled />
         </Box>
       </Paper>
     </Box>

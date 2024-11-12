@@ -58,7 +58,9 @@ const Lobby: FC = () => {
       <DrawCanvas hiddenWord={hiddenWord || ''} onCompleteClick={sendImage} />
     ),
     hostDrawing: <HostDrawingMessage />,
-    guessing: <GuessImage src={guessImage || ''} />,
+    guessing: (
+      <GuessImage src={guessImage || ''} hiddenWord={hiddenWord || ''} />
+    ),
     waiting: <SelectHostWaitingMessage />,
   }
 
