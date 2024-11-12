@@ -13,13 +13,22 @@ import {
 } from '@mui/material'
 import { Comment, Topic } from '../../entities/forum/model/forumData'
 import { EmojiPicker } from '../emoji-picker/emoji-picker'
-import { useContext, useState, useEffect, useRef } from 'react'
+import {
+  useContext,
+  useState,
+  useEffect,
+  useRef,
+  MutableRefObject,
+} from 'react'
 import useStyle from './styles'
 import { ThemeContext } from '../../features/theme-provider/ThemeProvider'
 
 interface PropsType {
   data: Topic
-  createNewComment: (topicId: number, field: { current: HTMLElement }) => any
+  createNewComment: (
+    topicId: number,
+    field: { current: HTMLElement }
+  ) => Promise<Comment[]>
 }
 
 const TopicItem = ({ data, createNewComment }: PropsType) => {
@@ -29,7 +38,8 @@ const TopicItem = ({ data, createNewComment }: PropsType) => {
   const styles = useStyle(theme)
   const textField = useRef(null)
 
-  async function handleComment(topicId: number, field: any) {
+  async function handleComment(topicId: number, field: MutableRefObject<null>) {
+    //@ts-expect-error type problem
     const result = await createNewComment(topicId, field)
     setComments(result)
   }

@@ -8,7 +8,7 @@ import {
 import { List } from '@mui/material'
 import ForumActions from '../../widgets/forum-actions'
 import TopicItem from '../../widgets/topic'
-import { Topic } from '../../entities/forum/model/forumData'
+import { Topic, Comment } from '../../entities/forum/model/forumData'
 import { FC, useContext, useEffect, useState } from 'react'
 import { ThemeContext } from '../../features/theme-provider/ThemeProvider'
 import useStyle from './styles'
@@ -37,7 +37,7 @@ const Forum: FC = () => {
   const createNewComment = async (
     topicId: number,
     field: { current: HTMLElement }
-  ) => {
+  ): Promise<Comment[]> => {
     const element = field.current as unknown as HTMLElement
     const input = element.querySelector('input') as HTMLInputElement
     await createComment(topicId, input.value)
@@ -68,17 +68,15 @@ const Forum: FC = () => {
 
         <CardContent>
           <List>
-            {
-              //@ts-ignore
-              topics &&
-                topics.map((topic: Topic) => (
-                  <TopicItem
-                    key={topic.topicId}
-                    data={topic}
-                    createNewComment={createNewComment}
-                  />
-                ))
-            }
+            {topics &&
+              //@ts-expect-error type problem
+              topics.map((topic: Topic) => (
+                <TopicItem
+                  key={topic.topicId}
+                  data={topic}
+                  createNewComment={createNewComment}
+                />
+              ))}
           </List>
         </CardContent>
       </Paper>
