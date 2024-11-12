@@ -42,7 +42,7 @@ type UseLobbyHookState = {
 
 const useLobby: UseLobbyHook = ({ lobbyId, currentUserId }) => {
   const navigate = useNavigate()
-  const { time, start, stop, reset } = useTimer()
+  const { time, start, reset } = useTimer()
 
   const [lobbyData, setLobbyData] = useState<UseLobbyHookState>({
     id: lobbyId,
@@ -103,7 +103,6 @@ const useLobby: UseLobbyHook = ({ lobbyId, currentUserId }) => {
         avatar: guessedUserAvatar,
       }
     }
-
     setLobbyData(prev => ({ ...prev, view: 'waiting', rating: copy }))
     reset()
 
@@ -127,14 +126,13 @@ const useLobby: UseLobbyHook = ({ lobbyId, currentUserId }) => {
 
   const deleteLobby = () => {
     const { rating } = lobbyData
-    console.log(rating, '--rating')
     saveResultsToLeaderboard(rating)
     reset()
 
     // TODO: Запрос на удаление всех пользователей из лобби
     // TODO: Запрос на удаление лобби
     const winner = Object.entries(rating).sort(
-      (a, b) => a[1].score - b[1].score
+      (a, b) => b[1].score - a[1].score
     )
 
     navigate({

@@ -112,7 +112,7 @@ const Canvas: FC<LobbyCanvasProps> = ({ id, color, lineWidth }) => {
         onMouseUp={stopDrawing}
         onMouseLeave={stopDrawing}
         onSubmit={() => {
-          console.log('===')
+          // console.log('===')
         }}
         className="custom-canvas"
         style={{

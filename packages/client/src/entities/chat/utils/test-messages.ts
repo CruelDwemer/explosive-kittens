@@ -23,7 +23,6 @@ export const testingNewMessages = (
   callback: (message: LobbyChatMessage) => boolean
 ) => {
   const guessArray = guesses[word as keyof typeof guesses]
-  console.log(guesses, word, '--')
   const arr = shuffleArray(guessArray)
   let messageIndex = 0
 
