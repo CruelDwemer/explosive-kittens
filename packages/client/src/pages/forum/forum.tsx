@@ -6,7 +6,7 @@ import {
   Typography,
 } from '@mui/material'
 import { List } from '@mui/material'
-import { TOPICS } from '../../entities/forum/model/constants'
+// import { TOPICS } from '../../entities/forum/model/constants'
 import ForumActions from '../../widgets/forum-actions'
 import TopicItem from '../../widgets/topic'
 import { Topic } from '../../entities/forum/model/forumData'
@@ -26,15 +26,12 @@ const Forum: FC = () => {
     const inputField = document.querySelector('#outlined-size-small') as unknown as HTMLInputElement
     const value: string = inputField.value
     const newTopic = await createTopic(value)
-    // console.log(newTopic)
     setTopics((prevState: Topic[]) => {
       console.log(prevState)
       const newState = [ ...prevState ]
       newState.push(newTopic)
-      // console.log(newState)
       return newState
     })
-    // console.log(inputField.value)
   }
 
   const createNewComment = async (topicId: number, field: HTMLElement) => {

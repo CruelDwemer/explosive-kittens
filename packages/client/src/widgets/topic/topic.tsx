@@ -133,7 +133,7 @@ const CommentItem = ({ comment, index }: { comment: Comment, index: number }) =>
       </Grid2>
       <Box sx={styles.reactions}>
         {' '}
-        <EmojiPicker reactions={comment.reactions} />{' '}
+        <EmojiPicker reactions={comment.reactions} commentId={comment.commentId} />{' '}
       </Box>
     </Grid2>
   )

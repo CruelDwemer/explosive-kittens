@@ -70,7 +70,7 @@ export class CommentService {
       )
     }
     // @ts-ignore
-    comment.content = updateData.content
+    comment.reactions = updateData.reactions
     await comment.save()
     return comment
   }
