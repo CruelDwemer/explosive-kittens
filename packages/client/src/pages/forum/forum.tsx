@@ -6,36 +6,40 @@ import {
   Typography,
 } from '@mui/material'
 import { List } from '@mui/material'
-// import { TOPICS } from '../../entities/forum/model/constants'
 import ForumActions from '../../widgets/forum-actions'
 import TopicItem from '../../widgets/topic'
 import { Topic } from '../../entities/forum/model/forumData'
 import { FC, useContext, useEffect, useState } from 'react'
 import { ThemeContext } from '../../features/theme-provider/ThemeProvider'
 import useStyle from './styles'
-import { getTopics, createTopic, createComment, getComments } from '../../entities/forum/lib'
-
+import {
+  getTopics,
+  createTopic,
+  createComment,
+  getComments,
+} from '../../entities/forum/lib'
 
 const Forum: FC = () => {
-  const [ topics, setTopics ] = useState()
+  const [topics, setTopics] = useState()
   const { theme } = useContext(ThemeContext)
   const styles = useStyle(theme)
   // TODO: разобраться со ширино, когда добавляется скроллбар
 
   const createNewTopic = async () => {
-    const inputField = document.querySelector('#outlined-size-small') as unknown as HTMLInputElement
+    const inputField = document.querySelector(
+      '#outlined-size-small'
+    ) as unknown as HTMLInputElement
     const value: string = inputField.value
-    const newTopic = await createTopic(value)
-    setTopics((prevState: Topic[]) => {
-      console.log(prevState)
-      const newState = [ ...prevState ]
-      newState.push(newTopic)
-      return newState
-    })
+    const topics = await createTopic(value)
+    setTopics(topics)
   }
 
-  const createNewComment = async (topicId: number, field: HTMLElement) => {
-    const input = field.current.querySelector("input")
+  const createNewComment = async (
+    topicId: number,
+    field: { current: HTMLElement }
+  ) => {
+    const element = field.current as unknown as HTMLElement
+    const input = element.querySelector('input') as HTMLInputElement
     await createComment(topicId, input.value)
     const comments = await getComments(topicId)
     return comments
@@ -44,16 +48,11 @@ const Forum: FC = () => {
   useEffect(() => {
     async function setTopicsToState() {
       const data = await getTopics()
-      // console.log('DATA: ', data)
       setTopics(data)
     }
 
     setTopicsToState()
   }, [])
-
-  // useEffect(() => {
-  //   const vl = 3
-  // }, [topics])
 
   return (
     <Container sx={styles.container}>
@@ -70,10 +69,15 @@ const Forum: FC = () => {
         <CardContent>
           <List>
             {
-            //@ts-ignore
-            topics && topics.map((topic: Topic) => (
-              <TopicItem key={topic.topicId} data={topic} createNewComment={createNewComment} />
-            ))
+              //@ts-ignore
+              topics &&
+                topics.map((topic: Topic) => (
+                  <TopicItem
+                    key={topic.topicId}
+                    data={topic}
+                    createNewComment={createNewComment}
+                  />
+                ))
             }
           </List>
         </CardContent>

@@ -16,28 +16,29 @@ import { EmojiPicker } from '../emoji-picker/emoji-picker'
 import { useContext, useState, useEffect, useRef } from 'react'
 import useStyle from './styles'
 import { ThemeContext } from '../../features/theme-provider/ThemeProvider'
+
 interface PropsType {
-  data: Topic,
-  createNewComment: (topicId: number, field: HTMLInputElement) => any
+  data: Topic
+  createNewComment: (topicId: number, field: { current: HTMLElement }) => any
 }
-//<Typography component="p" variant="caption" sx={styles.text}>
-//  {/* {data.text} */}
-//</Typography>
+
 const TopicItem = ({ data, createNewComment }: PropsType) => {
   const { theme } = useContext(ThemeContext)
-  const [ comments, setComments ] = useState(data.comments)
-  const [ avatar, setAvatar ] = useState('')
+  const [comments, setComments] = useState(data.comments)
+  const [avatar, setAvatar] = useState('')
   const styles = useStyle(theme)
   const textField = useRef(null)
 
-  async function handleComment(topicId: number, field: HTMLElement) {
+  async function handleComment(topicId: number, field: any) {
     const result = await createNewComment(topicId, field)
     setComments(result)
   }
 
   useEffect(() => {
     setAvatar(() => {
-      return data.user.avatar ? `https://ya-praktikum.tech/api/v2/resources${data.user.avatar}` : ''
+      return data.user.avatar
+        ? `https://ya-praktikum.tech/api/v2/resources${data.user.avatar}`
+        : ''
     })
   }, [data])
   return (
@@ -48,7 +49,7 @@ const TopicItem = ({ data, createNewComment }: PropsType) => {
             <Avatar sx={styles.main_avatar} src={avatar} />
           </Grid2>
 
-          <Grid2 size={10}>
+          <Grid2 size={10} sx={styles.text_container}>
             <Typography
               component="h6"
               variant="h6"
@@ -56,7 +57,6 @@ const TopicItem = ({ data, createNewComment }: PropsType) => {
               sx={styles.text}>
               {data.name}
             </Typography>
-              {/* {data.text} */}
           </Grid2>
 
           <Grid2 size={1} sx={styles.flex_center}>
@@ -73,9 +73,9 @@ const TopicItem = ({ data, createNewComment }: PropsType) => {
 
       <AccordionDetails>
         <List component="div">
-          {comments.map((comment: Comment, index: number) =>
+          {comments.map((comment: Comment, index: number) => (
             <CommentItem comment={comment} index={index} key={index} />
-          )}
+          ))}
         </List>
         <Box sx={styles.input_container}>
           <TextField
@@ -94,13 +94,21 @@ const TopicItem = ({ data, createNewComment }: PropsType) => {
   )
 }
 
-const CommentItem = ({ comment, index }: { comment: Comment, index: number }) => {
+const CommentItem = ({
+  comment,
+  index,
+}: {
+  comment: Comment
+  index: number
+}) => {
   const { theme } = useContext(ThemeContext)
   const styles = useStyle(theme)
-  const [ avatar, setAvatar ] = useState('')
+  const [avatar, setAvatar] = useState('')
   useEffect(() => {
     setAvatar(() => {
-      return comment.user.avatar ? `https://ya-praktikum.tech/api/v2/resources${comment.user.avatar}` : ''
+      return comment.user.avatar
+        ? `https://ya-praktikum.tech/api/v2/resources${comment.user.avatar}`
+        : ''
     })
   }, [comment])
   return (
@@ -133,7 +141,10 @@ const CommentItem = ({ comment, index }: { comment: Comment, index: number }) =>
       </Grid2>
       <Box sx={styles.reactions}>
         {' '}
-        <EmojiPicker reactions={comment.reactions} commentId={comment.commentId} />{' '}
+        <EmojiPicker
+          reactions={comment.reactions}
+          commentId={comment.commentId}
+        />{' '}
       </Box>
     </Grid2>
   )
