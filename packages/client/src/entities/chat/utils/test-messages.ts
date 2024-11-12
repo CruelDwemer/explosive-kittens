@@ -199,7 +199,7 @@ export const testingNewMessages = (
   const arr = shuffleArray(guessArray)
   let messageIndex = 0
 
-  const intervalId = setInterval(() => {
+  return setInterval(() => {
     // Проверяем, угадано ли слово
     // if (/* условие, когда слово угадано */) {
     //   clearInterval(intervalId)
@@ -208,7 +208,7 @@ export const testingNewMessages = (
 
     // Отправляем текущее сообщение из массива
     const message = arr[messageIndex]
-    const isGuessed = callback({
+    callback({
       id: wordToRandomNumber(message),
       date: new Date().toISOString(),
       userId: 66,
@@ -217,9 +217,6 @@ export const testingNewMessages = (
       userAvatar: `${BASE_URL}/resources/cfa6ee69-52e7-44b1-9414-b0fe96bc458c/b072c577-9cf6-48a0-96c8-e59551fb081c_Cat.jpg`,
       content: message,
     })
-    if (isGuessed) {
-      clearInterval(intervalId)
-    }
 
     // Переходим к следующему сообщению
     messageIndex = (messageIndex + 1) % arr.length

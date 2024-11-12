@@ -16,13 +16,6 @@ import { ThemeContext } from '../../features/theme-provider/ThemeProvider'
 import useStyle from './styles'
 import { handleUserInDb } from '../../entities/user/lib'
 
-// temp
-import {
-  saveToLeaderboard,
-  getLeaderboard,
-} from '../../entities/leader-board/api'
-
-// TODO: Заменить на ID чата
 const Play: FC = () => {
   const [lobbyId, setLobbyId] = useState<number | null>(null)
   const [showCountdown, setShowCountdown] = useState(false)

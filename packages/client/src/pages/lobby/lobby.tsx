@@ -24,13 +24,21 @@ const Lobby: FC = () => {
   const { theme } = useContext(ThemeContext)
   const styles = useStyle(theme)
   const [isLoading, setIsLoading] = useState(true)
-  const [userId, setUserId] = useState<number | null>(null)
+  const [user, setUser] = useState<User | null>(null)
 
-  const { id, view, guessImage, hiddenWord, sendImage, startNewRound, close } =
-    useLobby({
-      lobbyId: Number(lobbyId),
-      currentUserId: Number(userId),
-    })
+  const {
+    id,
+    time,
+    view,
+    guessImage,
+    hiddenWord,
+    sendImage,
+    startNewRound,
+    close,
+  } = useLobby({
+    lobbyId: Number(lobbyId),
+    currentUserId: Number(user?.id),
+  })
 
   // TODO: Не обновляется
   // const { userData } = useTypedSelector(({user}) => user)
@@ -40,7 +48,7 @@ const Lobby: FC = () => {
     getUserInfoQuery()
       .then(async resp => {
         const r = (await resp.json()) as User
-        setUserId(r.id)
+        setUser(r)
       })
       .finally(() => setIsLoading(false))
   }, [])
@@ -49,7 +57,7 @@ const Lobby: FC = () => {
     return <CircularProgress />
   }
 
-  if (!lobbyId && userId === null) {
+  if (!lobbyId && user === null) {
     return <Navigate to={ROUTER_PATH.NOT_FOUND} />
   }
 
@@ -59,7 +67,11 @@ const Lobby: FC = () => {
     ),
     hostDrawing: <HostDrawingMessage />,
     guessing: (
-      <GuessImage src={guessImage || ''} hiddenWord={hiddenWord || ''} />
+      <GuessImage
+        src={guessImage || ''}
+        hiddenWord={hiddenWord || ''}
+        time={time}
+      />
     ),
     waiting: <SelectHostWaitingMessage />,
   }
@@ -69,7 +81,8 @@ const Lobby: FC = () => {
       <Box sx={styles.chatCol}>
         <LobbyChat
           lobbyId={id}
-          userId={Number(userId)}
+          user={user as User}
+          time={time}
           hiddenWord={hiddenWord || ''}
           isGuessing={view === 'guessing'}
           onRightGuessWord={startNewRound}

@@ -8,6 +8,7 @@ import {
   getLeaderboard,
 } from '../../entities/leader-board/api'
 import { words } from '../../entities/chat/constants'
+import { useTimer } from './useTimer'
 
 type SendImageFunc = (guessingImage: string) => void
 type StartNewRoundFunc = (
@@ -21,6 +22,7 @@ type UseLobbyHook = (data: { lobbyId: number; currentUserId: number }) => {
   view: LobbyView
   guessImage: string | null
   hiddenWord: string | null
+  time: number
   sendImage: SendImageFunc
   startNewRound: StartNewRoundFunc
   close: VoidFunction
@@ -40,6 +42,7 @@ type UseLobbyHookState = {
 
 const useLobby: UseLobbyHook = ({ lobbyId, currentUserId }) => {
   const navigate = useNavigate()
+  const { time, start, stop, reset } = useTimer()
 
   const [lobbyData, setLobbyData] = useState<UseLobbyHookState>({
     id: lobbyId,
@@ -51,7 +54,7 @@ const useLobby: UseLobbyHook = ({ lobbyId, currentUserId }) => {
   })
 
   useEffect(() => {
-    getDataForNewRound(0)
+    getDataForNewRound(currentUserId)
   }, [])
 
   const getRandomWord = async () => {
@@ -77,6 +80,7 @@ const useLobby: UseLobbyHook = ({ lobbyId, currentUserId }) => {
     // и отлавливания сообщения из чата
     // и записи его в стейт
     setLobbyData(prev => ({ ...prev, image: guessingImage, view: 'guessing' }))
+    start()
   }
 
   const changeGuessingToWaiting: StartNewRoundFunc = (
@@ -101,6 +105,7 @@ const useLobby: UseLobbyHook = ({ lobbyId, currentUserId }) => {
     }
 
     setLobbyData(prev => ({ ...prev, view: 'waiting', rating: copy }))
+    reset()
 
     // TODO: API запрос отправки id следующего ведущего в общий чат
     setTimeout(() => {
@@ -114,7 +119,8 @@ const useLobby: UseLobbyHook = ({ lobbyId, currentUserId }) => {
     const newHiddenWord = await getRandomWord()
     setLobbyData(prev => ({
       ...prev,
-      view: currentUserId === hostId ? 'canvas' : 'hostDrawing',
+      // view: currentUserId === hostId ? 'canvas' : 'hostDrawing',
+      view: 'canvas',
       hiddenWord: newHiddenWord,
     }))
   }
@@ -123,6 +129,7 @@ const useLobby: UseLobbyHook = ({ lobbyId, currentUserId }) => {
     const { rating } = lobbyData
     console.log(rating, '--rating')
     saveResultsToLeaderboard(rating)
+    reset()
 
     // TODO: Запрос на удаление всех пользователей из лобби
     // TODO: Запрос на удаление лобби
@@ -181,6 +188,7 @@ const useLobby: UseLobbyHook = ({ lobbyId, currentUserId }) => {
 
   return {
     id: lobbyId,
+    time,
     view: lobbyData.view,
     guessImage: lobbyData.image,
     hiddenWord: lobbyData.hiddenWord,
