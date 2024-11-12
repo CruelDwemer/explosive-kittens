@@ -23,3 +23,7 @@ export const createCommentRequest = async (topicId: number, data: { text: string
         body: JSON.stringify(data)
     })
 }
+
+export const getCommentsRequest = async (topicId: number) => {
+    return fetch(`${URL}/comments/topic/${topicId}`)
+}

@@ -1,4 +1,4 @@
-import { getTopicsRequest, createTopicRequest, createCommentRequest } from '../api'
+import { getTopicsRequest, createTopicRequest, createCommentRequest, getCommentsRequest } from '../api'
 
 export type Topic = {
     topicId: number,
@@ -46,6 +46,20 @@ export const createTopic = async (name: string) => {
     return result
 }
 
-export const createComment = async (topicId: number, data: { text: string, reactions: string }) => {
+export const createComment = async (topicId: number, text: string) => {
+    const data = {
+        text,
+        reactions: ''
+    }
     const response = await createCommentRequest(topicId, data)
+    // console.log("COMMENT RESPONSE: ", response)
+    const result = await response.json()
+    // console.log("COMMENT RESULT: ", result)
+    return result
+}
+
+export const getComments = async (topicId: number) => {
+    const response = await getCommentsRequest(topicId)
+    const result = await response.json()
+    return result
 }

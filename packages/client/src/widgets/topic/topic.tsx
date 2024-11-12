@@ -13,19 +13,28 @@ import {
 } from '@mui/material'
 import { Comment, Topic } from '../../entities/forum/model/forumData'
 import { EmojiPicker } from '../emoji-picker/emoji-picker'
-import { useContext, useState, useEffect } from 'react'
+import { useContext, useState, useEffect, useRef } from 'react'
 import useStyle from './styles'
 import { ThemeContext } from '../../features/theme-provider/ThemeProvider'
 interface PropsType {
-  data: Topic
+  data: Topic,
+  createNewComment: (topicId: number, field: HTMLInputElement) => any
 }
 //<Typography component="p" variant="caption" sx={styles.text}>
 //  {/* {data.text} */}
 //</Typography>
-const TopicItem = ({ data }: PropsType) => {
+const TopicItem = ({ data, createNewComment }: PropsType) => {
   const { theme } = useContext(ThemeContext)
+  const [ comments, setComments ] = useState(data.comments)
   const [ avatar, setAvatar ] = useState('')
   const styles = useStyle(theme)
+  const textField = useRef(null)
+
+  async function handleComment(topicId: number, field: HTMLElement) {
+    const result = await createNewComment(topicId, field)
+    setComments(result)
+  }
+
   useEffect(() => {
     setAvatar(() => {
       return data.user.avatar ? `https://ya-praktikum.tech/api/v2/resources${data.user.avatar}` : ''
@@ -64,7 +73,7 @@ const TopicItem = ({ data }: PropsType) => {
 
       <AccordionDetails>
         <List component="div">
-          {data.comments.map((comment: Comment, index: number) =>
+          {comments.map((comment: Comment, index: number) =>
             <CommentItem comment={comment} index={index} key={index} />
           )}
         </List>
@@ -74,9 +83,10 @@ const TopicItem = ({ data }: PropsType) => {
             id="outlined-size-small"
             size="small"
             sx={styles.input}
+            ref={textField}
           />
           <IconButton sx={styles.button}>
-            <Create />
+            <Create onClick={() => handleComment(data.topicId, textField)} />
           </IconButton>
         </Box>
       </AccordionDetails>

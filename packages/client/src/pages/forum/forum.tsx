@@ -13,7 +13,7 @@ import { Topic } from '../../entities/forum/model/forumData'
 import { FC, useContext, useEffect, useState } from 'react'
 import { ThemeContext } from '../../features/theme-provider/ThemeProvider'
 import useStyle from './styles'
-import { getTopics, createTopic, createComment } from '../../entities/forum/lib'
+import { getTopics, createTopic, createComment, getComments } from '../../entities/forum/lib'
 
 
 const Forum: FC = () => {
@@ -35,6 +35,13 @@ const Forum: FC = () => {
       return newState
     })
     // console.log(inputField.value)
+  }
+
+  const createNewComment = async (topicId: number, field: HTMLElement) => {
+    const input = field.current.querySelector("input")
+    await createComment(topicId, input.value)
+    const comments = await getComments(topicId)
+    return comments
   }
 
   useEffect(() => {
@@ -68,7 +75,7 @@ const Forum: FC = () => {
             {
             //@ts-ignore
             topics && topics.map((topic: Topic) => (
-              <TopicItem key={topic.topicId} data={topic} />
+              <TopicItem key={topic.topicId} data={topic} createNewComment={createNewComment} />
             ))
             }
           </List>

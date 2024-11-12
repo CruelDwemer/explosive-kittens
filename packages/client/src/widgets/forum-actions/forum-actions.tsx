@@ -4,7 +4,11 @@ import styles from './styles'
 import { ThemeContext } from '../../features/theme-provider/ThemeProvider'
 import useStyle from './styles'
 
-const CreateForumTopic: CreateTopicType = ({ createTopic }) => {
+type Props = {
+  createTopic: () => any
+}
+
+const CreateForumTopic = ({ createTopic }: Props) => {
   const [isCreate, setIsCreate] = useState(false)
   const { theme } = useContext(ThemeContext)
   const styles = useStyle(theme)

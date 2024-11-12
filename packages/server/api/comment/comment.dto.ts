@@ -10,7 +10,6 @@ export const createCommentDto = z.object({
     .max(600, 'Comment content must be at most 600 characters long'),
   reactions: z
     .string()
-    .min(1, 'Reactions must be at least 1 character long')
     .max(5, 'Reactions must be at most 5 characters long'),
   userId: z
     .number({ message: 'Invalid user ID' })
@@ -18,3 +17,5 @@ export const createCommentDto = z.object({
 })
 
 export type CreateCommentDto = z.infer<typeof createCommentDto>
+
+
