@@ -8,7 +8,7 @@ export type Topic = {
       avatar: string,
       userId: string
     },
-    comments: Comment[]
+    comments?: Comment[]
   }
   
   export type Comment = {
@@ -39,8 +39,11 @@ export const getTopics = async () => {
     return topics
 }
 
-export const createTopic = async (data: { name: string }) => {
+export const createTopic = async (name: string) => {
+    const data = { name }
     const response = await createTopicRequest(data)
+    const result = await response.json()
+    return result
 }
 
 export const createComment = async (topicId: number, data: { text: string, reactions: string }) => {
