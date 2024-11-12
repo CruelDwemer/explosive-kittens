@@ -11,6 +11,8 @@ import {
   ListItem,
   IconButton,
   Button,
+  Tab,
+  Tabs,
 } from '@mui/material'
 import DeleteIcon from '@mui/icons-material/Delete'
 import {
@@ -20,7 +22,6 @@ import {
   playerList,
 } from '../../entities/lobby/api/lobby-api'
 import { userSearch } from '../../entities/user/api'
-import styles from './styles'
 import { mapUsersToOptions } from './helpers'
 import { Player } from '../../entities/lobby/models'
 import { ThemeContext } from '../../features/theme-provider/ThemeProvider'
@@ -174,6 +175,14 @@ const AddPlayer: React.FC<AddPlayerProps> = ({
       // onClose()
     }
   }
+  const [value, setValue] = React.useState<'computer' | 'friends'>('computer')
+
+  const handleChange = (
+    _: React.SyntheticEvent,
+    newValue: 'computer' | 'friends'
+  ) => {
+    setValue(newValue)
+  }
 
   return (
     <Modal
@@ -187,9 +196,22 @@ const AddPlayer: React.FC<AddPlayerProps> = ({
           variant="h6"
           component="h2"
           sx={styles.text}>
-          Создай игру!
+          Создание лобби
         </Typography>
-        <Box id="modal-modal-description" sx={{ mt: 2 }}>
+        <Box sx={{ width: '100%' }}>
+          <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+            <Tabs
+              value={value}
+              onChange={handleChange}
+              textColor="primary"
+              indicatorColor="primary"
+              aria-label="primary tabs example">
+              <Tab value="computer" label="Игра с компьютером (ИИ)" />
+              <Tab value="friends" label="Игра с друзьями" />
+            </Tabs>
+          </Box>
+        </Box>
+        <Box id="modal-modal-description" sx={{ mt: 2, height: '100%' }}>
           <TextField
             fullWidth
             placeholder="Название игры"
@@ -200,63 +222,77 @@ const AddPlayer: React.FC<AddPlayerProps> = ({
             sx={styles.input}
           />
 
-          {lobbyData.playersList && lobbyData.playersList.length > 0 && (
-            <Box>
-              <Typography sx={styles.text} mt={4} component="h4">
-                Список участников!
-              </Typography>
-              <List dense>
-                {lobbyData.playersList.map((player: Player) => (
-                  <ListItem
-                    key={player.id}
-                    secondaryAction={
-                      <IconButton
-                        onClick={() => handleDeleteUser(player.id)}
-                        edge="end"
-                        aria-label="delete">
-                        <DeleteIcon sx={styles.icon} />
-                      </IconButton>
-                    }>
-                    <ListItemText primary={player.login} sx={styles.text} />
-                  </ListItem>
-                ))}
-              </List>
-            </Box>
-          )}
+          <Box sx={{ height: '100%' }} mt={4}>
+            {value === 'friends' ? (
+              <>
+                {lobbyData.playersList && lobbyData.playersList.length > 0 && (
+                  <Box>
+                    <Typography sx={styles.text} mt={4} component="h4">
+                      Список участников!
+                    </Typography>
+                    <List dense>
+                      {lobbyData.playersList.map((player: Player) => (
+                        <ListItem
+                          key={player.id}
+                          secondaryAction={
+                            <IconButton
+                              onClick={() => handleDeleteUser(player.id)}
+                              edge="end"
+                              aria-label="delete">
+                              <DeleteIcon sx={styles.icon} />
+                            </IconButton>
+                          }>
+                          <ListItemText
+                            primary={player.login}
+                            sx={styles.text}
+                          />
+                        </ListItem>
+                      ))}
+                    </List>
+                  </Box>
+                )}
 
-          <Box sx={styles.selector_container}>
-            <Typography sx={styles.text} mt={4} mb={2} component="h4">
-              Добавь участников!
-            </Typography>
-            <Autocomplete
-              disablePortal
-              options={searchResults}
-              fullWidth
-              onChange={handleSelectUser}
-              sx={styles.selector}
-              renderInput={params => (
-                <TextField
-                  value={searchValue}
-                  onChange={handleInputChange}
-                  {...params}
-                  label="players"
-                />
-              )}
-            />
+                <Box sx={styles.selector_container}>
+                  <Typography sx={styles.text} mt={4} mb={2} component="h4">
+                    Выберите друзей, с которыми хотите сыграть
+                  </Typography>
+                  <Autocomplete
+                    disablePortal
+                    disabled
+                    options={searchResults}
+                    fullWidth
+                    onChange={handleSelectUser}
+                    sx={styles.selector}
+                    renderInput={params => (
+                      <TextField
+                        value={searchValue}
+                        onChange={handleInputChange}
+                        {...params}
+                        label="Введите имя..."
+                      />
+                    )}
+                  />
+                </Box>
+              </>
+            ) : (
+              <Typography mt={4} mb={2}>
+                Рисуйте различные загаданные слова, а искусственный интеллект
+                попробует угадать, что вы изобразили!
+              </Typography>
+            )}
           </Box>
 
-          {lobbyData.playersList && lobbyData.playersList.length > 1 && (
-            <Box sx={{ my: 4 }}>
-              <Button
-                sx={styles.button}
-                onClick={handlePlayClick}
-                variant="contained"
-                size="large"
-                color="success">
-                Играть
-              </Button>
-            </Box>
-          )}
+          <Box sx={{ my: 4 }}>
+            <Button
+              sx={styles.button}
+              onClick={handlePlayClick}
+              variant="contained"
+              size="large"
+              color="success"
+              disabled={value === 'friends'}>
+              {value === 'friends' ? 'В разработке' : 'Играть'}
+            </Button>
+          </Box>
         </Box>
       </Box>
     </Modal>

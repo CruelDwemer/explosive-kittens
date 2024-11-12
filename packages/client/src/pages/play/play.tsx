@@ -83,8 +83,8 @@ const Play: FC = () => {
             fontSize={14}
             color="text.secondary"
             align="center">
-            Один игрок <b>рисует</b> загаданное слово, а остальные пытаются его{' '}
-            <b>угадать</b>.
+            Один игрок <b>рисует</b> загаданное слово, а остальные (игроки или
+            ИИ) пытаются его <b>угадать</b>.
           </Typography>
           <Typography
             sx={styles.text}
@@ -92,7 +92,8 @@ const Play: FC = () => {
             fontSize={14}
             color="text.secondary"
             align="center">
-            Балл получает тот, кто отгадает первым.
+            Балл получает тот, кто первым правильно угадает слово. Если никто не
+            угадал - балл получает рисующий.
           </Typography>
         </CardContent>
         <CardActions
