@@ -121,7 +121,7 @@ const useLobby: UseLobbyHook = ({ lobbyId, currentUserId }) => {
 
   const deleteLobby = () => {
     const { rating } = lobbyData
-
+    console.log(rating, '--rating')
     saveResultsToLeaderboard(rating)
 
     // TODO: Запрос на удаление всех пользователей из лобби
@@ -129,13 +129,18 @@ const useLobby: UseLobbyHook = ({ lobbyId, currentUserId }) => {
     const winner = Object.entries(rating).sort(
       (a, b) => a[1].score - b[1].score
     )
+
     navigate({
       pathname: ROUTER_PATH.FINISH,
-      search: createSearchParams({
-        id: winner[0][0].toString(),
-        name: winner[0][1].name.toString(),
-        score: winner[0][1].score.toString(),
-      }).toString(),
+      search: createSearchParams(
+        winner.length
+          ? {
+              id: winner[0][0].toString(),
+              name: winner[0][1].name.toString(),
+              score: winner[0][1].score.toString(),
+            }
+          : {}
+      ).toString(),
     })
   }
 

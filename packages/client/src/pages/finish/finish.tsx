@@ -63,7 +63,10 @@ const Finish: FC = () => {
             Игра завершена!
           </Typography>
           <Typography variant="h5" sx={{ mb: 10, textAlign: 'center' }}>
-            Победитель {name}! ({score} балл)
+            Победитель{' '}
+            {!name || !score
+              ? 'не был определен :('
+              : `${name}! (${score} балл)`}
           </Typography>
         </CardContent>
         <CardActions

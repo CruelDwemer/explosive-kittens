@@ -14,9 +14,7 @@ import { customPaperBlock } from '../../shared/styles'
 import { testingNewMessages } from '../../entities/chat/utils'
 import { ThemeContext } from '../theme-provider/ThemeProvider'
 import useStyle from './styles'
-import e from 'cors'
 import { words } from '../../entities/chat/constants'
-// import { useLobbyMessages } from '../../shared/hooks'
 
 export interface LobbyChatProps {
   lobbyId: number
@@ -32,8 +30,8 @@ export interface LobbyChatProps {
 }
 
 const LobbyChat: FC<LobbyChatProps> = ({
-  lobbyId,
-  userId,
+  // lobbyId,
+  // userId,
   hiddenWord,
   isGuessing = false,
   onRightGuessWord,
