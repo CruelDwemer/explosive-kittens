@@ -36,6 +36,11 @@ const useStyle = (theme: string) => {
       backgroundColor: currentTheme.palette.background.secondary,
       color: currentTheme.palette.background.default,
     },
+    text_container: {
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+    },
     text: {
       color: currentTheme.palette.text.primary,
     },

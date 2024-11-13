@@ -4,6 +4,9 @@ import { TopicModel } from './topic.model'
 import { UserModel } from '../user/user.model'
 import { CommentModel } from '../comment/comment.model'
 
+// as: 'comments',
+//           attributes: ['commentId', 'text', 'reactions', 'userId', 'topicId', 'createdAt'],
+
 export class TopicService {
   // @ts-ignore
   static async createTopic(topic: CreateTopicDto) {
@@ -17,7 +20,16 @@ export class TopicService {
         {
           model: CommentModel,
           as: 'comments',
-          attributes: ['commentId', 'content', 'userId', 'topicId'],
+          attributes: ['commentId', 'text', 'reactions', 'userId', 'topicId', 'createdAt'],
+          include: {
+            //@ts-ignore
+            model: UserModel,
+            as: 'user',
+            attributes: [
+              'first_name',
+              'avatar'
+            ]
+          }
         },
         {
           model: UserModel,

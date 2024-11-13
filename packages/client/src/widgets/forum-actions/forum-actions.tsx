@@ -4,7 +4,11 @@ import styles from './styles'
 import { ThemeContext } from '../../features/theme-provider/ThemeProvider'
 import useStyle from './styles'
 
-const CreateForumTopic: FC = () => {
+type Props = {
+  createTopic: () => any
+}
+
+const CreateForumTopic = ({ createTopic }: Props) => {
   const [isCreate, setIsCreate] = useState(false)
   const { theme } = useContext(ThemeContext)
   const styles = useStyle(theme)
@@ -32,7 +36,7 @@ const CreateForumTopic: FC = () => {
             size="small"
             sx={styles.input}
           />
-          <Button variant="contained" sx={styles.button}>
+          <Button variant="contained" sx={styles.button} onClick={createTopic}>
             Создать
           </Button>
         </Box>
